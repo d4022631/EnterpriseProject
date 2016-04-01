@@ -1,0 +1,29 @@
+﻿@using System.Collections
+@model System.Collections.IDictionary
+@{
+    ViewBag.Title = "Environment Variables";
+}
+
+<h2>Environment Variables</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DictionaryEntry entry in Model)
+            {
+                <tr>
+                    <td>@entry.Key</td>
+                    <td>@entry.Value</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</div> 
