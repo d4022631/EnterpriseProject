@@ -16,6 +16,12 @@ namespace BookingBlock.WebApplication.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Title { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
     }
 
     [DbConfigurationType(typeof(ApplicationDbConfiguration))]
