@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using System.Web.Http;
 using WebActivatorEx;
 using BookingBlock.WebApplication;
@@ -13,7 +16,7 @@ namespace BookingBlock.WebApplication
         {
             get
             {
-                return AppSettings.GetValueOrDefault("Swagger.XmlCommentsPath", @"bin\BookingBlock.WebApplication.XML");
+                return AppSettings.GetValueOrDefault("Swagger.XmlCommentsPath", @"BookingBlock.WebApplication.XML");
             }
         }
 
@@ -241,8 +244,12 @@ namespace BookingBlock.WebApplication
 
         private static string GetXmlCommentsPath()
         {
+            string codeBase = Assembly.GetCallingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+
             // return the swagger xml comments path stored in the appSettings.
-            return SwaggerAppSettings.XmlCommentsPath;
+            return Path.Combine(Path.GetDirectoryName(path), SwaggerAppSettings.XmlCommentsPath);
         }
     }
 }
