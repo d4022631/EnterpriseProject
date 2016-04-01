@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Claims;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -6,14 +8,117 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using BookingBlock.WebApplication.Models;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OpenIdConnect;
 
 namespace BookingBlock.WebApplication
 {
     public partial class Startup
     {
+        private static bool IsApiRequest(IOwinRequest request)
+        {
+            string apiPath = VirtualPathUtility.ToAbsolute("~/api/");
+            return request.Uri.LocalPath.StartsWith(apiPath);
+        }
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = "Cookies",
+                Provider = new CookieAuthenticationProvider()
+                {
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsApiRequest(ctx.Request))
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                    }
+                }
+            });
+
+            string redirectUri = SiteAppSettings.SslUrl;
+
+            //app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
+            //{
+            //    Authority = "https://localhost:44300/identity",
+            //    RequiredScopes = new[] { "sampleApi" }
+            //});
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
+            {
+                Authority = IdentityServerAppSettings.SslUrl,
+                ClientId = "mvc",
+                RedirectUri = redirectUri,
+                PostLogoutRedirectUri = SiteAppSettings.SslUrl,
+                ResponseType = "id_token",
+                Scope = "openid profile roles",
+                SignInAsAuthenticationType = "Cookies",
+                UseTokenLifetime = false,
+
+                Notifications = new OpenIdConnectAuthenticationNotifications
+                {
+                    SecurityTokenValidated = async n =>
+                    {
+                        var id = n.AuthenticationTicket.Identity;
+
+                        // we want to keep first name, last name, subject and roles
+                        var givenName = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.GivenName);
+                        var familyName = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.FamilyName);
+                        var sub = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.Subject);
+                        var roles = id.FindAll(IdentityServer3.Core.Constants.ClaimTypes.Role);
+
+                        // create new identity and set name and role claim type
+                        var nid = new ClaimsIdentity(
+                            id.AuthenticationType,
+                           IdentityServer3.Core.Constants.ClaimTypes.GivenName,
+                           IdentityServer3.Core.Constants.ClaimTypes.Role);
+
+
+                        if (givenName != null) nid.AddClaim(givenName);
+                        if (familyName != null) nid.AddClaim(familyName);
+                        if (sub != null) nid.AddClaim(sub);
+                        if (roles != null) nid.AddClaims(roles);
+
+                        nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "BUBGO"));
+
+
+
+
+
+                        nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+                            "SD"));
+                        nid.AddClaim(
+                            new Claim(
+                                "http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                                "SD"));
+                        nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "BUBGO"));
+
+  
+                        // add some other app specific claim
+                        nid.AddClaim(new Claim("app_specific", "some data"));
+                        nid.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
+                        n.AuthenticationTicket = new AuthenticationTicket(
+                            nid,
+                            n.AuthenticationTicket.Properties);
+                    },
+                    RedirectToIdentityProvider = async n =>
+                    {
+                        if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.LogoutRequest)
+                        {
+                            var idTokenHint = n.OwinContext.Authentication.User.FindFirst("id_token").Value;
+                            n.ProtocolMessage.IdTokenHint = idTokenHint;
+                        }
+                    }
+                }
+            });
+
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
+            return;
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
