@@ -32,11 +32,19 @@ namespace BookingBlock.WebApplication.Models
         }
     }
 
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            base.Seed(context);
+        }
+    }
+
     public class ApplicationDbConfiguration : DbConfiguration
     {
         public ApplicationDbConfiguration()
         {
-            
+            this.SetDatabaseInitializer(new ApplicationDbInitializer());
         }
     }
 }
