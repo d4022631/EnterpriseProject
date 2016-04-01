@@ -11,30 +11,4 @@ namespace BookingBlock.WebApplication
             ConfigureAuth(app);
         }
     }
-
-    public static class SiteAppSettings
-    {
-        public static string Url
-        {
-            get { return AppSettings.GetValueOrDefault("Site.Url", "http://localhost:37026/"); }
-        }
-
-        public static string SslUrl
-        {
-            get { return AppSettings.GetValueOrDefault("Site.SslUrl", "https://localhost:44383/"); }
-        }
-    }
-
-    public static class AppSettings
-    {
-        public static string GetValue(string name)
-        {
-            return System.Configuration.ConfigurationManager.AppSettings[name];
-        }
-
-        public static string GetValueOrDefault(string name, string defautValue = default(string))
-        {
-            return GetValue(name) ?? defautValue;
-        }
-    }
 }

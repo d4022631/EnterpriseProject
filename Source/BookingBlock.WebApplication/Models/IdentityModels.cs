@@ -18,6 +18,7 @@ namespace BookingBlock.WebApplication.Models
         }
     }
 
+    [DbConfigurationType(typeof(ApplicationDbConfiguration))]
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -28,6 +29,14 @@ namespace BookingBlock.WebApplication.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+    }
+
+    public class ApplicationDbConfiguration : DbConfiguration
+    {
+        public ApplicationDbConfiguration()
+        {
+            
         }
     }
 }
