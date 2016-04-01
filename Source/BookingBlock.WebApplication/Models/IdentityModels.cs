@@ -17,8 +17,6 @@ namespace BookingBlock.WebApplication.Models
             return userIdentity;
         }
 
-        public string Title { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
