@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BookingBlock.WebApplication</name>
+    </assembly>
+    <members>
+        <member name="T:BookingBlock.WebApplication.AppSettings">
+            <summary>
+            A class for working with the app settings stored in the web.config.
+            </summary>
+        </member>
+        <member name="M:BookingBlock.WebApplication.Controllers.DemoController.Test">
+            <summary>
+            This is a comment
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BookingBlock.WebApplication.SiteAppSettings">
+            <summary>
+            This class accesses site specific settings (such as the site Url) from the app settings stored in the web.config.
+            </summary>
+        </member>
+    </members>
+</doc>

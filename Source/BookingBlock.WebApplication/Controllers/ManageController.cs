@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -10,7 +11,20 @@ using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.Controllers
 {
-    [Authorize]
+    public class DemoController : ApiController
+    {
+        /// <summary>
+        /// This is a comment
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> Test()
+        {
+            return Ok();
+        }
+    }
+
+    [System.Web.Mvc.Authorize]
+
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -77,7 +91,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/RemoveLogin
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
@@ -108,7 +122,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/AddPhoneNumber
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
@@ -132,7 +146,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
@@ -147,7 +161,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/DisableTwoFactorAuthentication
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
@@ -171,7 +185,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/VerifyPhoneNumber
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
@@ -196,7 +210,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/RemovePhoneNumber
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
         {
@@ -222,7 +236,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/ChangePassword
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -253,7 +267,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/SetPassword
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
@@ -301,7 +315,7 @@ namespace BookingBlock.WebApplication.Controllers
 
         //
         // POST: /Manage/LinkLogin
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
