@@ -94,3 +94,4 @@ D:\BookingBlock\Source\BookingBlock.WebApplication\bin\Microsoft.Owin.Security.T
 D:\BookingBlock\Source\BookingBlock.WebApplication\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\BookingBlock\Source\BookingBlock.WebApplication\obj\Debug\BookingBlock.WebApplication.dll
 D:\BookingBlock\Source\BookingBlock.WebApplication\obj\Debug\BookingBlock.WebApplication.pdb
+D:\BookingBlock\Source\BookingBlock.WebApplication\obj\Debug\BookingBlock.WebApplication.csprojResolveAssemblyReference.cache

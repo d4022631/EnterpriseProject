@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -10,6 +11,7 @@ using Owin;
 using BookingBlock.WebApplication.Models;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Notifications;
 using Microsoft.Owin.Security.OpenIdConnect;
 
 namespace BookingBlock.WebApplication
@@ -59,50 +61,7 @@ namespace BookingBlock.WebApplication
 
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 {
-                    SecurityTokenValidated = async n =>
-                    {
-                        var id = n.AuthenticationTicket.Identity;
-
-                        // we want to keep first name, last name, subject and roles
-                        var givenName = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.GivenName);
-                        var familyName = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.FamilyName);
-                        var sub = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.Subject);
-                        var roles = id.FindAll(IdentityServer3.Core.Constants.ClaimTypes.Role);
-
-                        // create new identity and set name and role claim type
-                        var nid = new ClaimsIdentity(
-                            id.AuthenticationType,
-                           IdentityServer3.Core.Constants.ClaimTypes.GivenName,
-                           IdentityServer3.Core.Constants.ClaimTypes.Role);
-
-
-                        if (givenName != null) nid.AddClaim(givenName);
-                        if (familyName != null) nid.AddClaim(familyName);
-                        if (sub != null) nid.AddClaim(sub);
-                        if (roles != null) nid.AddClaims(roles);
-
-                        nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "BUBGO"));
-
-
-
-
-
-                        nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
-                            "SD"));
-                        nid.AddClaim(
-                            new Claim(
-                                "http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
-                                "SD"));
-                        nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "BUBGO"));
-
-  
-                        // add some other app specific claim
-                        nid.AddClaim(new Claim("app_specific", "some data"));
-                        nid.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
-                        n.AuthenticationTicket = new AuthenticationTicket(
-                            nid,
-                            n.AuthenticationTicket.Properties);
-                    },
+                    SecurityTokenValidated = SecurityTokenValidated,
                     RedirectToIdentityProvider = async n =>
                     {
                         if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.LogoutRequest)
@@ -168,6 +127,56 @@ namespace BookingBlock.WebApplication
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+        private async Task SecurityTokenValidated(SecurityTokenValidatedNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> securityTokenValidatedNotification)
+        {
+            var n = securityTokenValidatedNotification;
+
+            var id = n.AuthenticationTicket.Identity;
+
+            // we want to keep first name, last name, subject and roles
+            var givenName = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.GivenName);
+            var familyName = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.FamilyName);
+            var sub = id.FindFirst(IdentityServer3.Core.Constants.ClaimTypes.Subject);
+            var roles = id.FindAll(IdentityServer3.Core.Constants.ClaimTypes.Role);
+            var id2 = id.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            var name = id.FindFirst("preferred_username");
+
+            // create new identity and set name and role claim type
+            var nid = new ClaimsIdentity(
+                id.AuthenticationType,
+               IdentityServer3.Core.Constants.ClaimTypes.GivenName,
+               IdentityServer3.Core.Constants.ClaimTypes.Role);
+
+
+            if (givenName != null) nid.AddClaim(givenName);
+            if (familyName != null) nid.AddClaim(familyName);
+            if (sub != null) nid.AddClaim(sub);
+            if (roles != null) nid.AddClaims(roles);
+
+            nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", name?.Value ?? "UNKNOWN"));
+
+
+
+
+
+            nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+                id2.Value));
+            nid.AddClaim(
+            new Claim(
+                "http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                "idsrv"));
+            nid.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "BUBGO"));
+
+
+            // add some other app specific claim
+            nid.AddClaim(new Claim("app_specific", "some data"));
+            nid.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
+            n.AuthenticationTicket = new AuthenticationTicket(
+                nid,
+                n.AuthenticationTicket.Properties);
         }
     }
 }

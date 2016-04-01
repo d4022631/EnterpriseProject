@@ -230,6 +230,9 @@
     </Compile>
     <Compile Include="IdentityServerAppSettings.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationDbInitializer.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\AspNetIdentityUserService.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using BookingBlock.WebApplication.Models;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Resources;
 using IdentityServer3.Core.Services;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
@@ -59,18 +61,30 @@ namespace BookingBlock.WebApplication
             factory.UseInMemoryUsers(IdentityServerUsers.Get());
       
             factory.ClientStore = new Registration<IClientStore, IdentityServerClientStore>();
-           
-         //   factory.ClientStore = new Registration<IClientStore, BookingBlockClientStore>();
-           // factory.EventService = new Registration<IEventService, BookingBlockIdentityEventService>();
+
+
+            factory.UserService = new Registration<IUserService>(Factory);
+
+            //   factory.ClientStore = new Registration<IClientStore, BookingBlockClientStore>();
+            // factory.EventService = new Registration<IEventService, BookingBlockIdentityEventService>();
 
             // register the application db context with the factory.
-          //  factory.Register(new Registration<BookingBlockDbContext>(resolver => BookingBlockDbContext.Create()));
+            //  factory.Register(new Registration<BookingBlockDbContext>(resolver => BookingBlockDbContext.Create()));
 
             // factory.UserService = new Registration<IUserService>(UserServiceFactory);
             //factory.Register(new Registration<ApplicationUserManager>());
             //factory.Register(new Registration<UserStore<User>>());
 
             return factory;
+        }
+
+        private static IUserService Factory(IDependencyResolver dependencyResolver)
+        {
+            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+
+            ApplicationUserManager manager = new ApplicationUserManager(userStore);
+
+            return new IdentityServerUserService(manager);
         }
 
 
