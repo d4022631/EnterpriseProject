@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Web.Http;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
-using IdentityServer3.Core.Resources;
 using IdentityServer3.Core.Services;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
@@ -15,6 +13,7 @@ using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.MicrosoftAccount;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Security.Twitter;
+using Newtonsoft.Json;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(BookingBlock.WebApplication.Startup))]
@@ -45,6 +44,28 @@ namespace BookingBlock.WebApplication
                 CreateIdentityServerBearerTokenAuthenticationOptions();
 
             app.UseIdentityServerBearerTokenAuthentication(options);
+
+
+            // web api configuration
+            var config = new HttpConfiguration();
+            config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+           // config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.MapHttpAttributeRoutes();
+            // Web API configuration and services
+
+            SwaggerConfig.Register(config);
+
+            config.Routes.MapHttpRoute(
+    name: "DefaultApiWithAction",
+    routeTemplate: "api/{controller}/{action}",
+    defaults: new { id = RouteParameter.Optional }
+);
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+           // app.UseWebApi(config);
         }
 
         private OAuthBearerAuthenticationProvider CreateOAuthBearerAuthenticationProvider()
