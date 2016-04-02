@@ -49,9 +49,11 @@ namespace BookingBlock.WebApplication
 
             // web api configuration
             var config = new HttpConfiguration();
+            
             config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
             config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             config.MapHttpAttributeRoutes();
+
             // Web API configuration and services
 
             SwaggerConfig.Register(config);
