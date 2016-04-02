@@ -69,6 +69,8 @@ namespace BookingBlock.WebApplication
                             var idTokenHint = n.OwinContext.Authentication.User.FindFirst("id_token").Value;
                             n.ProtocolMessage.IdTokenHint = idTokenHint;
                         }
+
+                        
                     }
                 }
             });

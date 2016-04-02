@@ -391,7 +391,9 @@ namespace BookingBlock.WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Request.GetOwinContext().Authentication.SignOut();
+          //  return Redirect("/");
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
