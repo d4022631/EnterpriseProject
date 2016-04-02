@@ -66,7 +66,7 @@ namespace BookingBlock.WebApplication
                     ClientName = "Cloud9 Workspace",
                     ClientId = "c9workspace",
                     Flow = Flows.Implicit,
-
+                              AllowedScopes = new List<string> { "openid","profile","roles" },
                     RedirectUris = new List<string>
                     {
                         "https://enterpriseproject-d4022631.c9users.io/"
