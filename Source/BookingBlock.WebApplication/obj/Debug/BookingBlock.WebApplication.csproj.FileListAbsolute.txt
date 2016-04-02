@@ -206,3 +206,8 @@ D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\
 D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\System.IO.FileSystem.Primitives.dll
 D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\vbc.exe.config
 D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\vbc.rsp
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\System.Web.Cors.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\System.Web.Http.Cors.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\System.Web.Http.Owin.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\System.Web.Http.Cors.xml
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\System.Web.Http.Owin.xml
