@@ -225,6 +225,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\AccountController.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
     <Compile Include="ApiControllers\IdentityController.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
