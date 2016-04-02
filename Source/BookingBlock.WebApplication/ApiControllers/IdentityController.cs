@@ -5,7 +5,7 @@ using System.Web.Http;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public class IdentityController : BaseApiController
+    public class IdentityController : ApiController
     {
         [Route("api/identity/claims")]
         public IHttpActionResult Get()
