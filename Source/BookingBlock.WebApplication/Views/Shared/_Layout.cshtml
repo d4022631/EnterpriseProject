@@ -1,6 +1,6 @@
 ﻿@using System.Reflection
 @{
-    var version = Assembly.GetExecutingAssembly().GetName().Version;
+    Version version = typeof(Startup).Assembly.GetName().Version;
     string versionString = $"v{version}";
 }
 <!DOCTYPE html>
