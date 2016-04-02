@@ -192,3 +192,17 @@ D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\Microso
 D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\obj\Debug\BookingBlock.WebApplication.csprojResolveAssemblyReference.cache
 D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\obj\Debug\BookingBlock.WebApplication.dll
 D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\obj\Debug\BookingBlock.WebApplication.pdb
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\csc.exe.config
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\csc.rsp
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\csi.exe
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\csi.rsp
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\System.AppContext.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\System.IO.FileSystem.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\vbc.exe.config
+D:\BookingBlock\EnterpriseProject\Source\BookingBlock.WebApplication\bin\roslyn\vbc.rsp

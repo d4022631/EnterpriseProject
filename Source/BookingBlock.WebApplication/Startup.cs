@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
@@ -49,7 +50,7 @@ namespace BookingBlock.WebApplication
             // web api configuration
             var config = new HttpConfiguration();
             config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
-           // config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             config.MapHttpAttributeRoutes();
             // Web API configuration and services
 
