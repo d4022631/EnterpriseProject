@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using BookingBlock.WebApplication.Models;
+using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Resources;
 using IdentityServer3.Core.Services;
@@ -11,6 +13,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.MicrosoftAccount;
+using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Security.Twitter;
 using Owin;
 
@@ -23,7 +26,82 @@ namespace BookingBlock.WebApplication
         {
             ConfigureIdentityServer(app);
 
+            ConfigureWebApi(app);
+
             ConfigureAuth(app);
+
+
+            
+        }
+
+        private void ConfigureWebApi(IAppBuilder app)
+        {
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
+
+            IdentityServerBearerTokenAuthenticationOptions options =
+                CreateIdentityServerBearerTokenAuthenticationOptions();
+
+            app.UseIdentityServerBearerTokenAuthentication(options);
+        }
+
+        private OAuthBearerAuthenticationProvider CreateOAuthBearerAuthenticationProvider()
+        {
+            var tokenProvider = new OAuthBearerAuthenticationProvider
+            {
+                OnRequestToken = context =>
+                {
+                    // get the request from the context.
+                    var request = context.Request;
+
+                    // if the header collection contains an X-ACCESS-TOKEN key.
+                    // this is a hack because I couldn't set the Authorization header from angularjs.
+                    if (request.Headers.ContainsKey("X-ACCESS-TOKEN"))
+                    {
+                        // set the token from the X-ACCESS-TOKEN header.
+                        context.Token = request.Headers["X-ACCESS-TOKEN"];
+
+                        // exit out of the method. If this header is set no more token discovery is perfomed.
+                        return Task.FromResult<object>(null);
+                    }
+
+
+                    if (request.Headers.ContainsKey("Authorization"))
+                        context.Token = request.Headers["Authorization"];
+                    else if (request.Cookies["access_token"] != null)
+                        context.Token = request.Cookies["access_token"];
+                    else
+                    {
+                        var value = request.Query.Get("access_token");
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            context.Token = value;
+                        }
+                    }
+                    return Task.FromResult<object>(null);
+                }
+            };
+
+            return tokenProvider;
+        }
+
+        private IdentityServerBearerTokenAuthenticationOptions CreateIdentityServerBearerTokenAuthenticationOptions()
+        {
+            string authority = IdentityServerAppSettings.SslUrl;
+
+            var tokenProvider = CreateOAuthBearerAuthenticationProvider();
+
+            var options = new IdentityServerBearerTokenAuthenticationOptions
+            {
+                Authority = authority,
+                DelayLoadMetadata = true,
+                //RequiredScopes = new[] { "sampleApi" },
+                TokenProvider = tokenProvider,
+            };
+
+            return options;
         }
 
         private void ConfigureIdentityServer(IAppBuilder app)
