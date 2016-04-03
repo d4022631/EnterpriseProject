@@ -121,7 +121,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                         return Ok();
                     }
 
-                    return BadRequest(string.Join(", ", result));
+                    return BadRequest(string.Join(", ", result.Errors));
                 }
 
                 string validationErrors = string.Join(",",
