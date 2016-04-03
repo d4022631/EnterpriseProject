@@ -247,6 +247,7 @@
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
+    <Compile Include="ApiControllers\BusinessTypesController.cs" />
     <Compile Include="ApiControllers\IdentityController.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
     <Compile Include="AppSettings.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="Models\ValidationAttributes\BusinessTypeCodeValidatorAttribute.cs" />
     <Compile Include="Models\ValidationAttributes\PostcodeValidatorAttribute.cs" />
     <Compile Include="Models\ValidationAttributes\PasswordValidatorAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

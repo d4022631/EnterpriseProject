@@ -17,6 +17,8 @@ namespace BookingBlock.WebApplication.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<BusinessType> BusinessTypes { get; set; } 
     }
 
     public class ApplicationDbConfiguration : DbConfiguration
