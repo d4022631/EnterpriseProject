@@ -107,6 +107,9 @@ namespace BookingBlock.WebApplication.ApiControllers
                     newApplicationUser.Address = address;
                     newApplicationUser.Postcode = registerAccountRequest.Postcode;
 
+                    newApplicationUser.Email = registerAccountRequest.EmailAddress;
+                    newApplicationUser.UserName = registerAccountRequest.EmailAddress;
+
                     PostcodesIOClient client = new PostcodesIOClient();
 
                     var postcodeLookup = client.Lookup(newApplicationUser.Postcode);
