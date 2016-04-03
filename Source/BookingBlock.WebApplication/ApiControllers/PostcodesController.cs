@@ -36,7 +36,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             if (!string.IsNullOrWhiteSpace(postcode))
             {
-                MarkEmbling.PostcodesIO.PostcodesIOClient client = new PostcodesIOClient();
+                PostcodesIOClient client = new PostcodesIOClient();
 
                 var result = await client.AutocompleteAsync(postcode);
 

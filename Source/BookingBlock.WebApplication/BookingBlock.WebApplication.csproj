@@ -246,9 +246,13 @@
     <Compile Include="ApiControllers\IdentityController.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
     <Compile Include="AppSettings.cs" />
+    <Compile Include="App_Start\BookingBlockPasswordValidator.cs" />
+    <Compile Include="Models\ValidationAttributes\BookingBlockPasswordValidatorAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="Models\ValidationAttributes\PostcodeValidatorAttribute.cs" />
+    <Compile Include="Models\ValidationAttributes\PasswordValidatorAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerAppSettings.cs" />
