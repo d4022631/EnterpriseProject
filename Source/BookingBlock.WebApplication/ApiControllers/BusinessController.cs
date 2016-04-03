@@ -27,7 +27,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 var t = client.Random();
                 
-                var bt = context.BusinessTypes.OrderBy(r => Guid.NewGuid()).Take(0).FirstOrDefault();
+                var bt = context.BusinessTypes.OrderBy(r => Guid.NewGuid()).Take(1).FirstOrDefault();
 
                 Business business = new Business();
 
