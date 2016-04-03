@@ -12,20 +12,6 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public static class PostcodesIOClientAsyncExtensions
-    {
-        public static async Task<IEnumerable<string>> AutocompleteAsync(this PostcodesIOClient client, string postcode)
-        {
-            return await Task.Run(() => client.Autocomplete(postcode));
-        }
-
-        public static async Task<bool> ValidateAsync(this PostcodesIOClient client, string postcode)
-        {
-            return await Task.Run(() => client.Validate(postcode));
-        } 
-    }
-
-
     [System.Web.Http.RoutePrefix("api/postcodes")]
     public class PostcodesController : BaseApiController
     {
@@ -62,42 +48,5 @@ namespace BookingBlock.WebApplication.ApiControllers
 
 
         }
-    }
-
-    public abstract class ApiResponse
-    {
-        public string Message { get; set; }
-    }
-
-    public abstract class PostcodeRequest
-    {
-        public string Postcode { get; set; }
-    }
-
-    public abstract class PostcodeResponse : ApiResponse
-    {
-        public string Postcode { get; set; }
-    }
-
-
-
-    public class PostcodeValidationRequest : PostcodeRequest
-    {
-        
-    }
-
-    public class PostcodeValidationResponse : PostcodeResponse
-    {
-        public bool IsValid { get; set; }
-    }
-
-    public class PostcodeAutocompleteResponse : PostcodeResponse
-    {
-        public List<string> Suggestions { get; set; } 
-    }
-
-    public class PostcodeAutocompleteRequest : PostcodeRequest
-    {
-     
     }
 }

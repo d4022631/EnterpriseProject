@@ -246,12 +246,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
+    <Compile Include="ApiControllers\AddBusinessRequest.cs" />
+    <Compile Include="ApiControllers\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
+    <Compile Include="ApiControllers\BusinessController.cs" />
+    <Compile Include="ApiControllers\BusinessSearchResult.cs" />
     <Compile Include="ApiControllers\BusinessTypesController.cs" />
     <Compile Include="ApiControllers\IdentityController.cs" />
+    <Compile Include="ApiControllers\PostcodeAutocompleteRequest.cs" />
+    <Compile Include="ApiControllers\PostcodeAutocompleteResponse.cs" />
+    <Compile Include="ApiControllers\PostcodeRequest.cs" />
+    <Compile Include="ApiControllers\PostcodeResponse.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
+    <Compile Include="ApiControllers\PostcodesIOClientAsyncExtensions.cs" />
+    <Compile Include="ApiControllers\PostcodeValidationRequest.cs" />
+    <Compile Include="ApiControllers\PostcodeValidationResponse.cs" />
+    <Compile Include="ApiControllers\RegisterAccountRequest.cs" />
+    <Compile Include="ApiControllers\SearchController.cs" />
+    <Compile Include="ApiControllers\SearchResponse.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="App_Start\BookingBlockPasswordValidator.cs" />
+    <Compile Include="Controllers\DatabaseController.cs" />
+    <Compile Include="Models\ApplicationDbConfiguration.cs" />
+    <Compile Include="Models\BusinessType.cs" />
+    <Compile Include="Models\GeoUtils.cs" />
     <Compile Include="Models\ValidationAttributes\BookingBlockPasswordValidatorAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -276,7 +294,7 @@
     <Compile Include="Models\ApplicationDbInitializer.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\AspNetIdentityUserService.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteAppSettings.cs" />
@@ -444,6 +462,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Database\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -19,13 +19,11 @@ namespace BookingBlock.WebApplication.Models
         }
 
         public DbSet<BusinessType> BusinessTypes { get; set; } 
-    }
 
-    public class ApplicationDbConfiguration : DbConfiguration
-    {
-        public ApplicationDbConfiguration()
-        {
-            this.SetDatabaseInitializer(new ApplicationDbInitializer());
-        }
+        public DbSet<Booking> Bookings { get; set; }
+        
+        public DbSet<Business> Businesses { get; set; }
+        
+        public DbSet<Service> Services { get; set; }   
     }
 }

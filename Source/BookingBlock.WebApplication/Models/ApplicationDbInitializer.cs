@@ -1,34 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
-using BookingBlock.WebApplication.Models.ValidationAttributes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BookingBlock.WebApplication.Models
 {
-    public class BusinessType
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
-        [Required]
-        [StringLength(3), BusinessTypeCodeValidator]
-        public string Code { get; set; }
-
-
-        [Required]
-        public string Name { get; set; }
-
-        public bool dummy { get; set; }
-    }
-
     public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         private const string BusinessTypesList = @"Accessories
