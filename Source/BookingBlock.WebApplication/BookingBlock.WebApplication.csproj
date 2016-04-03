@@ -46,8 +46,16 @@
     <DocumentationFile>bin\BookingBlock.WebApplication.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AntiXssLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\AntiXssLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IdentityModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -60,6 +68,10 @@
     </Reference>
     <Reference Include="IdentityServer3.AccessTokenValidation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityServer3.AccessTokenValidation.2.9.1\lib\net45\IdentityServer3.AccessTokenValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MarkEmbling.PostcodesIO, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkEmbling.PostcodesIO.0.0.1.0\lib\net40\MarkEmbling.PostcodesIO.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -81,6 +93,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.1.0\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
@@ -257,10 +273,35 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\app.css" />
+    <Content Include="Content\app\app.js" />
+    <Content Include="Content\app\consent.html" />
+    <Content Include="Content\app\error.html" />
+    <Content Include="Content\app\loggedOut.html" />
+    <Content Include="Content\app\login.html" />
+    <Content Include="Content\app\logout.html" />
+    <Content Include="Content\app\permissions.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\libs\angular\angular.1.2.13.js" />
+    <Content Include="Content\libs\angular\angular.1.2.13.min.js" />
+    <Content Include="Content\libs\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\libs\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\libs\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\libs\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\libs\bootstrap\custom.css" />
+    <Content Include="Content\libs\bootstrap\custom.min.css" />
+    <Content Include="Content\libs\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\libs\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\libs\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\libs\bootstrap\less\bootstrap.css" />
+    <Content Include="Content\libs\bootstrap\less\bootstrap.min.css" />
+    <Content Include="Content\libs\encoder\encoder.js" />
+    <Content Include="Content\libs\encoder\encoder.min.js" />
+    <Content Include="Content\libs\jquery\jquery-1.11.0.js" />
+    <Content Include="Content\libs\jquery\jquery-1.11.0.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -276,6 +317,50 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\libs\bootstrap\custom.less" />
+    <Content Include="Content\libs\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\libs\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\libs\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\libs\bootstrap\less\alerts.less" />
+    <Content Include="Content\libs\bootstrap\less\badges.less" />
+    <Content Include="Content\libs\bootstrap\less\bootstrap.less" />
+    <Content Include="Content\libs\bootstrap\less\breadcrumbs.less" />
+    <Content Include="Content\libs\bootstrap\less\button-groups.less" />
+    <Content Include="Content\libs\bootstrap\less\buttons.less" />
+    <Content Include="Content\libs\bootstrap\less\carousel.less" />
+    <Content Include="Content\libs\bootstrap\less\close.less" />
+    <Content Include="Content\libs\bootstrap\less\code.less" />
+    <Content Include="Content\libs\bootstrap\less\component-animations.less" />
+    <Content Include="Content\libs\bootstrap\less\dropdowns.less" />
+    <Content Include="Content\libs\bootstrap\less\forms.less" />
+    <Content Include="Content\libs\bootstrap\less\glyphicons.less" />
+    <Content Include="Content\libs\bootstrap\less\grid.less" />
+    <Content Include="Content\libs\bootstrap\less\input-groups.less" />
+    <Content Include="Content\libs\bootstrap\less\jumbotron.less" />
+    <Content Include="Content\libs\bootstrap\less\labels.less" />
+    <Content Include="Content\libs\bootstrap\less\list-group.less" />
+    <Content Include="Content\libs\bootstrap\less\media.less" />
+    <Content Include="Content\libs\bootstrap\less\mixins.less" />
+    <Content Include="Content\libs\bootstrap\less\modals.less" />
+    <Content Include="Content\libs\bootstrap\less\navbar.less" />
+    <Content Include="Content\libs\bootstrap\less\navs.less" />
+    <Content Include="Content\libs\bootstrap\less\normalize.less" />
+    <Content Include="Content\libs\bootstrap\less\pager.less" />
+    <Content Include="Content\libs\bootstrap\less\pagination.less" />
+    <Content Include="Content\libs\bootstrap\less\panels.less" />
+    <Content Include="Content\libs\bootstrap\less\popovers.less" />
+    <Content Include="Content\libs\bootstrap\less\print.less" />
+    <Content Include="Content\libs\bootstrap\less\progress-bars.less" />
+    <Content Include="Content\libs\bootstrap\less\responsive-utilities.less" />
+    <Content Include="Content\libs\bootstrap\less\scaffolding.less" />
+    <Content Include="Content\libs\bootstrap\less\tables.less" />
+    <Content Include="Content\libs\bootstrap\less\theme.less" />
+    <Content Include="Content\libs\bootstrap\less\thumbnails.less" />
+    <Content Include="Content\libs\bootstrap\less\tooltip.less" />
+    <Content Include="Content\libs\bootstrap\less\type.less" />
+    <Content Include="Content\libs\bootstrap\less\utilities.less" />
+    <Content Include="Content\libs\bootstrap\less\variables.less" />
+    <Content Include="Content\libs\bootstrap\less\wells.less" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

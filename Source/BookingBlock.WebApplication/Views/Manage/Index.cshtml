@@ -1,4 +1,5 @@
-﻿@model BookingBlock.WebApplication.Models.IndexViewModel
+﻿@using System.Security.Claims
+@model BookingBlock.WebApplication.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -85,3 +86,15 @@
         </dd>
     </dl>
 </div>
+
+@{
+    var claims = (User as ClaimsPrincipal).Claims;
+}
+
+<dl>
+    @foreach (var claim in claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>

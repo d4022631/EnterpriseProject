@@ -7,25 +7,60 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using MarkEmbling.PostcodesIO;
 using Swashbuckle.Swagger.Annotations;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
+    public static class PostcodesIOClientAsyncExtensions
+    {
+        public static async Task<IEnumerable<string>> AutocompleteAsync(this PostcodesIOClient client, string postcode)
+        {
+            return await Task.Run(() => client.Autocomplete(postcode));
+        }
+
+        public static async Task<bool> ValidateAsync(this PostcodesIOClient client, string postcode)
+        {
+            return await Task.Run(() => client.Validate(postcode));
+        } 
+    }
+
 
     [System.Web.Http.RoutePrefix("api/postcodes")]
     public class PostcodesController : BaseApiController
     {
-        [System.Web.Http.Route("autocomplete")]
-        [SwaggerResponse(HttpStatusCode.OK, "Postcode auto", typeof(PostcodeAutocompleteResponse))]
-        public async Task<IHttpActionResult> Autocomplete(PostcodeAutocompleteRequest autocompleteRequest)
+        [System.Web.Http.HttpGet, System.Web.Http.Route("autocomplete/{postcode}")]
+        [SwaggerResponse(HttpStatusCode.OK, "Postcode auto", typeof(IEnumerable<string>))]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "The reponse body will contain a message detailing the error.")]
+        public async Task<IHttpActionResult> Autocomplete(string postcode)
         {
-            return Response(HttpStatusCode.OK, new PostcodeAutocompleteResponse());
+            if (!string.IsNullOrWhiteSpace(postcode))
+            {
+                MarkEmbling.PostcodesIO.PostcodesIOClient client = new PostcodesIOClient();
+
+                var result = await client.AutocompleteAsync(postcode);
+
+                return Ok(result);
+            }
+
+            return BadRequest("the postcode code given in null or just contains white space characters.");
         }
 
         [System.Web.Http.Route("validate")]
-        public async Task<IHttpActionResult> Validate(PostcodeValidationRequest validationRequest)
+        public async Task<IHttpActionResult> Validate(string postcode)
         {
-            return Ok();
+            if (!string.IsNullOrWhiteSpace(postcode))
+            {
+                MarkEmbling.PostcodesIO.PostcodesIOClient client = new PostcodesIOClient();
+
+                var result = await client.ValidateAsync(postcode);
+
+                return Ok(result);
+            }
+
+            return BadRequest("the postcode code given in null or just contains white space characters.");
+
+
         }
     }
 

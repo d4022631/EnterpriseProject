@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -6,9 +9,13 @@ using System.Web.Http.Cors;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;
+using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
+using IdentityServer3.Core.Validation;
+using IdentityServer3.Core.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.MicrosoftAccount;
@@ -16,10 +23,120 @@ using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Security.Twitter;
 using Newtonsoft.Json;
 using Owin;
+using AuthenticationOptions = IdentityServer3.Core.Configuration.AuthenticationOptions;
+using LoginViewModel = BookingBlock.WebApplication.Models.LoginViewModel;
 
 [assembly: OwinStartupAttribute(typeof(BookingBlock.WebApplication.Startup))]
 namespace BookingBlock.WebApplication
 {
+    public class CustomViewService : IViewService
+    {
+        IClientStore clientStore;
+        public CustomViewService(IClientStore clientStore)
+        {
+            this.clientStore = clientStore;
+        }
+
+        public async Task<Stream> Login(IdentityServer3.Core.ViewModels.LoginViewModel model, SignInMessage message)
+        {
+            var client = await clientStore.FindClientByIdAsync(message.ClientId);
+            var name = client != null ? client.ClientName : null;
+            return await Render(model, "login", name);
+        }
+
+        public Task<Stream> Logout(LogoutViewModel model, SignOutMessage message)
+        {
+            return Render(model, "logout");
+        }
+
+        public Task<Stream> LoggedOut(LoggedOutViewModel model, SignOutMessage message)
+        {
+            return Render(model, "loggedOut");
+        }
+
+        public Task<Stream> Consent(ConsentViewModel model, ValidatedAuthorizeRequest authorizeRequest)
+        {
+            return Render(model, "consent");
+        }
+
+        public Task<Stream> ClientPermissions(ClientPermissionsViewModel model)
+        {
+            return Render(model, "permissions");
+        }
+
+        public virtual Task<System.IO.Stream> Error(ErrorViewModel model)
+        {
+            return Render(model, "error");
+        }
+
+        protected virtual Task<System.IO.Stream> Render(CommonViewModel model, string page, string clientName = null)
+        {
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(model, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.JsonSerializerSettings() { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver() });
+
+            string html = LoadHtml(page);
+            html = Replace(html, new
+            {
+                siteName = Microsoft.Security.Application.Encoder.HtmlEncode(model.SiteName),
+                model = Microsoft.Security.Application.Encoder.HtmlEncode(json),
+                clientName = clientName
+            });
+
+            return Task.FromResult(StringToStream(html));
+        }
+
+        private string LoadHtml(string name)
+        {
+            var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"content\app");
+            file = Path.Combine(file, name + ".html");
+            return File.ReadAllText(file);
+        }
+
+        string Replace(string value, IDictionary<string, object> values)
+        {
+            foreach (var key in values.Keys)
+            {
+                var val = values[key];
+                val = val ?? String.Empty;
+                if (val != null)
+                {
+                    value = value.Replace("{" + key + "}", val.ToString());
+                }
+            }
+            return value;
+        }
+
+        string Replace(string value, object values)
+        {
+            return Replace(value, Map(values));
+        }
+
+        IDictionary<string, object> Map(object values)
+        {
+            var dictionary = values as IDictionary<string, object>;
+
+            if (dictionary == null)
+            {
+                dictionary = new Dictionary<string, object>();
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(values))
+                {
+                    dictionary.Add(descriptor.Name, descriptor.GetValue(values));
+                }
+            }
+
+            return dictionary;
+        }
+
+        Stream StringToStream(string s)
+        {
+            var ms = new MemoryStream();
+            var sw = new StreamWriter(ms);
+            sw.Write(s);
+            sw.Flush();
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
+        }
+    }
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
@@ -164,8 +281,10 @@ namespace BookingBlock.WebApplication
       
             factory.ClientStore = new Registration<IClientStore, IdentityServerClientStore>();
 
+            factory.ViewService = new Registration<IViewService, CustomViewService>();
 
             factory.UserService = new Registration<IUserService>(Factory);
+
 
             //   factory.ClientStore = new Registration<IClientStore, BookingBlockClientStore>();
             // factory.EventService = new Registration<IEventService, BookingBlockIdentityEventService>();
@@ -192,17 +311,23 @@ namespace BookingBlock.WebApplication
 
         private static void ConfigureIdentityProviders(IAppBuilder app, string signInAsType)
         {
+            var desc = new AuthenticationDescription();
+            desc.Caption = "Google";
+            desc.AuthenticationType = "Google";
+            desc.Properties["Img"] = "<img>";
+
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
             {
                 AuthenticationType = "Google",
                 Caption = "Sign-in with Google",
                 SignInAsAuthenticationType = signInAsType,
-
+                Description = desc,
                 ClientId = "28751939105-qp1ud0pms2pffpu9ssji6rhhpms45bhu.apps.googleusercontent.com",
                 ClientSecret = "ul3fdy8YOi3nWmsdQ9rap6Vn"
             });
 
             TwitterAuthenticationOptions twitterAuthenticationOptions = new TwitterAuthenticationOptions();
+
 
 
             twitterAuthenticationOptions.ConsumerKey = "9w4EYvCfs9wjfqZDeCDll4ZBg";
@@ -236,13 +361,18 @@ namespace BookingBlock.WebApplication
 
             app.UseMicrosoftAccountAuthentication(microsoftAccountAuthenticationOptions);
 
-            app.UseFacebookAuthentication(new FacebookAuthenticationOptions()
+            var fa = new FacebookAuthenticationOptions()
             {
                 Caption = "Sign-in with Facebook",
                 SignInAsAuthenticationType = signInAsType,
                 AppId = "1585563455100467",
                 AppSecret = "ff9ab6a79875e037db94701e79c57f0d"
-            });
+            };
+
+            fa.Scope.Add("email");
+            fa.Scope.Add("public_profile");
+
+            app.UseFacebookAuthentication(fa);
 
             //if (IdentityServer3AppSettings.AdditionalIdentityProvidersEnabled)
             //{
