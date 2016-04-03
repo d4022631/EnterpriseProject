@@ -266,6 +266,7 @@
     <Compile Include="ApiControllers\SearchResponse.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="App_Start\BookingBlockPasswordValidator.cs" />
+    <Compile Include="Controllers\BusinessesController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Models\ApplicationDbConfiguration.cs" />
     <Compile Include="Models\BusinessType.cs" />
@@ -459,6 +460,11 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Environment\EnvironmentVariables.cshtml" />
     <Content Include="Views\Environment\AppSettings.cshtml" />
+    <Content Include="Views\Businesses\Create.cshtml" />
+    <Content Include="Views\Businesses\Delete.cshtml" />
+    <Content Include="Views\Businesses\Details.cshtml" />
+    <Content Include="Views\Businesses\Edit.cshtml" />
+    <Content Include="Views\Businesses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
