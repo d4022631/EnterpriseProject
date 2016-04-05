@@ -143,11 +143,18 @@ namespace BookingBlock.WebApplication
         {
             ConfigureIdentityServer(app);
 
+            ConfigureIdentityManager(app);
+
             ConfigureWebApi(app);
 
             ConfigureAuth(app);
 
 
+            
+        }
+
+        private void ConfigureIdentityManager(IAppBuilder app)
+        {
             
         }
 
