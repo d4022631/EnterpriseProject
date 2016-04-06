@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookingBlock.WebApplication.Models;
+using DDay.iCal;
+using DDay.iCal.Serialization;
 
 namespace BookingBlock.WebApplication.Controllers
 {
@@ -17,6 +20,43 @@ namespace BookingBlock.WebApplication.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        [AllowAnonymous]
+        public ActionResult Calendar()
+        {
+            DDay.iCal.iCalendar iCal = new DDay.iCal.iCalendar();
+
+            // Create the event, and add it to the iCalendar
+            Event evt = iCal.Create<Event>();
+
+            // Set information about the event
+            evt.Start = iCalDateTime.Today.AddHours(8);
+            evt.End = evt.Start.AddHours(18); // This also sets the duration
+            evt.Description = "The event description";
+            evt.Location = "Event location";
+            evt.Summary = "18 hour event summary";
+
+            // Set information about the second event
+            evt = iCal.Create<Event>();
+            evt.Start = iCalDateTime.Today.AddDays(5);
+            evt.End = evt.Start.AddDays(1);
+            evt.IsAllDay = true;
+            evt.Summary = "All-day event";
+
+            // Create a serialization context and serializer factory.
+            // These will be used to build the serializer for our object.
+            ISerializationContext ctx = new SerializationContext();
+            ISerializerFactory factory = new DDay.iCal.Serialization.iCalendar.SerializerFactory();
+            // Get a serializer for our object
+            IStringSerializer serializer = factory.Build(iCal.GetType(), ctx) as IStringSerializer;
+
+            string output = serializer.SerializeToString(iCal);
+            var contentType = "text/calendar";
+            var bytes = Encoding.UTF8.GetBytes(output);
+
+            return File(bytes, contentType, "calendar.ics");
+        }
+
 
         public AccountController()
         {

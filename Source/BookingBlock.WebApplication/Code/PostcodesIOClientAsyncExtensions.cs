@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MarkEmbling.PostcodesIO;
 
-namespace BookingBlock.WebApplication.ApiControllers
+namespace BookingBlock.WebApplication
 {
     public static class PostcodesIOClientAsyncExtensions
     {

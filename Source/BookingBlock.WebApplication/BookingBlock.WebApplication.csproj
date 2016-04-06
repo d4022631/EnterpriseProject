@@ -54,6 +54,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="HtmlSanitizationLibrary, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
       <HintPath>..\packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
       <Private>True</Private>
@@ -254,7 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
-    <Compile Include="ApiControllers\BusinessesController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\AddBusinessRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
@@ -266,10 +269,10 @@
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeResponse.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
-    <Compile Include="ApiControllers\PostcodesIOClientAsyncExtensions.cs" />
-    <Compile Include="ApiControllers\PostcodeValidationRequest.cs" />
-    <Compile Include="ApiControllers\PostcodeValidationResponse.cs" />
-    <Compile Include="ApiControllers\RegisterAccountRequest.cs" />
+    <Compile Include="Code\PostcodesIOClientAsyncExtensions.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationRequest.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationResponse.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\RegisterAccountRequest.cs" />
     <Compile Include="ApiControllers\SearchController.cs" />
     <Compile Include="ApiControllers\SearchResponse.cs" />
     <Compile Include="ApiControllers\ServicesController.cs" />
