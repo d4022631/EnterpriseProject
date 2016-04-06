@@ -7,6 +7,30 @@ using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
+    public abstract class BusinessTypeRequest
+    {
+        /// <summary>
+        /// The name of the business type
+        /// </summary>
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// An object to represent a business type we want to add to the database.
+    /// </summary>
+    public class AddBusinessTypeRequest : BusinessTypeRequest
+    {
+        
+    }
+
+    /// <summary>
+    /// An object to represent a business type we want to remove from the database.
+    /// </summary>
+    public class RemoveBusinessTypeRequest : BusinessTypeRequest
+    {
+
+    }
+
     public class BusinessTypesController : ApiController
     {
         private ApplicationDbContext context = ApplicationDbContext.Create();
@@ -21,43 +45,58 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(allBusinessTypes);
         }
 
+        /// <summary>
+        /// Add a business type to the database.
+        /// </summary>
+        /// <param name="businessType"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/BusinessTypes/Add")]
-        public IHttpActionResult Add(string businessType)
+        public IHttpActionResult Add(AddBusinessTypeRequest businessType)
         {
-            if (string.IsNullOrWhiteSpace(businessType))
+            if (string.IsNullOrWhiteSpace(businessType.Name))
             {
                 return BadRequest("No business type given");
             }
 
-            var existing = context.BusinessTypes.FirstOrDefault(type => type.Name == businessType);
+            var existing = context.BusinessTypes.FirstOrDefault(type => type.Name == businessType.Name);
 
             if (existing != null)
             {
                 return Conflict();
             }
 
-            context.BusinessTypes.Add(new BusinessType() {Name = businessType});
+            context.BusinessTypes.Add(new BusinessType() {Name = businessType.Name});
 
             context.SaveChanges();
 
             return Ok();
         }
 
+        /// <summary>
+        /// Remove a business type from the database.
+        /// </summary>
+        /// <param name="businessType"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/BusinessTypes/Remove")]
-        public IHttpActionResult Remove(string businessType)
+        public IHttpActionResult Remove(RemoveBusinessTypeRequest businessType)
         {
-            if (string.IsNullOrWhiteSpace(businessType))
+            if (string.IsNullOrWhiteSpace(businessType.Name))
             {
                 return BadRequest("No business type given");
             }
 
-            var existing = context.BusinessTypes.FirstOrDefault(type => type.Name == businessType);
+            var existing = context.BusinessTypes.FirstOrDefault(type => type.Name == businessType.Name);
 
             if (existing == null)
             {
                 return BadRequest("Can't find the given business type to remove it");
+            }
+
+            if (context.Businesses.Any(business => business.BusinessTypeId == existing.Id))
+            {
+                return BadRequest("Cannot remove business type with business associated.");
             }
 
             context.BusinessTypes.Remove(existing);
