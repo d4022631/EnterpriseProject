@@ -32,7 +32,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 business.Postcode = t.Postcode;
                 business.Location = GeoUtils.CreatePoint(t.Latitude, t.Longitude);
 
-                business.Users.Add(wm);
+                business.Users.Add(new BusinessUser() {User = wm});
                 business.BusinessType = bt;
                 business.Name = "Webmaster's " + bt.Name + " [" + t.Postcode +  "]";
 

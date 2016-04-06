@@ -32,13 +32,15 @@ namespace BookingBlock.WebApplication.Models
 
         public DbGeography Location { get; set; }
 
-        public virtual ICollection<Business> Businesses { get; set; }
+        public virtual ICollection<BusinessUser> Businesses { get; set; }
 
         public virtual ICollection<Booking> Bookings { get; set; }
 
         public ApplicationUser()
         {
             this.Location = GeoUtils.CreatePoint(0, 0);
+            this.Businesses = new List<BusinessUser>();
+            this.Bookings = new List<Booking>();
         }
     }
 }

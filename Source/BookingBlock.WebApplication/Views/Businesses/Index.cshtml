@@ -12,10 +12,34 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.BusinessType.Name)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Postcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FaxNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Website)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Facebook)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinkedIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GooglePlus)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Location)
@@ -26,10 +50,34 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.BusinessType.Name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Postcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FaxNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Facebook)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinkedIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GooglePlus)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Location)

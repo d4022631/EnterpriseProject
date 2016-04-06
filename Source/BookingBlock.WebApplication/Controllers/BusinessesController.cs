@@ -18,7 +18,8 @@ namespace BookingBlock.WebApplication.Controllers
         // GET: Businesses
         public async Task<ActionResult> Index()
         {
-            return View(await db.Businesses.ToListAsync());
+            var businesses = db.Businesses.Include(b => b.BusinessType);
+            return View(await businesses.ToListAsync());
         }
 
         // GET: Businesses/Details/5
@@ -39,6 +40,7 @@ namespace BookingBlock.WebApplication.Controllers
         // GET: Businesses/Create
         public ActionResult Create()
         {
+            ViewBag.BusinessTypeId = new SelectList(db.BusinessTypes, "Id", "Name");
             return View();
         }
 
@@ -47,7 +49,7 @@ namespace BookingBlock.WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Postcode,Location")] Business business)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Address,Postcode,PhoneNumber,FaxNumber,Website,Facebook,LinkedIn,GooglePlus,Location,BusinessTypeId")] Business business)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +59,7 @@ namespace BookingBlock.WebApplication.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.BusinessTypeId = new SelectList(db.BusinessTypes, "Id", "Name", business.BusinessTypeId);
             return View(business);
         }
 
@@ -72,6 +75,7 @@ namespace BookingBlock.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.BusinessTypeId = new SelectList(db.BusinessTypes, "Id", "Name", business.BusinessTypeId);
             return View(business);
         }
 
@@ -80,7 +84,7 @@ namespace BookingBlock.WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Postcode,Location")] Business business)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Address,Postcode,PhoneNumber,FaxNumber,Website,Facebook,LinkedIn,GooglePlus,Location,BusinessTypeId")] Business business)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +92,7 @@ namespace BookingBlock.WebApplication.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.BusinessTypeId = new SelectList(db.BusinessTypes, "Id", "Name", business.BusinessTypeId);
             return View(business);
         }
 

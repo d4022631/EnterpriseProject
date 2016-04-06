@@ -6,35 +6,12 @@ using System.Data.Entity.Spatial;
 
 namespace BookingBlock.WebApplication.Models
 {
-    public class OpeningTimes
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Required]
-        public virtual Business Business { get; set; }
-
-        [Required, ForeignKey(nameof(Business))]
-        public Guid BusinessId { get; set; }
-
-        [Required]
-        public DayOfWeek DayOfWeek { get; set; }
-
-        [Required]
-        public TimeSpan OpeningTime { get; set; }
-
-        [Required]
-        public TimeSpan ClosingTime { get; set; }
-    }
-
-
     public class Business
     {
         public Business()
         {
             this.Services = new List<Service>();
-            this.Users = new List<ApplicationUser>();
+            this.Users = new List<BusinessUser>();
         }
 
         [Key]
@@ -45,24 +22,60 @@ namespace BookingBlock.WebApplication.Models
         public string Name { get; set; }
 
         [Required]
+        public string Address { get; set; }
+
+        [Required]
+        public string Postcode { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string FaxNumber { get; set; }
+
+        public string Website { get; set; }
+
+        public string Facebook { get; set; }
+
+        public string LinkedIn { get; set; }
+
+        public string GooglePlus { get; set; }
+
+
+        [Required]
+        public DbGeography Location { get; set; }
+
+        [Required]
         public virtual BusinessType BusinessType { get; set; }
 
         [Required, ForeignKey(nameof(BusinessType))]
         public Guid BusinessTypeId { get; set; }
 
-
-        [Required]
-        public string Postcode { get; set; }
-
-        [Required]
-        public DbGeography Location { get; set; }
-
-
-
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<BusinessUser> Users { get; set; }
 
         public virtual ICollection<Service> Services { get; set; }
 
         public virtual ICollection<OpeningTimes> OpeningTimes { get; set; }
+    }
+
+    public class BusinessUser
+    {
+      
+        public virtual Business Business { get; set; }
+
+        
+        public virtual ApplicationUser User { get; set; }
+
+        [Key, Column(Order = 0), ForeignKey(nameof(Business))]
+        public Guid BusinessId { get; set; }
+
+        [Key, Column(Order = 1), ForeignKey(nameof(User))]
+        public string UserId { get; set; }
+
+        public BusinessUserLevel UserLevel { get; set; }
+    }
+
+    public enum BusinessUserLevel
+    {
+        Owner,
+        Staff
     }
 }

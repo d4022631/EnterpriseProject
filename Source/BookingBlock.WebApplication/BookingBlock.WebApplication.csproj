@@ -282,6 +282,7 @@
     <Compile Include="Models\Business.cs" />
     <Compile Include="Models\BusinessType.cs" />
     <Compile Include="Models\GeoUtils.cs" />
+    <Compile Include="Models\OpeningTimes.cs" />
     <Compile Include="Models\ValidationAttributes\BookingBlockPasswordValidatorAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -471,16 +472,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Environment\EnvironmentVariables.cshtml" />
     <Content Include="Views\Environment\AppSettings.cshtml" />
-    <Content Include="Views\Businesses\Create.cshtml" />
-    <Content Include="Views\Businesses\Delete.cshtml" />
-    <Content Include="Views\Businesses\Details.cshtml" />
-    <Content Include="Views\Businesses\Edit.cshtml" />
-    <Content Include="Views\Businesses\Index.cshtml" />
     <Content Include="Views\BusinessTypes\Create.cshtml" />
     <Content Include="Views\BusinessTypes\Delete.cshtml" />
     <Content Include="Views\BusinessTypes\Details.cshtml" />
     <Content Include="Views\BusinessTypes\Edit.cshtml" />
     <Content Include="Views\BusinessTypes\Index.cshtml" />
+    <Content Include="Views\Businesses\Create.cshtml" />
+    <Content Include="Views\Businesses\Delete.cshtml" />
+    <Content Include="Views\Businesses\Details.cshtml" />
+    <Content Include="Views\Businesses\Edit.cshtml" />
+    <Content Include="Views\Businesses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
