@@ -4,19 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingBlock.WebApplication.Models
 {
-    public class OpeningTimes
+    public class BusinessOpeningTime
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Required]
         public virtual Business Business { get; set; }
 
-        [Required, ForeignKey(nameof(Business))]
+        [Required, ForeignKey(nameof(Business)), Key, Column(Order = 0)]
         public Guid BusinessId { get; set; }
 
-        [Required]
+        [Required, Key, Column(Order = 1)]
         public DayOfWeek DayOfWeek { get; set; }
 
         [Required]

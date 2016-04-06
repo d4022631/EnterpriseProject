@@ -5,6 +5,36 @@ namespace BookingBlock.WebApplication.Models
 {
     public static class GeoUtils
     {
+        /// 
+
+        /// Convert meters to miles
+        /// 
+
+        /// 
+        /// 
+        public static double MetersToMiles(double? meters)
+        {
+            if (meters == null)
+                return 0F;
+
+            return meters.Value * 0.000621371192;
+        }
+
+        /// 
+
+        /// Convert miles to meters
+        /// 
+
+        /// 
+        /// 
+        public static double MilesToMeters(double? miles)
+        {
+            if (miles == null)
+                return 0;
+
+            return miles.Value * 1609.344;
+        }
+
         /// <summary>
         /// Create a GeoLocation point based on latitude and longitude
         /// </summary>

@@ -24,6 +24,12 @@ namespace BookingBlock.WebApplication.Models
         
         public DbSet<Business> Businesses { get; set; }
         
-        public DbSet<Service> Services { get; set; }   
+        public DbSet<Service> Services { get; set; }
+
+        public DbSet<BusinessUser> BusinessUsers { get; set; }
+
+        public System.Data.Entity.DbSet<BookingBlock.WebApplication.Models.BusinessOpeningTime> BusinessOpeningTimes { get; set; }
+
+        public System.Data.Entity.DbSet<BookingBlock.WebApplication.Models.Review> Reviews { get; set; }
     }
 }

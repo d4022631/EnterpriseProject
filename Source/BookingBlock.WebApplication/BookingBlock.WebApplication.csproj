@@ -254,10 +254,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
+    <Compile Include="ApiControllers\BusinessesController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\AddBusinessRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
-    <Compile Include="ApiControllers\BusinessController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\BusinessSearchResult.cs" />
     <Compile Include="ApiControllers\BusinessTypesController.cs" />
     <Compile Include="ApiControllers\IdentityController.cs" />
@@ -275,14 +275,19 @@
     <Compile Include="ApiControllers\ServicesController.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="App_Start\BookingBlockPasswordValidator.cs" />
+    <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\BusinessesController.cs" />
+    <Compile Include="Controllers\BusinessOpeningTimesController.cs" />
     <Compile Include="Controllers\BusinessTypesController.cs" />
+    <Compile Include="Controllers\BusinessUsersController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Models\ApplicationDbConfiguration.cs" />
     <Compile Include="Models\Business.cs" />
     <Compile Include="Models\BusinessType.cs" />
     <Compile Include="Models\GeoUtils.cs" />
-    <Compile Include="Models\OpeningTimes.cs" />
+    <Compile Include="Models\BusinessOpeningTime.cs" />
     <Compile Include="Models\ValidationAttributes\BookingBlockPasswordValidatorAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -482,6 +487,33 @@
     <Content Include="Views\Businesses\Details.cshtml" />
     <Content Include="Views\Businesses\Edit.cshtml" />
     <Content Include="Views\Businesses\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DbGeography.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DbGeography.cshtml" />
+    <Content Include="Views\BusinessUsers\Create.cshtml" />
+    <Content Include="Views\BusinessUsers\Delete.cshtml" />
+    <Content Include="Views\BusinessUsers\Details.cshtml" />
+    <Content Include="Views\BusinessUsers\Edit.cshtml" />
+    <Content Include="Views\BusinessUsers\Index.cshtml" />
+    <Content Include="Views\BusinessOpeningTimes\Create.cshtml" />
+    <Content Include="Views\BusinessOpeningTimes\Delete.cshtml" />
+    <Content Include="Views\BusinessOpeningTimes\Details.cshtml" />
+    <Content Include="Views\BusinessOpeningTimes\Edit.cshtml" />
+    <Content Include="Views\BusinessOpeningTimes\Index.cshtml" />
+    <Content Include="Views\Services\Create.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
+    <Content Include="Views\Services\Details.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Bookings\Create.cshtml" />
+    <Content Include="Views\Bookings\Delete.cshtml" />
+    <Content Include="Views\Bookings\Details.cshtml" />
+    <Content Include="Views\Bookings\Edit.cshtml" />
+    <Content Include="Views\Bookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

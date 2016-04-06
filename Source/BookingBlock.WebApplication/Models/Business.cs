@@ -6,6 +6,8 @@ using System.Data.Entity.Spatial;
 
 namespace BookingBlock.WebApplication.Models
 {
+
+
     public class Business
     {
         public Business()
@@ -21,7 +23,7 @@ namespace BookingBlock.WebApplication.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        [Required, DataType(DataType.MultilineText)]
         public string Address { get; set; }
 
         [Required]
@@ -31,6 +33,7 @@ namespace BookingBlock.WebApplication.Models
 
         public string FaxNumber { get; set; }
 
+        [Url]
         public string Website { get; set; }
 
         public string Facebook { get; set; }
@@ -41,9 +44,8 @@ namespace BookingBlock.WebApplication.Models
 
 
         [Required]
-        public DbGeography Location { get; set; }
+        public DbGeography Location { get; set; } = GeoUtils.CreatePoint(0, 0);
 
-        [Required]
         public virtual BusinessType BusinessType { get; set; }
 
         [Required, ForeignKey(nameof(BusinessType))]
@@ -53,7 +55,7 @@ namespace BookingBlock.WebApplication.Models
 
         public virtual ICollection<Service> Services { get; set; }
 
-        public virtual ICollection<OpeningTimes> OpeningTimes { get; set; }
+        public virtual ICollection<BusinessOpeningTime> OpeningTimes { get; set; }
     }
 
     public class BusinessUser
@@ -64,12 +66,15 @@ namespace BookingBlock.WebApplication.Models
         
         public virtual ApplicationUser User { get; set; }
 
+        [Required]
         [Key, Column(Order = 0), ForeignKey(nameof(Business))]
         public Guid BusinessId { get; set; }
 
+        [Required]
         [Key, Column(Order = 1), ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
+        [Required]
         public BusinessUserLevel UserLevel { get; set; }
     }
 
@@ -78,4 +83,6 @@ namespace BookingBlock.WebApplication.Models
         Owner,
         Staff
     }
+
+
 }

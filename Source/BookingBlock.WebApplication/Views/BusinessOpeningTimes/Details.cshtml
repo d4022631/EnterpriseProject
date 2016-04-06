@@ -1,0 +1,42 @@
+﻿@model BookingBlock.WebApplication.Models.BusinessOpeningTime
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BusinessOpeningTime</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Business.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Business.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpeningTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosingTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
