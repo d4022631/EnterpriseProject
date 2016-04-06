@@ -924,15 +924,7 @@ Wigs
                 {
                     if (!b.Any(b2 => b2.Name == name))
                     {
-
-                        string code = GenerateString(3);
-
-                        while (b.Any(b2 => b2.Code == code))
-                        {
-                            code = GenerateString(3);
-                        }
-
-                        b.Add(new BusinessType() { Name = name, Code = code });
+                        b.Add(new BusinessType() { Name = name});
                     }
 
                 }

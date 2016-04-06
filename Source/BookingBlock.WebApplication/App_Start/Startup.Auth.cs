@@ -29,6 +29,7 @@ namespace BookingBlock.WebApplication
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "Cookies",
+
                 Provider = new CookieAuthenticationProvider()
                 {
                     OnApplyRedirect = ctx =>

@@ -254,17 +254,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
-    <Compile Include="ApiControllers\AddBusinessRequest.cs" />
-    <Compile Include="ApiControllers\ApiResponse.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\AddBusinessRequest.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
     <Compile Include="ApiControllers\BusinessController.cs" />
-    <Compile Include="ApiControllers\BusinessSearchResult.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\BusinessSearchResult.cs" />
     <Compile Include="ApiControllers\BusinessTypesController.cs" />
     <Compile Include="ApiControllers\IdentityController.cs" />
-    <Compile Include="ApiControllers\PostcodeAutocompleteRequest.cs" />
-    <Compile Include="ApiControllers\PostcodeAutocompleteResponse.cs" />
-    <Compile Include="ApiControllers\PostcodeRequest.cs" />
-    <Compile Include="ApiControllers\PostcodeResponse.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\PostcodeAutocompleteRequest.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\PostcodeAutocompleteResponse.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\PostcodeRequest.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\PostcodeResponse.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
     <Compile Include="ApiControllers\PostcodesIOClientAsyncExtensions.cs" />
     <Compile Include="ApiControllers\PostcodeValidationRequest.cs" />
@@ -272,11 +272,14 @@
     <Compile Include="ApiControllers\RegisterAccountRequest.cs" />
     <Compile Include="ApiControllers\SearchController.cs" />
     <Compile Include="ApiControllers\SearchResponse.cs" />
+    <Compile Include="ApiControllers\ServicesController.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="App_Start\BookingBlockPasswordValidator.cs" />
     <Compile Include="Controllers\BusinessesController.cs" />
+    <Compile Include="Controllers\BusinessTypesController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Models\ApplicationDbConfiguration.cs" />
+    <Compile Include="Models\Business.cs" />
     <Compile Include="Models\BusinessType.cs" />
     <Compile Include="Models\GeoUtils.cs" />
     <Compile Include="Models\ValidationAttributes\BookingBlockPasswordValidatorAttribute.cs" />
@@ -473,6 +476,11 @@
     <Content Include="Views\Businesses\Details.cshtml" />
     <Content Include="Views\Businesses\Edit.cshtml" />
     <Content Include="Views\Businesses\Index.cshtml" />
+    <Content Include="Views\BusinessTypes\Create.cshtml" />
+    <Content Include="Views\BusinessTypes\Delete.cshtml" />
+    <Content Include="Views\BusinessTypes\Details.cshtml" />
+    <Content Include="Views\BusinessTypes\Edit.cshtml" />
+    <Content Include="Views\BusinessTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

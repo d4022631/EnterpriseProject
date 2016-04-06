@@ -8,9 +8,7 @@ using MarkEmbling.PostcodesIO;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-
-
-    [System.Web.Http.RoutePrefix("api/businesses")]
+    [RoutePrefix("api/businesses")]
     public class BusinessController : ApiController
     {
         [HttpPost, Route("register")]
