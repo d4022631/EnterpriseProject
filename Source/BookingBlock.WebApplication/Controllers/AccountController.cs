@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,16 +13,71 @@ using Microsoft.Owin.Security;
 using BookingBlock.WebApplication.Models;
 using DDay.iCal;
 using DDay.iCal.Serialization;
+using AuthorizationContext = System.IdentityModel.Policy.AuthorizationContext;
 
 namespace BookingBlock.WebApplication.Controllers
 {
+    public class BasicAuthorizeAttribute : AuthorizeAttribute
+    {
+        //public override void OnAuthorization(AuthorizationContext filterContext)
+        //{
+        //    if (filterContext == null)
+        //    {
+        //        throw new ArgumentNullException("filterContext");
+        //    }
+
+        //    var auth = filterContext.HttpContext.Request.Headers["Authorization"];
+
+        //    if (!String.IsNullOrEmpty(auth))
+        //    {
+        //        var encodedDataAsBytes = Convert.FromBase64String(auth.Replace("Basic ", ""));
+        //        var value = Encoding.ASCII.GetString(encodedDataAsBytes);
+        //        var username = value.Substring(0, value.IndexOf(':'));
+        //        var password = value.Substring(value.IndexOf(':') + 1);
+
+        //        if (MembershipService.ValidateUser(username, password))
+        //        {
+        //            filterContext.HttpContext.User = new GenericPrincipal(new GenericIdentity(username), null);
+        //        }
+        //        else
+        //        {
+        //            filterContext.Result = new HttpStatusCodeResult(401);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (AuthorizeCore(filterContext.HttpContext))
+        //        {
+        //            var cachePolicy = filterContext.HttpContext.Response.Cache;
+        //            cachePolicy.SetProxyMaxAge(new TimeSpan(0));
+        //            cachePolicy.AddValidationCallback(CacheValidateHandler, null);
+        //        }
+        //        else
+        //        {
+        //            filterContext.HttpContext.Response.Clear();
+        //            filterContext.HttpContext.Response.StatusDescription = "Unauthorized";
+        //            filterContext.HttpContext.Response.AddHeader("WWW-Authenticate", "Basic realm=\"Secure Calendar\"");
+        //            filterContext.HttpContext.Response.Write("401, please authenticate");
+        //            filterContext.HttpContext.Response.StatusCode = 401;
+        //            filterContext.Result = new EmptyResult();
+        //            filterContext.HttpContext.Response.End();
+        //        }
+        //    }
+        //}
+
+        //private void CacheValidateHandler(HttpContext context, object data, ref HttpValidationStatus validationStatus)
+        //{
+        //    validationStatus = OnCacheAuthorization(new HttpContextWrapper(context));
+        //}
+    }
+
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        [AllowAnonymous]
+        [BasicAuthorize]
         public ActionResult Calendar()
         {
             DDay.iCal.iCalendar iCal = new DDay.iCal.iCalendar();
@@ -35,7 +91,7 @@ namespace BookingBlock.WebApplication.Controllers
             evt.Description = "The event description";
             evt.Location = "Event location";
             evt.Summary = "18 hour event summary";
-
+            
             // Set information about the second event
             evt = iCal.Create<Event>();
             evt.Start = iCalDateTime.Today.AddDays(5);
