@@ -41,7 +41,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 title = "TEST",
                 start = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
                 end=DateTime.Now.AddHours(2).ToString("yyyy-MM-dd HH:mm"});
-
+             
             return Ok(events);
         }
     }
