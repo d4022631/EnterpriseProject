@@ -37,7 +37,10 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             List<CalendarEvent> events = new List<CalendarEvent>();
 
-            events.Add(new CalendarEvent() { title = "TEST", start = DateTime.Now.ToString("yyyy-MM-dd HH:mm"), end=DateTime.Now.AddHours(2).ToString("yyyy-MM-dd HH:mm"});
+            events.Add(new CalendarEvent() {
+                title = "TEST",
+                start = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                end=DateTime.Now.AddHours(2).ToString("yyyy-MM-dd HH:mm"});
 
             return Ok(events);
         }
