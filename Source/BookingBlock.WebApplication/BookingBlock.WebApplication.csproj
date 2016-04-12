@@ -279,6 +279,7 @@
     <Compile Include="Controllers\BusinessOpeningTimesController.cs" />
     <Compile Include="Controllers\BusinessTypesController.cs" />
     <Compile Include="Controllers\BusinessUsersController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -516,6 +517,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Calendar\" />
     <Folder Include="Views\Database\" />
   </ItemGroup>
   <ItemGroup>
