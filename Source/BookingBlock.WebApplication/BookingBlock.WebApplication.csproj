@@ -253,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
+    <Compile Include="ApiControllers\CalendarController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\AddBusinessRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
@@ -278,7 +279,6 @@
     <Compile Include="Controllers\BusinessOpeningTimesController.cs" />
     <Compile Include="Controllers\BusinessTypesController.cs" />
     <Compile Include="Controllers\BusinessUsersController.cs" />
-    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\DatabaseController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />

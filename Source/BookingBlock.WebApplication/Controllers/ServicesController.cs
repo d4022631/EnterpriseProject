@@ -12,7 +12,7 @@ using BookingBlock.WebApplication.Models;
 namespace BookingBlock.WebApplication.Controllers
 {
     public class ServicesController : Controller
-    {
+    { 
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
