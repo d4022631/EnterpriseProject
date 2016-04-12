@@ -18,10 +18,10 @@ namespace BookingBlock.WebApplication.Models
         public int Id { get; set; }
 
         
-        public virtual Service Service { get; set; }
+        public virtual Business Business  { get; set; }
 
-        [Required, ForeignKey(nameof(Service))]
-        public Guid ServiceId { get; set; }
+        [Required, ForeignKey(nameof(Business ))]
+        public Guid BusinessId { get; set; }
 
         [Required]
         public int Rating { get; set; }
@@ -60,6 +60,8 @@ namespace BookingBlock.WebApplication.Models
 
         public string Notes { get; set; }
 
+
+        public ICollection<Review> Reviews {get; set;}
 
         public bool Confirmed { get; set; }
         public bool Cancelled { get; set; }

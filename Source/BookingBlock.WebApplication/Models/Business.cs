@@ -42,6 +42,8 @@ namespace BookingBlock.WebApplication.Models
 
         public string GooglePlus { get; set; }
 
+        [DataType(DataType.Url)]
+        public string LogoUrl {get; set;}
 
         [Required]
         public DbGeography Location { get; set; } = GeoUtils.CreatePoint(0, 0);
