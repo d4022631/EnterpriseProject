@@ -11,7 +11,7 @@ namespace BookingBlock.WebApplication.Models
     /// Represents media that can be added to a business page, videos, pdfs, images, etc...
     /// </summary>
     public class Media
-    {
+    { 
         
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
