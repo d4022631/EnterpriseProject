@@ -18,8 +18,9 @@ namespace BookingBlock.WebApplication.Controllers
         // GET: Reviews
         public async Task<ActionResult> Index()
         {
-            var reviews = db.Reviews.Include(r => r.Service);
-            return View(await reviews.ToListAsync());
+            // var reviews = db.Reviews.Include(r => r.Service);
+            //await reviews.ToListAsync()
+            return View();
         }
 
         // GET: Reviews/Details/5
@@ -58,7 +59,7 @@ namespace BookingBlock.WebApplication.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", review.ServiceId);
+           // ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", review.ServiceId);
             return View(review);
         }
 
@@ -74,7 +75,7 @@ namespace BookingBlock.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", review.ServiceId);
+            //ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", review.ServiceId);
             return View(review);
         }
 
@@ -91,7 +92,7 @@ namespace BookingBlock.WebApplication.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", review.ServiceId);
+           // ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", review.ServiceId);
             return View(review);
         }
 
