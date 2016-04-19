@@ -8,6 +8,13 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BookingBlock.WebApplication.Models
 {
+    public enum Gender
+    {
+        Male,
+        Female
+    }
+
+
     public class ApplicationUser : IdentityUser
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -35,6 +42,9 @@ namespace BookingBlock.WebApplication.Models
         public virtual ICollection<BusinessUser> Businesses { get; set; }
 
         public virtual ICollection<Booking> Bookings { get; set; }
+        
+        public Gender Gender { get; set; }
+
 
         public ApplicationUser()
         {

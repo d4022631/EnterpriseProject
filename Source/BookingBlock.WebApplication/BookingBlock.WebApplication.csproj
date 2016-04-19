@@ -253,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
+    <Compile Include="ApiControllers\BusinessIntelligenceController.cs" />
     <Compile Include="ApiControllers\CalendarController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\AddBusinessRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
@@ -268,7 +269,7 @@
     <Compile Include="Code\PostcodesIOClientAsyncExtensions.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationResponse.cs" />
-    <Compile Include="ApiControllers\DataTransferObjects\RegisterAccountRequest.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\Account.cs" />
     <Compile Include="ApiControllers\SearchController.cs" />
     <Compile Include="ApiControllers\SearchResponse.cs" />
     <Compile Include="ApiControllers\ServicesController.cs" />
@@ -347,6 +348,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\data\addere_003.txt" />
+    <Content Include="Content\data\addresses_0002.txt" />
+    <Content Include="Content\data\adresses_0001.txt" />
     <Content Include="Content\libs\angular\angular.1.2.13.js" />
     <Content Include="Content\libs\angular\angular.1.2.13.min.js" />
     <Content Include="Content\libs\bootstrap\css\bootstrap-theme.css" />

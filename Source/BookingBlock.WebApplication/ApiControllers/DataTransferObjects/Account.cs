@@ -1,9 +1,10 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using BookingBlock.WebApplication.Models.ValidationAttributes;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public class RegisterAccountRequest
+    public class Account
     {
         // first name
         // last name
@@ -38,7 +39,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
 
         [Required]
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         [Phone]

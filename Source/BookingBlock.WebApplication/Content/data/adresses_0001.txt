@@ -1,0 +1,101 @@
+﻿Latitude,Longitude,Number,Road,Locality,Post town,Admin area level 3,Admin area level 2,Admin area level 1,Postcode,Country
+54.540244,-1.303572,492-500,Thornaby Road,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 0JX,United Kingdom
+54.513372,-1.211253,23,Woodrush,Coulby Newham,Middlesbrough,,Middlesbrough,,TS8 0XB,United Kingdom
+54.603955,-1.421224,15,Whitton Grove,Stillington,Stockton-on-Tees,,Stockton-on-Tees,,TS21 1JJ,United Kingdom
+54.612252,-1.315756,24-32,Skripka Drive,Stockton-on-Tees,Billingham,,Stockton-on-Tees,,TS22 5EZ,United Kingdom
+54.589049,-1.003109,17,Drake Close,Marske-by-the-Sea,Redcar,,Redcar and Cleveland,,TS11 7JG,United Kingdom
+54.68205,-1.216411,1,Gainford Street,Hartlepool,Hartlepool,,Hartlepool,,TS26,United Kingdom
+54.560956,-1.22645,35,Lambton Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS4 2RF,United Kingdom
+54.572197,-1.229665,137-139,Borough Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS1 3AT,United Kingdom
+54.565625,-1.250711,149,Ayresome Street,Middlesbrough,Middlesbrough,,Middlesbrough,,TS1 4PX,United Kingdom
+54.578972,-1.177523,29,Coulthard Court,South Bank,Middlesbrough,,Redcar and Cleveland,,TS6 6XE,United Kingdom
+54.564159,-1.247632,14,The Holgate,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 6BX,United Kingdom
+54.609286,-1.086691,25,Kettleness Avenue,Redcar,Redcar,,Redcar and Cleveland,,TS10 5EW,United Kingdom
+54.594613,-1.336311,30,Fairview Gardens,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS20 1UA,United Kingdom
+54.577124,-1.170072,23,Steele Crescent,South Bank,Middlesbrough,,Redcar and Cleveland,,TS6 6QJ,United Kingdom
+54.55017,-1.229276,45,Tranter Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS4 3HL,United Kingdom
+54.57137,-1.162997,,Trunk Road,,Middlesbrough,,Redcar and Cleveland,,TS6,United Kingdom
+54.561186,-1.234913,1,Exeter Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 6NH,United Kingdom
+54.484331,-1.140123,20,Angrove Close,Great Ayton,Middlesbrough,,North Yorkshire,,TS9 6LF,United Kingdom
+54.550465,-1.304297,10,Lanehouse Road,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 8AG,United Kingdom
+54.577995,-1.171616,13,Stephens Road,South Bank,Middlesbrough,,Redcar and Cleveland,,TS6 6SH,United Kingdom
+54.564292,-1.245836,3,Ayresome Park Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 6BF,United Kingdom
+54.573932,-1.308571,21,Douglas Walk,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS20 2UW,United Kingdom
+54.618009,-1.274926,34,Otterburn Way,Stockton-on-Tees,Billingham,,Stockton-on-Tees,,TS23 3QS,United Kingdom
+54.694362,-1.191632,,Ferry Road,Hartlepool,Hartlepool,,Hartlepool,,TS24,United Kingdom
+54.595255,-1.081576,6,Queensbury Close,Redcar,Redcar,,Redcar and Cleveland,,TS10 4QA,United Kingdom
+54.693382,-1.241309,25,Padstow Close,Hartlepool,Hartlepool,,Hartlepool,,TS26 0XQ,United Kingdom
+54.473431,-1.190134,15,Springfield Gardens,Stokesley,Middlesbrough,,North Yorkshire,,TS9 5PH,United Kingdom
+54.46571,-1.108787,,Unnamed Road,,Middlesbrough,,North Yorkshire,,TS9 6LH,United Kingdom
+54.563335,-1.157642,15,Spencer Road,,Middlesbrough,,Redcar and Cleveland,,TS6 9BJ,United Kingdom
+54.533371,-0.902275,6,Liverton Road,Liverton,Saltburn-by-the-Sea,,Redcar and Cleveland,,TS13 4TB,United Kingdom
+54.456517,-1.272898,10,Rudby Lea,Hutton Rudby,Yarm,,North Yorkshire,,TS15 0JZ,United Kingdom
+54.532656,-1.243487,14,Medina Gardens,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 8BN,United Kingdom
+54.554774,-1.298041,2,Cobden Street,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 7DG,United Kingdom
+54.565438,-1.167029,10,Lime Road,Normanby,Middlesbrough,,Redcar and Cleveland,,TS6 0DN,United Kingdom
+54.517587,-1.351371,8,Prestwick Court,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS16 9ED,United Kingdom
+54.557243,-1.262079,3,East Row,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 4HB,United Kingdom
+54.734651,-1.381284,2,Snaith Terrace,Wingate,Wingate,,County Durham,,TS28 5BL,United Kingdom
+54.67281,-1.212712,9-35,Patterdale Street,Hartlepool,Hartlepool,,Hartlepool,,TS25,United Kingdom
+54.566974,-1.309502,,The Square,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS18 1TE,United Kingdom
+54.537329,-1.056682,95,Bolckow Street,Guisborough,Guisborough,,Redcar and Cleveland,,TS14 6EF,United Kingdom
+54.522586,-1.179296,3,Clevegate,Nunthorpe,Middlesbrough,,Middlesbrough,,TS7 0QU,United Kingdom
+54.654419,-1.364237,,Unnamed Road,,Billingham,,County Durham,,TS22 5NP,United Kingdom
+54.5515,-1.231334,28-50,Shelley Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS4,United Kingdom
+54.70012,-1.241457,8,Hazelhen Close,Hartlepool,Hartlepool,,Hartlepool,,TS26 0RE,United Kingdom
+54.501545,-1.360155,43,Worsall Road,Yarm,Yarm,,Stockton-on-Tees,,TS15 9DG,United Kingdom
+54.55044,-1.20144,9,Ettington Avenue,Middlesbrough,Middlesbrough,,Middlesbrough,,TS3 7EH,United Kingdom
+54.661156,-1.194591,8,Glaisdale Grove,Seaton Carew,Hartlepool,,Hartlepool,,TS25 1DU,United Kingdom
+54.669421,-1.238091,11,Dryden Road,Hartlepool,Hartlepool,,Hartlepool,,TS25 4HR,United Kingdom
+54.548648,-1.168069,8,Springhill,Ormesby,Middlesbrough,,Redcar and Cleveland,,TS7 9PW,United Kingdom
+54.694748,-1.219621,198,Raby Road,Hartlepool,Hartlepool,,Hartlepool,,TS24 8LD,United Kingdom
+54.597301,-1.339566,,Buckthorn Crescent,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS21 3LE,United Kingdom
+54.53997,-0.968201,14,Lingdale Road,Lingdale,Saltburn-by-the-Sea,,Redcar and Cleveland,,TS12 3EZ,United Kingdom
+54.582463,-1.246514,4a,Forty Foot Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS2,United Kingdom
+54.578464,-1.146998,10-22,Eversham Road,,Middlesbrough,,Redcar and Cleveland,,TS6 7ES,United Kingdom
+54.571044,-1.17728,7,Stephenson Court,Skippers Lane Industrial Estate,Middlesbrough,,Redcar and Cleveland,,TS6 6UT,United Kingdom
+54.589214,-1.341437,12,Rudyard Avenue,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS19 9LA,United Kingdom
+54.585287,-1.358371,6,Dinsdale Road,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS19 8NE,United Kingdom
+54.736887,-1.353511,6,The Factory,Castle Eden,Hartlepool,,County Durham,,TS27 4SR,United Kingdom
+54.570642,-0.898059,6,Marine Terrace,Skinningrove,Saltburn-by-the-Sea,,Redcar and Cleveland,,TS13 4BJ,United Kingdom
+54.581955,-1.325779,131A,Dumbarton Avenue,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS19 0LN,United Kingdom
+54.575848,-1.238279,12,Gilkes Street,Middlesbrough,Middlesbrough,,Middlesbrough,,TS1,United Kingdom
+54.588101,-1.247029,,Riverside Park Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS2 1QJ,United Kingdom
+54.566464,-1.197338,2,Cotswold Avenue,Middlesbrough,Middlesbrough,,Middlesbrough,,TS3 8JN,United Kingdom
+54.570954,-1.331616,8,Bransdale Close,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS19 0SG,United Kingdom
+54.524404,-1.251422,20,Holey Close,Middlesbrough,Middlesbrough,,Middlesbrough,,TS8 9RD,United Kingdom
+54.563405,-1.196101,18,Ellesmere Walk,Middlesbrough,Middlesbrough,,Middlesbrough,,TS3 8LT,United Kingdom
+54.567667,-0.938182,39,High Street,Brotton,Saltburn-by-the-Sea,,Redcar and Cleveland,,TS12 2PG,United Kingdom
+54.543983,-1.177669,14,Cleveland Close,Ormesby,Middlesbrough,,Redcar and Cleveland,,TS7 9BX,United Kingdom
+54.568666,-1.174435,,Trunk Road,,Middlesbrough,,Redcar and Cleveland,,TS6 6UR,United Kingdom
+54.525842,-1.308534,22,Avens Way,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 0SQ,United Kingdom
+54.531941,-1.047454,4,Bolton Way,Guisborough,Guisborough,,Redcar and Cleveland,,TS14 7AL,United Kingdom
+54.575852,-1.244942,84,Newport Road,Middlesbrough,Middlesbrough,,Middlesbrough,,TS1 5DG,United Kingdom
+54.593654,-1.337696,,Junction Road,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS20 1QD,United Kingdom
+54.566609,-1.192548,57,Kedward Avenue,Middlesbrough,Middlesbrough,,Middlesbrough,,TS3 9DB,United Kingdom
+54.555432,-1.263734,20,Sydney Close,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 4LD,United Kingdom
+54.428498,-1.217934,7,The Crescent,Carlton-in-Cleveland,Middlesbrough,,North Yorkshire,,TS9 7BH,United Kingdom
+54.551537,-1.305841,188,Thornaby Road,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 6LA,United Kingdom
+54.618944,-1.069179,,Central Terrace,Redcar,Redcar,,Redcar and Cleveland,,TS10,United Kingdom
+54.518714,-1.207251,49,Barberry,Coulby Newham,Middlesbrough,,Middlesbrough,,TS8 0XG,United Kingdom
+54.5587,-1.25432,1,Thornberry Court,Middlesbrough,Middlesbrough,,Middlesbrough,,TS5 5DP,United Kingdom
+54.665573,-1.245558,6,Edzell Walk,Hartlepool,Hartlepool,,Hartlepool,,TS25 4BA,United Kingdom
+54.577837,-1.233562,,Albert Mews,Middlesbrough,Middlesbrough,,Middlesbrough,,TS1,United Kingdom
+54.554807,-1.14742,97,Bankfields Road,,Middlesbrough,,Redcar and Cleveland,,TS6 0TG,United Kingdom
+54.662608,-1.235447,223,Catcote Road,Hartlepool,Hartlepool,,Hartlepool,,TS25 4RD,United Kingdom
+54.566684,-1.153658,6,Kel Dennis Close,Eston,Middlesbrough,,Redcar and Cleveland,,TS6 9TZ,United Kingdom
+54.613801,-1.273753,3,Beamish Road,Stockton-on-Tees,Billingham,,Stockton-on-Tees,,TS23 3DT,United Kingdom
+54.533477,-1.306107,1,Newton Drive,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 0EJ,United Kingdom
+54.566217,-1.353049,7,Westerleigh Avenue,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS19 7ER,United Kingdom
+54.557991,-1.360338,26,Ainderby Grove,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS18 5PJ,United Kingdom
+54.7353,-1.3143,16,East Terrace,Hesleden,Hartlepool,,County Durham,,TS27 4PR,United Kingdom
+54.521732,-1.309654,3,Tanner Close,Thornaby,Stockton-on-Tees,,Stockton-on-Tees,,TS17 0RD,United Kingdom
+54.617659,-1.292329,15,Vincent Road,Stockton-on-Tees,Billingham,,Stockton-on-Tees,,TS23 3XT,United Kingdom
+54.609911,-1.077269,20,Mersey Road,Redcar,Redcar,,Redcar and Cleveland,,TS10 1LU,United Kingdom
+54.655517,-1.237281,16,Ivanhoe Crescent,Hartlepool,Hartlepool,,Hartlepool,,TS25 3HX,United Kingdom
+54.581317,-1.309777,7,William Terrace,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS20 2HF,United Kingdom
+54.570212,-1.214358,7,Moses Street,Middlesbrough,Middlesbrough,,Middlesbrough,,TS3 6NA,United Kingdom
+54.656305,-1.23308,358,Catcote Road,Hartlepool,Hartlepool,,Hartlepool,,TS25 3DZ,United Kingdom
+54.589366,-1.290122,32,New Road,Stockton-on-Tees,Billingham,,Stockton-on-Tees,,TS23,United Kingdom
+54.733687,-1.379171,103,North Road East,Wingate,Wingate,,County Durham,,TS28 5AY,United Kingdom
+54.580237,-1.33359,7,Hartside Grove,Stockton-on-Tees,Stockton-on-Tees,,Stockton-on-Tees,,TS19 0PW,United Kingdom

@@ -1,0 +1,101 @@
+﻿Latitude,Longitude,Number,Road,Locality,Post town,Admin area level 3,Admin area level 2,Admin area level 1,Postcode,Country
+54.971878,-1.61559,,Nuns Lane,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE1,United Kingdom
+54.969989,-1.612903,,A186,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE1,United Kingdom
+54.98122,-1.424547,176,Mortimer Road,South Shields,South Shields,,Tyne and Wear,,NE34 0RW,United Kingdom
+55.027706,-1.575636,2,Cowper Terrace,,Newcastle upon Tyne,,Tyne and Wear,,NE12 7NN,United Kingdom
+54.962285,-1.52519,225-265,A185,Hebburn,Hebburn,,Tyne and Wear,,NE31,United Kingdom
+55.179046,-1.577983,52,Park Road,Ashington,Ashington,,Northumberland,,NE63 8DY,United Kingdom
+55.245803,-1.768384,3,Coronation Terrace,Longhorsley,Morpeth,,Northumberland,,NE65 8UN,United Kingdom
+54.96171,-1.790578,6,Westwood View,Crawcrook,Ryton,,Tyne and Wear,,NE40,United Kingdom
+54.983189,-1.425795,22,Warwick Road,South Shields,South Shields,,Tyne and Wear,,NE33 4TR,United Kingdom
+55.038075,-1.465975,11A,Bromley Avenue,Whitley Bay,Whitley Bay,,Tyne and Wear,,NE25 8TN,United Kingdom
+54.949021,-1.613546,27,Westminster Street,Gateshead,Gateshead,,Tyne and Wear,,NE8 4QE,United Kingdom
+54.874096,-1.561075,10,Ash Meadows,,Washington,,County Durham,,NE38 9HN,United Kingdom
+55.02229,-1.478959,6,Barnstaple Road,North Shields,North Shields,,Tyne and Wear,,NE29 8QA,United Kingdom
+54.976581,-1.621014,10-19,Leazes Terrace,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE1 4LY,United Kingdom
+54.923625,-1.587981,3,Stocksfield Gardens,Gateshead,Gateshead,,Tyne and Wear,,NE9 7TQ,United Kingdom
+54.922054,-2.097326,2,Black Hall Mill,Steel,Hexham,,Northumberland,,NE47 0LF,United Kingdom
+55.003789,-1.653175,138,Kenton Lane,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE3 3QE,United Kingdom
+55.021881,-1.657718,3,Royle Close,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE13 9AH,United Kingdom
+54.973382,-1.517236,1,Aln Street,Hebburn,Hebburn,,Tyne and Wear,,NE31 1XT,United Kingdom
+55.057592,-1.596188,27,McNulty Court,Dudley,Cramlington,,Tyne and Wear,,NE23 7HX,United Kingdom
+54.953757,-1.570232,1/3,Helmsdale Avenue,Gateshead,Gateshead,,Tyne and Wear,,NE10 0JD,United Kingdom
+54.991554,-1.427608,103,Westoe Road,South Shields,South Shields,,Tyne and Wear,,NE33 4LX,United Kingdom
+55.159289,-1.674765,9,Ninth Avenue,Morpeth,Morpeth,,Northumberland,,NE61 2HS,United Kingdom
+55.035758,-1.513326,5,Saint Marks Court,Shiremoor,Newcastle upon Tyne,,Tyne and Wear,,NE27 0RS,United Kingdom
+54.922953,-1.57301,12,Tanfield Road,Gateshead,Gateshead,,Tyne and Wear,,NE9 7AE,United Kingdom
+54.981923,-1.980445,,Unnamed Road,,Corbridge,,Northumberland,,NE45 5PR,United Kingdom
+54.981274,-1.488135,1,Viking Precinct,Jarrow,Jarrow,,Tyne and Wear,,NE32 3LF,United Kingdom
+55.127349,-1.603687,154,Hartlands,Bedlington,Bedlington,,Northumberland,,NE22 6JJ,United Kingdom
+55.023751,-1.479843,19,Barnstaple Road,North Shields,North Shields,,Tyne and Wear,,NE29 8QD,United Kingdom
+54.890187,-2.343107,,Unnamed Road,,Hexham,,Northumberland,,NE47,United Kingdom
+55.020879,-1.485306,10,Phoenix Chase,North Shields,North Shields,,Tyne and Wear,,NE29 8SH,United Kingdom
+55.033959,-1.550131,8,Applewood,Killingworth,Newcastle upon Tyne,,Tyne and Wear,,NE12 6FB,United Kingdom
+54.936918,-1.677229,95,Whaggs Lane,Whickham,Newcastle upon Tyne,,Tyne and Wear,,NE16 4PW,United Kingdom
+54.99836,-1.68976,407,Stamfordham Road,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE5 5HA,United Kingdom
+55.587373,-1.691624,2,New Shoreston Cottages,,Bamburgh,,Northumberland,,NE69 7AS,United Kingdom
+55.019744,-1.645283,25,Belsay Gardens,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE3 2AU,United Kingdom
+54.961256,-1.70606,,B6317,,Blaydon-on-Tyne,,Tyne and Wear,,NE21,United Kingdom
+55.091709,-1.574035,8,Kirkbride Place,Cramlington,Cramlington,,Northumberland,,NE23 2XG,United Kingdom
+54.991745,-1.748936,240,Newburn Road,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE15 9AE,United Kingdom
+55.042657,-1.526215,6,Telford Close,Backworth,Newcastle upon Tyne,,Tyne and Wear,,NE27 0JT,United Kingdom
+55.040982,-1.955513,2,The Green,Matfen,Newcastle upon Tyne,,Northumberland,,NE20 0RJ,United Kingdom
+55.391714,-2.269841,1,Harbottle,Harbottle,Morpeth,,Northumberland,,NE65 7DD,United Kingdom
+55.084675,-1.591328,,Forum Way,Cramlington,Cramlington,,Northumberland,,NE23,United Kingdom
+55.346983,-1.611896,,A1068,Warkworth,Morpeth,,Northumberland,,NE65,United Kingdom
+54.947284,-1.614779,46-48,Macadam Street,Gateshead,Gateshead,,Tyne and Wear,,NE8 4TS,United Kingdom
+55.132683,-1.586272,3A,Millbank Road,Bedlington,Bedlington,,Northumberland,,NE22 5QJ,United Kingdom
+54.988962,-1.532755,17,Wooley Street,Wallsend,Wallsend,,Tyne and Wear,,NE28 6HB,United Kingdom
+55.027916,-1.587054,9,Hawks Edge,West Moor,Newcastle upon Tyne,,Tyne and Wear,,NE12 7DR,United Kingdom
+54.924884,-1.524229,7,The Fairway,Washington,Washington,,Tyne and Wear,,NE37 1NF,United Kingdom
+55.005558,-1.470258,5,Balkwell Avenue,North Shields,North Shields,,Tyne and Wear,,NE29 7JN,United Kingdom
+54.982978,-2.159445,1,Coastley Cottages,,Hexham,,Northumberland,,NE46 2PQ,United Kingdom
+55.599607,-1.828596,7,North Bank,Belford,Belford,,Northumberland,,NE70 7LY,United Kingdom
+54.97406,-1.519088,11-15,Station Road,Hebburn,Hebburn,,Tyne and Wear,,NE31,United Kingdom
+54.97092,-2.45679,3,Central Drive,Haltwhistle,Haltwhistle,,Northumberland,,NE49 0DD,United Kingdom
+54.972269,-2.110571,12,Westbourne Grove,Hexham,Hexham,,Northumberland,,NE46 3EA,United Kingdom
+55.008308,-1.585352,109,Benton Park Road,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE7 7NA,United Kingdom
+54.977583,-1.578955,171,Shields Road,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE6 1HN,United Kingdom
+55.039833,-1.474012,18,Westfield Avenue,Whitley Bay,Whitley Bay,,Tyne and Wear,,NE25 8NW,United Kingdom
+55.160356,-1.697116,6,Ash Grove,Morpeth,Morpeth,,Northumberland,,NE61 2RA,United Kingdom
+54.905389,-1.746178,,Front Street,Burnopfield,Newcastle upon Tyne,,County Durham,,NE16 6AN,United Kingdom
+55.128484,-1.542796,6,Thorndale Place,Blyth,Blyth,,Northumberland,,NE24 5LL,United Kingdom
+54.992376,-1.528257,16,Alexandra Street,Wallsend,Wallsend,,Tyne and Wear,,NE28 7RN,United Kingdom
+54.943541,-1.681784,3,Lowfield Walk,Whickham,Newcastle upon Tyne,,Tyne and Wear,,NE16 4LP,United Kingdom
+54.953996,-1.60608,8,Cambridge Terrace,Gateshead,Gateshead,,Tyne and Wear,,NE8 1RP,United Kingdom
+54.893633,-1.509334,21,Albert Place,Washington,Washington,,Tyne and Wear,,NE38 7BW,United Kingdom
+54.975823,-1.600446,40,Copland Terrace,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE2 1YB,United Kingdom
+55.003289,-2.194982,4,Lowfield,Newbrough,Hexham,,Northumberland,,NE47 5BH,United Kingdom
+54.923075,-1.757679,7,Hollinside Terrace,Rowlands Gill,Rowlands Gill,,Tyne and Wear,,NE39 2JW,United Kingdom
+54.973173,-1.544591,61,Church Walk,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE6 3DJ,United Kingdom
+54.956504,-1.640371,10,Collingwood Terrace,Gateshead,Gateshead,,Tyne and Wear,,NE11 9DU,United Kingdom
+54.945603,-1.559188,7,Burnside,Gateshead,Gateshead,,Tyne and Wear,,NE10 9UY,United Kingdom
+55.076819,-1.983921,,Unnamed Road,,Newcastle upon Tyne,,Northumberland,,NE20 0TB,United Kingdom
+54.971193,-1.711034,,Kingfisher Boulevard,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE15,United Kingdom
+54.953878,-1.614154,141,Bensham Avenue,Gateshead,Gateshead,,Tyne and Wear,,NE8 1XY,United Kingdom
+54.957942,-1.539892,17,Wood Terrace,Gateshead,Gateshead,,Tyne and Wear,,NE10 0UD,United Kingdom
+55.093164,-1.603053,9,Arcot Avenue,Cramlington,Cramlington,,Northumberland,,NE23 1EX,United Kingdom
+54.991131,-1.706238,20,Longstone Square,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE5,United Kingdom
+54.945427,-1.56207,2,Thornygarth,Gateshead,Gateshead,,Tyne and Wear,,NE10 9UU,United Kingdom
+54.966013,-1.517236,67,Toner Avenue,Hebburn,Hebburn,,Tyne and Wear,,NE31 2QR,United Kingdom
+54.977514,-2.369752,,Well Bank,,Hexham,,Northumberland,,NE47 7HG,United Kingdom
+54.933494,-1.681473,34,Thornley Close,Whickham,Newcastle upon Tyne,,Tyne and Wear,,NE16 5TG,United Kingdom
+54.971705,-2.119718,11,Beech Avenue,Hexham,Hexham,,Northumberland,,NE46 3AF,United Kingdom
+55.310795,-1.792457,6,Harrogate Cottages,Longframlington,Morpeth,,Northumberland,,NE65 8EB,United Kingdom
+54.991241,-1.548498,23A,Alderwood Crescent,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE6 4TT,United Kingdom
+54.969348,-1.407597,1,Quarry Lane,South Shields,South Shields,,Tyne and Wear,,NE34 7NJ,United Kingdom
+54.973492,-2.10698,2,Cockshaw Court,Hexham,Hexham,,Northumberland,,NE46 3HU,United Kingdom
+55.613787,-1.841599,5,Middleton Cottages,Middleton,Belford,,Northumberland,,NE70 7LB,United Kingdom
+54.963915,-1.703957,7-8,Cowen Road,,Blaydon-on-Tyne,,Tyne and Wear,,NE21 5TW,United Kingdom
+55.064467,-1.461418,27,Millenium Gardens,Whitley Bay,Whitley Bay,,Tyne and Wear,,NE26 4RR,United Kingdom
+55.363965,-2.183597,2,Shillmoor,Harbottle,Morpeth,,Northumberland,,NE65 7BN,United Kingdom
+54.984888,-1.403101,122-126,Norham Avenue North,South Shields,South Shields,,Tyne and Wear,,NE34,United Kingdom
+54.971231,-1.603167,,Causey Bank,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE1 2HY,United Kingdom
+55.000968,-1.569353,4,Halleypike Close,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE7 7GG,United Kingdom
+54.994648,-1.438706,,Commercial Road,South Shields,South Shields,,Tyne and Wear,,NE33,United Kingdom
+55.071447,-1.528256,19,Delaval Avenue,Seaton Delaval,Whitley Bay,,Northumberland,,NE25 0EF,United Kingdom
+54.972176,-2.254536,6,Langley Gardens,Haydon Bridge,Hexham,,Northumberland,,NE47 6EE,United Kingdom
+54.979405,-1.605631,,A167(M),Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE1 8SU,United Kingdom
+54.999198,-1.606717,1,Matthew Bank,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE2 3QY,United Kingdom
+55.545986,-2.017594,11,Oliver Road,Wooler,Wooler,,Northumberland,,NE71 6NS,United Kingdom
+55.007779,-1.650947,17,Newlyn Road,Newcastle upon Tyne,Newcastle upon Tyne,,Tyne and Wear,,NE3 3JU,United Kingdom
