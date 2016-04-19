@@ -45,6 +45,10 @@ namespace BookingBlock.WebApplication.Models
         
         public Gender Gender { get; set; }
 
+        /// <summary>
+        /// Gets or sets the date the account was registered.
+        /// </summary>
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
         public ApplicationUser()
         {

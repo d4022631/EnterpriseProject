@@ -105,13 +105,41 @@ namespace BookingBlock.WebApplication.ApiControllers
             return account;
 
         }
+        class RandomDates
+        {
+            private Random random = new Random();
 
+            public DateTime Date(DateTime? start = null, DateTime? end = null)
+            {
+                if (start.HasValue && end.HasValue && start.Value >= end.Value)
+                    throw new Exception("start date must be less than end date!");
+
+                DateTime min = start ?? DateTime.MinValue;
+                DateTime max = end ?? DateTime.MaxValue;
+
+                // for timespan approach see: http://stackoverflow.com/q/1483670/1698987
+                TimeSpan timeSpan = max - min;
+
+                // for random long see: http://stackoverflow.com/a/677384/1698987
+                byte[] bytes = new byte[8];
+                random.NextBytes(bytes);
+
+                long int64 = Math.Abs(BitConverter.ToInt64(bytes, 0)) % timeSpan.Ticks;
+
+                TimeSpan newSpan = new TimeSpan(int64);
+
+                return min + newSpan;
+            }
+        }
         [Route("create-random-account"), HttpGet]
         public async Task<IHttpActionResult> CreateRandomAccount()
         {
             var a = await GenerateRadomAccount();
+            RandomDates randomDates = new RandomDates();
 
-            return await Register(a);
+            var registrationDate = randomDates.Date(new DateTime(2016, 1, 1), DateTime.Now);
+
+            return await Register2(a, registrationDate);
         }
 
 
@@ -207,8 +235,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(await GenerateRadomPassword());
         }
 
-        [HttpPost, Route("register")]
-        public async Task<IHttpActionResult> Register(Account account)
+        private async Task<IHttpActionResult> Register2(Account account, DateTime? registrationDate)
         {
             if (account != null)
             {
@@ -248,15 +275,24 @@ namespace BookingBlock.WebApplication.ApiControllers
                         newApplicationUser.Gender = Gender.Female;
                     }
 
+                    if (registrationDate != null)
+                    {
+                        newApplicationUser.RegistrationDate = registrationDate.Value;
+                    }
+                    else
+                    {
+                        newApplicationUser.RegistrationDate = DateTime.Now;
+                    }
+
                     PostcodesIOClient client = new PostcodesIOClient();
 
                     var postcodeLookup = client.Lookup(newApplicationUser.Postcode);
 
                     newApplicationUser.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
 
-                    
 
-                   var result = await userManager.CreateAsync(newApplicationUser, password);
+
+                    var result = await userManager.CreateAsync(newApplicationUser, password);
 
                     if (result.Succeeded)
                     {
@@ -276,6 +312,12 @@ namespace BookingBlock.WebApplication.ApiControllers
             }
 
             return BadRequest("registration data is null.");
+        }
+
+        [HttpPost, Route("register")]
+        public async Task<IHttpActionResult> Register(Account account)
+        {
+            return await Register2(account, DateTime.Now);
         }
 
         [HttpGet, Route("countries")]
