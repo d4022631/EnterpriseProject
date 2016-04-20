@@ -109,6 +109,10 @@ namespace BookingBlock.WebApplication.ApiControllers
                 {
                     var user = User as ClaimsPrincipal;
 
+                    if (user == null)
+                    {
+                        return BadRequest("user bad");
+                    }
 
                     ownerId = user.Identity.GetUserId();
                 }
