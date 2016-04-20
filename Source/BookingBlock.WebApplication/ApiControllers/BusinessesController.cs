@@ -117,7 +117,13 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             }
 
-            return BadRequest();
+            string validationErrors = string.Join(",",
+                ModelState.Values.Where(modelState => modelState.Errors.Count > 0)
+                .SelectMany(E => E.Errors)
+                .Select(E => E.ErrorMessage)
+                .ToArray());
+
+            return BadRequest(validationErrors);
         }
 
         private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, TimeSpan? openingTime, TimeSpan? closingTime)
