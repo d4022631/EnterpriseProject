@@ -94,6 +94,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 AddBusinessOpeningTime(newBusiness, DayOfWeek.Sunday, businessRegistrationData.OpeningTimeSunday,
                     businessRegistrationData.ClosingTimeSunday);
 
+                string ownerId = string.Empty;
 
                 if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
                 {
@@ -102,22 +103,22 @@ namespace BookingBlock.WebApplication.ApiControllers
                     var applicationUser =
                         await applicationUserStore.FindByEmailAsync(businessRegistrationData.OwnerEmailAddress);
 
-                    newBusiness.Users.Add(new BusinessUser() { UserId = applicationUser.Id, UserLevel = BusinessUserLevel.Owner });
+                    ownerId = applicationUser.Id;
                 }
                 else
                 {
                     var user = User as ClaimsPrincipal;
 
 
-                    newBusiness.Users.Add(new BusinessUser() { UserId = user.Identity.GetUserId(), UserLevel = BusinessUserLevel.Owner });
+                    ownerId = user.Identity.GetUserId();
                 }
-
+                newBusiness.Users.Add(new BusinessUser() { UserId = ownerId, UserLevel = BusinessUserLevel.Owner });
 
                 db.Businesses.Add(newBusiness);
 
                 await db.SaveChangesAsync();
 
-                return Ok();
+                return Ok(ownerId);
 
             }
 
