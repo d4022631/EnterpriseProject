@@ -13,6 +13,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using BookingBlock.WebApplication.Models;
 using MarkEmbling.PostcodesIO;
+using Microsoft.AspNet.Identity;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
@@ -94,20 +95,23 @@ namespace BookingBlock.WebApplication.ApiControllers
                     businessRegistrationData.ClosingTimeSunday);
 
 
-                //var user = User as ClaimsPrincipal;
+                if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
+                {
+                    ApplicationUserStore applicationUserStore = new ApplicationUserStore(db);
 
-                //if (user != null)
-                //{
-                //    string name = user.Identity.Name;
+                    var applicationUser =
+                        await applicationUserStore.FindByEmailAsync(businessRegistrationData.OwnerEmailAddress);
 
-                //    return Ok(name);
-                //}
+                    newBusiness.Users.Add(new BusinessUser() { UserId = applicationUser.Id, UserLevel = BusinessUserLevel.Owner });
+                }
+                else
+                {
+                    var user = User as ClaimsPrincipal;
 
 
-                ApplicationUserStore applicationUserStore = new ApplicationUserStore(db);
+                    newBusiness.Users.Add(new BusinessUser() { UserId = user.Identity.GetUserId(), UserLevel = BusinessUserLevel.Owner });
+                }
 
-                var applicationUser =
-                    await applicationUserStore.FindByEmailAsync(businessRegistrationData.OwnerEmailAddress);
 
                 db.Businesses.Add(newBusiness);
 
