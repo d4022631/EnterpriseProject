@@ -35,6 +35,7 @@ namespace BookingBlock.WebApplication.Models
         {
             this.Services = new List<Service>();
             this.Users = new List<BusinessUser>();
+            this.OpeningTimes = new List<BusinessOpeningTime>();
         }
 
         [Key]
@@ -63,6 +64,8 @@ namespace BookingBlock.WebApplication.Models
 
         public string GooglePlus { get; set; }
 
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+
         [DataType(DataType.Url)]
         public string LogoUrl {get; set;}
 
@@ -79,6 +82,11 @@ namespace BookingBlock.WebApplication.Models
         public virtual ICollection<Service> Services { get; set; }
 
         public virtual ICollection<BusinessOpeningTime> OpeningTimes { get; set; }
+
+        /// <summary>
+        /// Gets or sets a flag to indicate if the entity a a dummy entity created for testing.
+        /// </summary>
+        public bool IsDummy { get; set; }
     }
 
     public class BusinessUser

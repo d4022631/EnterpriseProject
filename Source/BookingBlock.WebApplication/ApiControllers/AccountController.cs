@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,6 +17,7 @@ using MarkEmbling.PostcodesIO;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
+using Swashbuckle.Swagger.Annotations;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
@@ -33,6 +36,13 @@ namespace BookingBlock.WebApplication.ApiControllers
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
         {
             return source.OrderBy(x => Guid.NewGuid());
+        }
+    }
+
+    public class ApplicationUserStore : UserStore<ApplicationUser>
+    {
+        public ApplicationUserStore(DbContext context) : base(context)
+        {
         }
     }
 
@@ -131,6 +141,31 @@ namespace BookingBlock.WebApplication.ApiControllers
                 return min + newSpan;
             }
         }
+
+        //[SwaggerResponse(HttpStatusCode.OK, "Returns 200 : OK when a user with the given email address has been sucessfully found in the database. The body of the response will contain the ID of the user.", typeof(string))]
+        //[SwaggerResponse(HttpStatusCode.BadRequest, "Return 400 : Bad Request when the email address supplied is not given or is not a valid email address.")]
+        //[SwaggerResponse(HttpStatusCode.NotFound, "Returns 404 : Not Found if a user in the database could not be found with the given in.")]
+        [Route("get-userid"), HttpGet]
+        public async Task<IHttpActionResult> GetUserId(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return Content(HttpStatusCode.BadRequest, $"A value for the parameter {nameof(email)} must be supplied.");
+            }
+
+            ApplicationUserStore userStore = new ApplicationUserStore(db);
+
+            ApplicationUser applicationUser = await userStore.FindByEmailAsync(email);
+
+            if (applicationUser == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"A user with the given e-mail address {email} could not be found");
+            }
+
+            return Ok(applicationUser.Id);
+        }
+
         [Route("create-random-account"), HttpGet]
         public async Task<IHttpActionResult> CreateRandomAccount()
         {
@@ -139,7 +174,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             var registrationDate = randomDates.Date(new DateTime(2016, 1, 1), DateTime.Now);
 
-            return await Register2(a, registrationDate);
+            return await Register2(a, registrationDate, true);
         }
 
 
@@ -235,7 +270,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(await GenerateRadomPassword());
         }
 
-        private async Task<IHttpActionResult> Register2(Account account, DateTime? registrationDate)
+        private async Task<IHttpActionResult> Register2(Account account, DateTime? registrationDate, bool dummy = false)
         {
             if (account != null)
             {
@@ -283,6 +318,8 @@ namespace BookingBlock.WebApplication.ApiControllers
                     {
                         newApplicationUser.RegistrationDate = DateTime.Now;
                     }
+
+                    newApplicationUser.IsDummy = dummy;
 
                     PostcodesIOClient client = new PostcodesIOClient();
 

@@ -46,6 +46,11 @@ namespace BookingBlock.WebApplication.Models
         public Gender Gender { get; set; }
 
         /// <summary>
+        /// Gets or sets a flag to indicate if the entity a a dummy entity created for testing.
+        /// </summary>
+        public bool IsDummy { get; set; }
+
+        /// <summary>
         /// Gets or sets the date the account was registered.
         /// </summary>
         public DateTime RegistrationDate { get; set; } = DateTime.Now;

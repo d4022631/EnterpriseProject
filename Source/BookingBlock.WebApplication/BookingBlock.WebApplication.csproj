@@ -257,7 +257,7 @@
     <Compile Include="ApiControllers\BusinessIntelligenceController.cs" />
     <Compile Include="ApiControllers\BusinessOpeningTimesController.cs" />
     <Compile Include="ApiControllers\CalendarController.cs" />
-    <Compile Include="ApiControllers\DataTransferObjects\AddBusinessRequest.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\BusinessRegistrationData.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\BusinessSearchResult.cs" />
