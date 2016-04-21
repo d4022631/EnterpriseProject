@@ -13,7 +13,8 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             var postcodeLookup = client.Lookup(postcode);
 
-            return GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
+            // use the GeoUtils class to create a DbGeography object to represent the point.
+            return GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Longitude);
         }
     }
 }
