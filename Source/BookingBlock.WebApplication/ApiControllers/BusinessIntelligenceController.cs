@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -56,17 +55,5 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             return Ok(genderDistribution);
         }
-    }
-
-    public class AgeDistribution
-    {
-        public Dictionary<int, int> Ages { get; set; } = new Dictionary<int, int>();
-    }
-
-    public class GenderDistribution
-    {
-        public int Males { get; set; }
-
-        public int Females { get; set; }
     }
 }

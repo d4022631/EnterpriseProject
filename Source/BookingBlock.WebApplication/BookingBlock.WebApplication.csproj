@@ -253,21 +253,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AccountController.cs" />
+    <Compile Include="ApiControllers\AddBusinessTypeRequest.cs" />
+    <Compile Include="ApiControllers\AddServiceRequest.cs" />
+    <Compile Include="ApiControllers\AgeDistribution.cs" />
+    <Compile Include="ApiControllers\ApplicationDbContextStore.cs" />
+    <Compile Include="ApiControllers\ApplicationUserStore.cs" />
     <Compile Include="ApiControllers\BusinessesController.cs" />
     <Compile Include="ApiControllers\BusinessIntelligenceController.cs" />
     <Compile Include="ApiControllers\BusinessOpeningTimesController.cs" />
+    <Compile Include="ApiControllers\BusinessTypeRequest.cs" />
+    <Compile Include="ApiControllers\BusinessTypeStore.cs" />
     <Compile Include="ApiControllers\CalendarController.cs" />
+    <Compile Include="ApiControllers\DataTransferObjects\Business2.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\BusinessRegistrationData.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />
     <Compile Include="ApiControllers\BaseApiController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\BusinessSearchResult.cs" />
     <Compile Include="ApiControllers\BusinessTypesController.cs" />
+    <Compile Include="ApiControllers\EnumerableExtension.cs" />
+    <Compile Include="ApiControllers\GenderDistribution.cs" />
     <Compile Include="ApiControllers\IdentityController.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeAutocompleteRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeAutocompleteResponse.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeResponse.cs" />
+    <Compile Include="ApiControllers\PostcodeDbGeography.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
+    <Compile Include="ApiControllers\RemoveBusinessTypeRequest.cs" />
+    <Compile Include="ApiControllers\SearchStore.cs" />
     <Compile Include="Code\PostcodesIOClientAsyncExtensions.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationResponse.cs" />

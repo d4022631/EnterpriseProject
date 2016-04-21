@@ -7,30 +7,6 @@ using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public abstract class BusinessTypeRequest
-    {
-        /// <summary>
-        /// The name of the business type
-        /// </summary>
-        public string Name { get; set; }
-    }
-
-    /// <summary>
-    /// An object to represent a business type we want to add to the database.
-    /// </summary>
-    public class AddBusinessTypeRequest : BusinessTypeRequest
-    {
-        
-    }
-
-    /// <summary>
-    /// An object to represent a business type we want to remove from the database.
-    /// </summary>
-    public class RemoveBusinessTypeRequest : BusinessTypeRequest
-    {
-
-    }
-
     public class BusinessTypesController : ApiController
     {
         private ApplicationDbContext context = ApplicationDbContext.Create();

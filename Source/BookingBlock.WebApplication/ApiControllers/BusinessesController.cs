@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,24 +11,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookingBlock.WebApplication.Models;
-using MarkEmbling.PostcodesIO;
+using IdentityServer3.Core.Validation;
 using Microsoft.AspNet.Identity;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public static class PostcodeDbGeography
-    {
-        public static DbGeography Lookup(string postcode)
-        {
-
-            PostcodesIOClient client = new PostcodesIOClient();
-
-            var postcodeLookup = client.Lookup(postcode);
-
-            return GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
-        }
-    }
-
     [System.Web.Http.RoutePrefix("api/businesses")]
     public class BusinessesController : BaseApiController
     {
@@ -46,9 +32,51 @@ namespace BookingBlock.WebApplication.ApiControllers
             return string.Join(",\r\n", addressParts);
         }
 
+        [Route("my-businesses"), HttpGet]
+        public async Task<IHttpActionResult> MyBusinesses()
+        {
+            var user = User as ClaimsPrincipal;
+
+            // if the user is null or the user is not authenticated
+            if (user == null || !user.Identity.IsAuthenticated)
+            {
+                return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
+            }
+
+            var ownerId = user.Identity.GetUserId();
+
+            var myBusinesses =
+                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId)
+                    .Include(businessUser => businessUser.Business);
+
+
+            UserBusinessList businessList = new UserBusinessList();
+
+
+            foreach (BusinessUser businessUser in myBusinesses)
+            {
+               var ul = businessUser.UserLevel;
+                var jk = businessUser.Business.Name;
+                var id = businessUser.BusinessId;
+
+                businessList.Add(new UserBusiness() {Id = id, Name = jk, IsOwner = ul == BusinessUserLevel.Owner});
+            }
+
+            return Ok(businessList);
+        }
+
         [Route("regster"), HttpPost]
         public async Task<IHttpActionResult> Register(BusinessRegistrationData businessRegistrationData)
         {
+            var user = User as ClaimsPrincipal;
+
+            // if the user is null or the user is not authenticated
+            if (user == null || !user.Identity.IsAuthenticated)
+            {
+                return Content(HttpStatusCode.Unauthorized, "User must be logged in to create a business.");
+            }
+
+
             // check that the model is valid.
             if (ModelState.IsValid)
             {
@@ -98,6 +126,8 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
                 {
+                    // if not an administrator return a 403 error
+
                     ApplicationUserStore applicationUserStore = new ApplicationUserStore(db);
 
                     var applicationUser =
@@ -107,8 +137,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 }
                 else
                 {
-                    var user = User as ClaimsPrincipal;
-
+        
                     if (user == null)
                     {
                         return BadRequest("user bad");

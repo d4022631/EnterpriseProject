@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -21,31 +20,6 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public static class EnumerableExtension
-    {
-        public static T PickRandom<T>(this IEnumerable<T> source)
-        {
-            return source.PickRandom(1).Single();
-        }
-
-        public static IEnumerable<T> PickRandom<T>(this IEnumerable<T> source, int count)
-        {
-            return source.Shuffle().Take(count);
-        }
-
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
-        {
-            return source.OrderBy(x => Guid.NewGuid());
-        }
-    }
-
-    public class ApplicationUserStore : UserStore<ApplicationUser>
-    {
-        public ApplicationUserStore(DbContext context) : base(context)
-        {
-        }
-    }
-
     [System.Web.Http.RoutePrefix("api/account")]
     public class AccountController : BaseApiController
     {

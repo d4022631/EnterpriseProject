@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
@@ -12,19 +10,5 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             return Ok();
         }
-    }
-
-    public class AddServiceRequest
-    {
-        [Required]
-        public Guid BusinessId { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public decimal Cost { get; set; }
-
-        [Required]
-        public TimeSpan Duration { get; set; }
     }
 }
