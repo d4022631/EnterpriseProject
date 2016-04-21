@@ -11,9 +11,13 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Description { get; set; }
+
         public decimal Cost { get; set; }
 
         [Required]
         public TimeSpan Duration { get; set; }
     }
+
 }

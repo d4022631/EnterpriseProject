@@ -35,15 +35,13 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Route("my-businesses"), HttpGet]
         public async Task<IHttpActionResult> MyBusinesses()
         {
-            var user = User as ClaimsPrincipal;
-
             // if the user is null or the user is not authenticated
-            if (user == null || !user.Identity.IsAuthenticated)
+            if (!IsUserAuthenticated)
             {
                 return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
             }
 
-            var ownerId = user.Identity.GetUserId();
+            var ownerId = this.UserId;
 
             var myBusinesses =
                 db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId)
@@ -68,10 +66,9 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Route("regster"), HttpPost]
         public async Task<IHttpActionResult> Register(BusinessRegistrationData businessRegistrationData)
         {
-            var user = User as ClaimsPrincipal;
 
             // if the user is null or the user is not authenticated
-            if (user == null || !user.Identity.IsAuthenticated)
+            if (!IsUserAuthenticated)
             {
                 return Content(HttpStatusCode.Unauthorized, "User must be logged in to create a business.");
             }
@@ -138,12 +135,12 @@ namespace BookingBlock.WebApplication.ApiControllers
                 else
                 {
         
-                    if (user == null)
+                    if (!IsUserAuthenticated)
                     {
                         return BadRequest("user bad");
                     }
 
-                    ownerId = user.Identity.GetUserId();
+                    ownerId = this.UserId;
                 }
                 newBusiness.Users.Add(new BusinessUser() { UserId = ownerId, UserLevel = BusinessUserLevel.Owner });
 
@@ -155,13 +152,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             }
 
-            string validationErrors = string.Join(",",
-                ModelState.Values.Where(modelState => modelState.Errors.Count > 0)
-                .SelectMany(E => E.Errors)
-                .Select(E => E.ErrorMessage)
-                .ToArray());
-
-            return BadRequest(validationErrors);
+            return InvalidModel();
         }
 
         private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, TimeSpan? openingTime, TimeSpan? closingTime)

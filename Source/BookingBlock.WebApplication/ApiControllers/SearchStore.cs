@@ -43,11 +43,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             int fixedPage = page < 1 ? 1 : page;
             int fixedPageSize = pageSize < 10 ? 10 : pageSize;
 
-            PostcodesIOClient postcodesIoClient = new PostcodesIOClient();
-
-            PostcodeResult postcodeLookupResult = postcodesIoClient.Lookup(postcode);
-
-            DbGeography postcodeLocation = GeoUtils.CreatePoint(postcodeLookupResult.Latitude, postcodeLookupResult.Longitude);
+            DbGeography postcodeLocation = PostcodeDbGeography.Lookup(postcode);
 
             BusinessType businessType = _businessTypeStore.FindByName(type);
 
