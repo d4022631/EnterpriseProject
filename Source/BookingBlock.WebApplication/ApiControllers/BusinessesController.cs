@@ -239,7 +239,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         // GET: api/Businesses
-        public IQueryable<Business> GetBusinesses()
+        public IEnumerable<Business> GetBusinesses()
         {
             return db.Businesses;
         }
