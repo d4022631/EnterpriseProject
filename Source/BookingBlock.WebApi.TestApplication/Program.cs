@@ -84,13 +84,27 @@ namespace BookingBlock.WebApi.TestApplication
 
             businessRegistrationData.Name = Read<string>("Name");
             businessRegistrationData.Type = Read<string>("Type");
-            businessRegistrationData.Postcode = Read<string>("Postcode");
+            
             businessRegistrationData.ContactName = Read<string>("Contact Name");
             businessRegistrationData.ContactEmail = Read<string>("Contact E-Mail");
             businessRegistrationData.ContactNumber = Read<string>("Contact number");
+            businessRegistrationData.ContactFax = Read<string>("Contact Fax");
+
+            businessRegistrationData.AddressLine1 = Read<string>("Address 1");
+            businessRegistrationData.AddressLine2 = Read<string>("Address 2");
+            businessRegistrationData.TownCity = Read<string>("Town/City");
+            businessRegistrationData.Postcode = Read<string>("Postcode");
+            businessRegistrationData.Country = Read<string>("Country");
+
+            businessRegistrationData.OpeningTimeMonday = Read<TimeSpan?>("Opening Time Monday");
+
+            if (businessRegistrationData.OpeningTimeMonday.HasValue)
+            {
+                businessRegistrationData.ClosingTimeMonday = Read<TimeSpan?>("Closing Time Monday");
+            }
 
 
-            try
+                try
             {//regster
 
                 bookingBlockClient.BusinessesRegister(businessRegistrationData);

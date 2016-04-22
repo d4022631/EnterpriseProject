@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookingBlock.WebApi
@@ -75,25 +76,166 @@ namespace BookingBlock.WebApi
         /// </summary>
         public string OwnerEmailAddress { get; set; }
 
-        public TimeSpan? OpeningTimeMonday { get; set; }
-        public TimeSpan? ClosingTimeMonday { get; set; }
+        private readonly OpeningTimes _openingTimes = new OpeningTimes();
 
-        public TimeSpan? OpeningTimeTuesday { get; set; }
-        public TimeSpan? ClosingTimeTuesday { get; set; }
+        public TimeSpan? OpeningTimeMonday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Monday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Monday, value); }
+        }
 
-        public TimeSpan? OpeningTimeWednesday { get; set; }
-        public TimeSpan? ClosingTimeWednesday { get; set; }
+        public TimeSpan? ClosingTimeMonday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Monday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Monday, value); }
+        }
+        public TimeSpan? OpeningTimeTuesday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Tuesday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Tuesday, value); }
+        }
 
-        public TimeSpan? OpeningTimeThursday { get; set; }
-        public TimeSpan? ClosingTimeThursday { get; set; }
+        public TimeSpan? ClosingTimeTuesday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Tuesday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Tuesday, value); }
+        }
 
-        public TimeSpan? OpeningTimeFriday { get; set; }
-        public TimeSpan? ClosingTimeFriday { get; set; }
+        public TimeSpan? OpeningTimeWednesday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Wednesday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Wednesday, value); }
+        }
 
-        public TimeSpan? OpeningTimeSaturday { get; set; }
-        public TimeSpan? ClosingTimeSaturday { get; set; }
+        public TimeSpan? ClosingTimeWednesday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Wednesday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Wednesday, value); }
+        }
 
-        public TimeSpan? OpeningTimeSunday { get; set; }
-        public TimeSpan? ClosingTimeSunday { get; set; }
+
+        public TimeSpan? OpeningTimeThursday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Thursday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Thursday, value); }
+        }
+
+        public TimeSpan? ClosingTimeThursday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Thursday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Thursday, value); }
+        }
+
+        public TimeSpan? OpeningTimeFriday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Friday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Friday, value); }
+        }
+
+        public TimeSpan? ClosingTimeFriday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Friday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Friday, value); }
+        }
+
+
+        public TimeSpan? OpeningTimeSaturday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Saturday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Saturday, value); }
+        }
+
+        public TimeSpan? ClosingTimeSaturday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Saturday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Saturday, value); }
+        }
+
+
+        public TimeSpan? OpeningTimeSunday
+        {
+            get { return _openingTimes.GetOpeningTime(DayOfWeek.Sunday); }
+            set { _openingTimes.SetOpeningTime(DayOfWeek.Sunday, value); }
+        }
+
+        public TimeSpan? ClosingTimeSunday
+        {
+            get { return _openingTimes.GetClosingTime(DayOfWeek.Sunday); }
+            set { _openingTimes.SetClosingTime(DayOfWeek.Sunday, value); }
+        }
     }
+
+    public sealed class OpeningTimes
+    {
+        private readonly Dictionary<DayOfWeek, Tuple<TimeSpan?, TimeSpan?>> _openingTimes = new Dictionary<DayOfWeek, Tuple<TimeSpan?, TimeSpan?>>(); 
+        private readonly object _syncLock = new object();
+
+        public TimeSpan? GetOpeningTime(DayOfWeek dayOfWeek)
+        {
+            lock (_syncLock)
+            {
+                return this[dayOfWeek].Item1;
+            }
+        }
+
+        public void SetOpeningTime(DayOfWeek dayOfWeek, TimeSpan? openingTime)
+        {
+            lock (_syncLock)
+            {
+                var closingTime = GetClosingTime(dayOfWeek);
+
+                this[dayOfWeek] = new Tuple<TimeSpan?, TimeSpan?>(openingTime, closingTime);
+            }
+        }
+
+        public void SetClosingTime(DayOfWeek dayOfWeek, TimeSpan? closingTime)
+        {
+            lock (_syncLock)
+            {
+                var openingTime = GetOpeningTime(dayOfWeek);
+
+                this[dayOfWeek] = new Tuple<TimeSpan?, TimeSpan?>(openingTime,closingTime);
+            }
+        }
+
+        public TimeSpan? GetClosingTime(DayOfWeek dayOfWeek)
+        {
+            lock (_syncLock)
+            {
+                return this[dayOfWeek].Item2;
+            }
+        }
+
+        public Tuple<TimeSpan?, TimeSpan?> this[DayOfWeek dayOfWeek]
+        {
+            get
+            {
+                lock (_syncLock)
+                {
+                    if (_openingTimes.ContainsKey(dayOfWeek))
+                    {
+                        return _openingTimes[dayOfWeek];
+                    }
+                }
+
+                return new Tuple<TimeSpan?, TimeSpan?>(null, null);
+            }
+
+            set
+            {
+                lock (_syncLock)
+                {
+                    if (_openingTimes.ContainsKey(dayOfWeek))
+                    {
+                        _openingTimes[dayOfWeek] = value;
+                    }
+                    else
+                    {
+                        _openingTimes.Add(dayOfWeek, value);
+                    }
+                }
+            }
+        }
+    }
+
 }
