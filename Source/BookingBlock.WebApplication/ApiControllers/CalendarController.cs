@@ -21,7 +21,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             public string end { get; set; }
 
-            public string allday { get; set; }
+            public bool allDay { get; set; }
             public string url { get; set; }
 
             public string color { get; set; }
@@ -29,7 +29,6 @@ namespace BookingBlock.WebApplication.ApiControllers
             public string borderColor { get; set; }
 
             public string textColor { get; set; }
-
 
         }
 

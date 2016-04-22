@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using BookingBlock.WebApplication.Models;
+using BookingBlock.WebApplication.Models.ValidationAttributes;
 using MarkEmbling.PostcodesIO;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -20,9 +22,70 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
+    public static class ApplicationDbContextUserStoreExtensions
+    {
+        public static ApplicationUserStore CreateApplicationUserStore(this ApplicationDbContext applicationDbContext)
+        {
+            return new ApplicationUserStore(applicationDbContext);
+        }
+    }
+
+    public class ChangePasswordRequest
+    {
+        [BookingBlockPasswordValidator, Required]
+        public string CurrentPassword { get; set; }
+
+        [BookingBlockPasswordValidator, Required]
+        public string NewPassword { get; set; }
+
+        [Compare(nameof(NewPassword), ErrorMessage = "The password and confirmation password do not match.")]
+        [Required]
+        public string ConfirmNewPassword { get; set; }
+    }
+
     [System.Web.Http.RoutePrefix("api/account")]
     public class AccountController : BaseApiController
     {
+        /// <summary>
+        /// Allows a user to change there password.
+        /// </summary>
+        /// <param name="changePasswordRequest">The change password request containing the users current password and the new password.</param>
+        /// <returns>A HTTP action result containing the result of the change password request.</returns>
+        [Route("change-password"), HttpPost]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequest changePasswordRequest)
+        {
+            if (changePasswordRequest == null)
+            {
+                return Content(HttpStatusCode.BadRequest, "Change password request was not given.");
+            }
+
+            if (!IsUserAuthenticated)
+            {
+                return Content(HttpStatusCode.Forbidden, "You must be logged in to change your password");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return InvalidModel();
+            }
+
+            var applicationUserStore = db.CreateApplicationUserStore();
+
+            ApplicationUserManager applicationUserManager = new ApplicationUserManager(applicationUserStore);
+            
+            string userId = base.UserId;
+
+            IdentityResult result = await applicationUserManager.ChangePasswordAsync(userId, changePasswordRequest.CurrentPassword,
+                changePasswordRequest.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest(string.Join(", ", result.Errors));
+        } 
+
         private string GenerateRadonPassword(PasswordValidator passwordValidator)
         {
             Random random = new Random();
@@ -301,8 +364,8 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                     newApplicationUser.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
 
-
-
+                    
+                    
                     var result = await userManager.CreateAsync(newApplicationUser, password);
 
                     if (result.Succeeded)
