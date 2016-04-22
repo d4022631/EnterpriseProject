@@ -113,12 +113,12 @@ namespace BookingBlock.WebApplication.ApiControllers
 
         }
 
-        private async Task<Account> GenerateRadomAccount()
+        private async Task<AccountRegistrationRequest> GenerateRadomAccount()
         {
-            Account account = new Account();
+            AccountRegistrationRequest accountRegistrationRequest = new AccountRegistrationRequest();
 
-            account.Password = await GenerateRadomPassword();
-            account.ConfirmPassword = account.Password;
+            accountRegistrationRequest.Password = await GenerateRadomPassword();
+            accountRegistrationRequest.ConfirmPassword = accountRegistrationRequest.Password;
 
             HttpClient ApiControllers = new HttpClient();
 
@@ -126,12 +126,12 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             var t = JsonConvert.DeserializeObject<RandomUserMeResponse>(json);
 
-            account.DateOfBirth = (new DateTime(1970, 1, 1).AddSeconds(t.results[0].dob));
-            account.Gender = t.results[0].gender;
-            account.FirstName = t.results[0].name.first;
-            account.LastName = t.results[0].name.last;
-            account.EmailAddress = t.results[0].email;
-            account.MobileNumber = t.results[0].cell.Replace("-", "");
+            accountRegistrationRequest.DateOfBirth = (new DateTime(1970, 1, 1).AddSeconds(t.results[0].dob));
+            accountRegistrationRequest.Gender = t.results[0].gender;
+            accountRegistrationRequest.FirstName = t.results[0].name.first;
+            accountRegistrationRequest.LastName = t.results[0].name.last;
+            accountRegistrationRequest.EmailAddress = t.results[0].email;
+            accountRegistrationRequest.MobileNumber = t.results[0].cell.Replace("-", "");
 
             //Latitude,Longitude,Number,Road,Locality,Post town,Admin area level 3,Admin area level 2,Admin area level 1,Postcode,Country
 
@@ -141,15 +141,15 @@ namespace BookingBlock.WebApplication.ApiControllers
             {
                 d = RA();
 
-                account.AddressLine1 = d[2] + " " + d[3];
-                account.AddressLine2 = d[4];
-                account.TownCity = d[5];
-                account.Postcode = d[9];
-                account.Country = d[10];
+                accountRegistrationRequest.AddressLine1 = d[2] + " " + d[3];
+                accountRegistrationRequest.AddressLine2 = d[4];
+                accountRegistrationRequest.TownCity = d[5];
+                accountRegistrationRequest.Postcode = d[9];
+                accountRegistrationRequest.Country = d[10];
 
             } while (d == null || string.IsNullOrWhiteSpace(d[2]));
 
-            return account;
+            return accountRegistrationRequest;
 
         }
         class RandomDates
@@ -307,9 +307,9 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(await GenerateRadomPassword());
         }
 
-        private async Task<IHttpActionResult> Register2(Account account, DateTime? registrationDate, bool dummy = false)
+        private async Task<IHttpActionResult> Register2(AccountRegistrationRequest accountRegistrationRequest, DateTime? registrationDate, bool dummy = false)
         {
-            if (account != null)
+            if (accountRegistrationRequest != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -319,30 +319,30 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                     ApplicationUserManager userManager = new ApplicationUserManager(userStore);
 
-                    string password = account.Password;
+                    string password = accountRegistrationRequest.Password;
 
                     string address = string.Join(",\r\n",
                         new string[]
                         {
-                            account.AddressLine1,
-                            account.AddressLine2,
-                            account.TownCity
+                            accountRegistrationRequest.AddressLine1,
+                            accountRegistrationRequest.AddressLine2,
+                            accountRegistrationRequest.TownCity
                         });
 
                     ApplicationUser newApplicationUser = new ApplicationUser();
 
-                    newApplicationUser.FirstName = account.FirstName;
-                    newApplicationUser.LastName = account.LastName;
+                    newApplicationUser.FirstName = accountRegistrationRequest.FirstName;
+                    newApplicationUser.LastName = accountRegistrationRequest.LastName;
 
                     newApplicationUser.Address = address;
-                    newApplicationUser.Postcode = account.Postcode;
+                    newApplicationUser.Postcode = accountRegistrationRequest.Postcode;
 
-                    newApplicationUser.Email = account.EmailAddress;
-                    newApplicationUser.UserName = account.EmailAddress;
+                    newApplicationUser.Email = accountRegistrationRequest.EmailAddress;
+                    newApplicationUser.UserName = accountRegistrationRequest.EmailAddress;
 
-                    newApplicationUser.DateOfBirth = account.DateOfBirth;
+                    newApplicationUser.DateOfBirth = accountRegistrationRequest.DateOfBirth;
 
-                    if (account.Gender.Contains("female"))
+                    if (accountRegistrationRequest.Gender.Contains("female"))
                     {
                         newApplicationUser.Gender = Gender.Female;
                     }
@@ -389,9 +389,9 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         [HttpPost, Route("register")]
-        public async Task<IHttpActionResult> Register(Account account)
+        public async Task<IHttpActionResult> Register(AccountRegistrationRequest accountRegistrationRequest)
         {
-            return await Register2(account, DateTime.Now);
+            return await Register2(accountRegistrationRequest, DateTime.Now);
         }
 
         [HttpGet, Route("countries")]

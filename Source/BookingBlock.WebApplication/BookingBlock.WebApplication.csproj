@@ -258,6 +258,7 @@
     <Compile Include="ApiControllers\AgeDistribution.cs" />
     <Compile Include="ApiControllers\ApplicationDbContextStore.cs" />
     <Compile Include="ApiControllers\ApplicationUserStore.cs" />
+    <Compile Include="ApiControllers\BookingsController.cs" />
     <Compile Include="ApiControllers\BusinessesController.cs" />
     <Compile Include="ApiControllers\BusinessIntelligenceController.cs" />
     <Compile Include="ApiControllers\BusinessOpeningTimesController.cs" />
@@ -284,7 +285,6 @@
     <Compile Include="Code\PostcodesIOClientAsyncExtensions.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationResponse.cs" />
-    <Compile Include="ApiControllers\DataTransferObjects\Account.cs" />
     <Compile Include="ApiControllers\SearchController.cs" />
     <Compile Include="ApiControllers\SearchResponse.cs" />
     <Compile Include="ApiControllers\ServicesController.cs" />
@@ -542,6 +542,12 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-2.2.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookingBlock.WebApi\BookingBlock.WebApi.csproj">
+      <Project>{6BB9D999-58C2-4850-8AD0-1E993283AF88}</Project>
+      <Name>BookingBlock.WebApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

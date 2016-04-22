@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Web.Http;
+using BookingBlock.WebApi;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
@@ -38,14 +40,8 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             var t = db.Users;
 
-            return Ok(t.Select(user => new UserInfo() {Email = user.Email, Id = user.Id}));
+            return Ok(t.Select(user => new ApplicationUserInfo() {Email = user.Email, Id = user.Id}));
         }
     }
 
-    public class UserInfo
-    {
-        public string Email { get; set; }
-
-        public string Id { get; set; }
-    }
 }
