@@ -32,7 +32,59 @@ namespace BookingBlock.WebApplication.ApiControllers
     [System.Web.Http.RoutePrefix("api/businesses")]
     public class BusinessesController : BaseApiController
     {
- 
+
+        [Route("change-type"), HttpPost]
+        public async Task<IHttpActionResult> ChangeType(ChangeBusinessTypeRequest changeBusinessTypeRequestRequest)
+        {
+            // if the user is null or the user is not authenticated
+            if (!IsUserAuthenticated)
+            {
+                return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
+            }
+
+            var ownerId = this.UserId;
+
+            var myBusinesses =
+                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId && businessUser.BusinessId == changeBusinessTypeRequestRequest.BusinessId)
+                    .Include(businessUser => businessUser.Business).FirstOrDefault();
+
+            var newBusiness = myBusinesses.Business;
+
+            var firstOrDefault = db.BusinessTypes.FirstOrDefault(type => type.Name == changeBusinessTypeRequestRequest.Type);
+
+            if (firstOrDefault != null)
+                newBusiness.BusinessTypeId =
+                    firstOrDefault.Id;
+
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+        [Route("change-name"), HttpPost]
+        public async Task<IHttpActionResult> ChangeName(ChangeBusinessNameRequest changeBusinessNameRequest)
+        {
+            // if the user is null or the user is not authenticated
+            if (!IsUserAuthenticated)
+            {
+                return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
+            }
+
+            var ownerId = this.UserId;
+
+            var myBusinesses =
+                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId && businessUser.BusinessId == changeBusinessNameRequest.BusinessId)
+                    .Include(businessUser => businessUser.Business).FirstOrDefault();
+
+            var newBusiness = myBusinesses.Business;
+
+            newBusiness.Name = changeBusinessNameRequest.Name;
+
+            db.SaveChanges();
+
+            return Ok();
+        }
+
         /// <summary>
         /// Used to change the address of a business.
         /// </summary>

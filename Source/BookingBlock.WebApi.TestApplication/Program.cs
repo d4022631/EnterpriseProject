@@ -86,7 +86,7 @@ namespace BookingBlock.WebApi.TestApplication
                     menu.Title = $"Business: {myBusinesses[index].Name} [{myBusinesses[index].Id}]";
                 });
 
-                menu.Add(ConsoleKey.A, "Address", () =>
+                menu.Add(ConsoleKey.C, "Change", () =>
                 {
                     BusinessActionAddress(myBusinesses[index]);
                 } );
@@ -97,11 +97,52 @@ namespace BookingBlock.WebApi.TestApplication
 
         private static void BusinessActionAddress(UserBusinessInfo myBusiness)
         {
-            Menu menu = new Menu() {Title = $"Business Address: {myBusiness.Name} [{myBusiness.Id}]" };
+            Menu menu = new Menu() {Title = $"Change Business: {myBusiness.Name} [{myBusiness.Id}]" };
 
+            menu.Add(ConsoleKey.N, "Change Name", () => ChangeNameAction(myBusiness.Id));
             menu.Add(ConsoleKey.C, "Change Address", () => ChangeAddressAction(myBusiness.Id));
-
+            menu.Add(ConsoleKey.T, "Change Type", () => ChangeTypeAction(myBusiness.Id));
             menu.Run();
+        }
+
+        private static void ChangeTypeAction(Guid id)
+        {
+            Console.WriteLine("Change Type");
+
+            ChangeBusinessTypeRequest request = new ChangeBusinessTypeRequest();
+
+            request.Type = Read<string>("Type");
+
+            request.BusinessId = id;
+            try
+            {
+                bookingBlockClient.BusinessesChangeType(request);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("ERROR: " + exception.Message);
+
+            }
+        }
+
+        private static void ChangeNameAction(Guid id)
+        {
+            Console.WriteLine("Change Name");
+
+            ChangeBusinessNameRequest request = new ChangeBusinessNameRequest();
+
+            request.Name = Read<string>("name");
+
+            request.BusinessId = id;
+            try
+            {
+                bookingBlockClient.BusinessesChangeName(request);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("ERROR: " + exception.Message);
+
+            }
         }
 
         private static void ChangeAddressAction(Guid id)
@@ -233,8 +274,31 @@ namespace BookingBlock.WebApi.TestApplication
             m.Add(ConsoleKey.W, "Who Am I?", WhoAmIAction);
             m.Add(ConsoleKey.R, "Radom User", MakeRadom);
             m.Add(ConsoleKey.L, "List Users", ListUsers);
+            m.Add(ConsoleKey.A, "Admin", ads);
             m.Run();
 
+        }
+
+        private static void ads()
+        {
+            try
+            {
+                var t = bookingBlockClient.IdentityGetUsersAync().Result;
+
+                var q = t.FirstOrDefault(info => info.Email== "webmaster@bookingblock.azurewebsites.net");
+
+                bookingBlockClient.ApiKey = q.Id;
+
+                WhoAmIAction();
+
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("ERROR: " + exception.Message);
+
+                Pause();
+                //throw;
+            }
         }
 
         private static void ListUsers()

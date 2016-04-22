@@ -1,17 +1,39 @@
 using System;
+using Microsoft.Build.Framework;
 
 namespace BookingBlock.WebApi
 {
-    /// <summary>
-    /// Used to request a change of address for a business.
-    /// </summary>
-    public class ChangeBusinessAddressRequest : IBusinessAddress
+    public abstract class ChangeBusinessRequest
     {
+
         /// <summary>
         /// The id of the business we wish to change.
         /// </summary>
+        [Required]
         public Guid BusinessId { get; set; }
+    }
 
+    public class ChangeBusinessTypeRequest : ChangeBusinessRequest
+    {
+        [Required]
+        public string Type { get; set; }
+    }
+
+    public class ChangeBusinessNameRequest : ChangeBusinessRequest
+    {
+
+        /// <summary>
+        /// The new name for the business.
+        /// </summary>
+        [Required]
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// Used to request a change of address for a business.
+    /// </summary>
+    public class ChangeBusinessAddressRequest : ChangeBusinessRequest, IBusinessAddress
+    {
         /// <summary>
         /// The first line of the business' registerd address.
         /// </summary>
