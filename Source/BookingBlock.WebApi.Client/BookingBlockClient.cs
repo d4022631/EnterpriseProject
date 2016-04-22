@@ -31,5 +31,59 @@ namespace BookingBlock.WebApi.Client
 
             return JsonConvert.DeserializeObject<IEnumerable<ApplicationUserInfo>>(t);
         }
+
+        public string ApiKey { get; set; }
+
+        private string AddApiKey(string url)
+        {
+            var newUrl = url;
+
+            if (!string.IsNullOrWhiteSpace(ApiKey))
+            {
+                if (newUrl.Contains("?"))
+                {
+                    newUrl += "&api_key=" + ApiKey;
+                }
+                else
+                {
+                    newUrl += "?api_key=" + ApiKey;
+                }
+            }
+
+
+            return newUrl;
+        }
+
+        private string GetString(string url)
+        {
+            var newUrl = AddApiKey(url);
+
+            return httpClient.GetStringAsync(newUrl).GetAwaiter().GetResult();
+        }
+
+        private T GetJsonObject<T>(string url)
+        {
+            var q = GetString(url);
+
+            return JsonConvert.DeserializeObject<T>(q);
+        }
+
+        public IEnumerable<string> PostcodesAutocomplete(string pc)
+        {
+
+            return GetJsonObject<IEnumerable<string>>("api/postcodes/autocomplete/" + pc);
+        }
+
+        public string IdentityWhoAmI()
+        {
+            return GetJsonObject<string>("api/identity/who");
+        }
+
+        public void BusinessesRegister(BusinessRegistrationData businessRegistrationData)
+        {
+            var q = httpClient.PostAsJsonAsync(AddApiKey("api/businesses/regster"), businessRegistrationData).Result;
+
+            q.EnsureSuccessStatusCode();
+        }
     }
 }

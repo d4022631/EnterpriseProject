@@ -63,7 +63,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             string validationErrors = string.Join(",",
                 ModelState.Values.Where(E => E.Errors.Count > 0)
                 .SelectMany(E => E.Errors)
-                .Select(E => E.ErrorMessage + E.Exception.Message)
+                .Select(E => E.ErrorMessage + E.Exception?.Message)
                 .ToArray());
 
             return BadRequest(validationErrors);

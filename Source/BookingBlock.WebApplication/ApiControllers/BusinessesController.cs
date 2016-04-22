@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookingBlock.EntityFramework;
+using BookingBlock.WebApi;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.Core.Validation;
 using Microsoft.AspNet.Identity;
@@ -209,6 +210,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.BusinessTypeId = businessType.Id;
 
             var owner = db.Users.Where(user => user.IsDummy).OrderBy(r => Guid.NewGuid()).FirstOrDefault();
+
             business.OpeningTimes = new List<BusinessOpeningTime>();
             business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Monday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17)});
             business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Tuesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17) });

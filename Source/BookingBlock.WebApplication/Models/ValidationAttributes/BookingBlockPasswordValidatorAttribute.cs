@@ -1,3 +1,5 @@
+using BookingBlock.Identity;
+
 namespace BookingBlock.WebApplication.Models.ValidationAttributes
 {
     public class BookingBlockPasswordValidatorAttribute : PasswordValidatorAttribute

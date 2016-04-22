@@ -568,6 +568,10 @@
       <Project>{6757B79C-670A-48AA-A561-C9C431CDC56B}</Project>
       <Name>BookingBlock.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BookingBlock.Identity\BookingBlock.Identity.csproj">
+      <Project>{4A0DF9EE-2D52-45E7-878F-8CE2F0905074}</Project>
+      <Name>BookingBlock.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookingBlock.WebApi\BookingBlock.WebApi.csproj">
       <Project>{6BB9D999-58C2-4850-8AD0-1E993283AF88}</Project>
       <Name>BookingBlock.WebApi</Name>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BookingBlock.EntityFramework;
+using BookingBlock.Identity;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.AccessTokenValidation;
 using IdentityServer3.Core.Configuration;

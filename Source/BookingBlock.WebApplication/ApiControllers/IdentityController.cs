@@ -34,13 +34,26 @@ namespace BookingBlock.WebApplication.ApiControllers
             return StatusCode(HttpStatusCode.Unauthorized);
         }
 
+        [Route("api/identity/who"), HttpGet]
+        public IHttpActionResult WhoAmI()
+        {
+            if (IsUserAuthenticated)
+            {
+                return Ok(this.UserId);
+            }
+
+            return Ok(Guid.Empty.ToString());
+        }
+
 
         [Route("api/identity/get-users")]
         public IHttpActionResult GetUsers()
         {
             var t = db.Users;
 
-            return Ok(t.Select(user => new ApplicationUserInfo() {Email = user.Email, Id = user.Id}));
+
+
+            return Ok(t.Select(user => new ApplicationUserInfo() {Email = user.Email, Id = user.Id, Username = user.UserName }));
         }
     }
 
