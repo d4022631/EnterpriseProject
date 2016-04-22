@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingBlock.WebApi.Client"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingBlock.WebApi.TestApplication", "BookingBlock.WebApi.TestApplication\BookingBlock.WebApi.TestApplication.csproj", "{377262F1-30D2-4601-9D3B-C1D6AC5EAFBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingBlock.EntityFramework", "BookingBlock.EntityFramework\BookingBlock.EntityFramework.csproj", "{6757B79C-670A-48AA-A561-C9C431CDC56B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{377262F1-30D2-4601-9D3B-C1D6AC5EAFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{377262F1-30D2-4601-9D3B-C1D6AC5EAFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{377262F1-30D2-4601-9D3B-C1D6AC5EAFBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6757B79C-670A-48AA-A561-C9C431CDC56B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6757B79C-670A-48AA-A561-C9C431CDC56B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6757B79C-670A-48AA-A561-C9C431CDC56B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6757B79C-670A-48AA-A561-C9C431CDC56B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

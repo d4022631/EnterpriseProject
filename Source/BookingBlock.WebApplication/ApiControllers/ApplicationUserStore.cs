@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 

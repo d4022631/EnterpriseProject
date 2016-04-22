@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers

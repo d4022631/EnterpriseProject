@@ -12,14 +12,6 @@ using IdentityServer3.Core.Services.Default;
 
 namespace BookingBlock.WebApplication.Models
 {
-    public class IdentityServerUserService : AspNetIdentityUserService<ApplicationUser, string>
-    {
-        public IdentityServerUserService(ApplicationUserManager userManager) : base(userManager)
-        {
-
-        }
-    }
-
     public class AspNetIdentityUserService<TUser, TKey> : UserServiceBase
         where TUser : class, Microsoft.AspNet.Identity.IUser<TKey>, new()
         where TKey : IEquatable<TKey>

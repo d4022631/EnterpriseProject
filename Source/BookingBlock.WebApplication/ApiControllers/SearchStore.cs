@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using MarkEmbling.PostcodesIO;
 using MarkEmbling.PostcodesIO.Results;

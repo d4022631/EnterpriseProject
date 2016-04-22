@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using BookingBlock.WebApplication.Models.ValidationAttributes;
 using MarkEmbling.PostcodesIO;

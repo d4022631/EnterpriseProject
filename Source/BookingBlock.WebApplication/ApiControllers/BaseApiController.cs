@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Results;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using Microsoft.AspNet.Identity;
 

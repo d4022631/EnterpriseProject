@@ -1,3 +1,4 @@
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers

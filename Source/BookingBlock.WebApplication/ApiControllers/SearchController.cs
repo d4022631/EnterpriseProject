@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using MarkEmbling.PostcodesIO;
 using Microsoft.AspNet.Identity;

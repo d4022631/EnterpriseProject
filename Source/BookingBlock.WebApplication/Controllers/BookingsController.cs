@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.Controllers

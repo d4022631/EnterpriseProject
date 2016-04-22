@@ -1,4 +1,5 @@
 using System.Data.Entity.Spatial;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using MarkEmbling.PostcodesIO;
 

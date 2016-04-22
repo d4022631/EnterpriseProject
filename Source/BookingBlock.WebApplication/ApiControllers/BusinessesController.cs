@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.Core.Validation;
 using Microsoft.AspNet.Identity;
