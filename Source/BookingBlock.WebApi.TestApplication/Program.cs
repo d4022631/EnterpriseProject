@@ -275,8 +275,25 @@ namespace BookingBlock.WebApi.TestApplication
             m.Add(ConsoleKey.R, "Radom User", MakeRadom);
             m.Add(ConsoleKey.L, "List Users", ListUsers);
             m.Add(ConsoleKey.A, "Admin", ads);
+            m.Add(ConsoleKey.S, "Toggle Source", Toggle);
             m.Run();
 
+        }
+
+        private static bool b = true;
+
+        private static void Toggle()
+        {
+            if (b)
+            {
+                bookingBlockClient.SetLiveUrl();
+            }
+            else
+            {
+                bookingBlockClient.SetDevUrl();
+            }
+
+            b = !b;
         }
 
         private static void ads()

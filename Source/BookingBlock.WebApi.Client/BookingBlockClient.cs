@@ -11,7 +11,7 @@ namespace BookingBlock.WebApi.Client
 {
     public class BookingBlockClient
     {
-        private readonly string _url;
+        public readonly string _url;
 
         private HttpClient httpClient;
 
@@ -20,6 +20,16 @@ namespace BookingBlock.WebApi.Client
             _url = url;
 
             httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_url);
+        }
+
+        public void SetLiveUrl()
+        {
+            httpClient.BaseAddress = new Uri("https://bookingblock.azurewebsites.net/");
+        }
+
+        public void SetDevUrl()
+        {
             httpClient.BaseAddress = new Uri(_url);
         }
 
