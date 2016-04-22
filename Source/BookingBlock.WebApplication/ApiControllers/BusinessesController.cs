@@ -29,21 +29,42 @@ namespace BookingBlock.WebApplication.ApiControllers
     }
 
 
-
     [System.Web.Http.RoutePrefix("api/businesses")]
     public class BusinessesController : BaseApiController
     {
-        private string CreateBusinessAddress(BusinessRegistrationData businessRegistrationData)
+ 
+        /// <summary>
+        /// Used to change the address of a business.
+        /// </summary>
+        /// <param name="changeBusinessAddressRequest"></param>
+        /// <returns></returns>
+        [Route("change-address"), HttpPost]
+        public async Task<IHttpActionResult> ChangeAddress(ChangeBusinessAddressRequest changeBusinessAddressRequest)
         {
-            List<string> addressParts = new List<string>();
+            // if the user is null or the user is not authenticated
+            if (!IsUserAuthenticated)
+            {
+                return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
+            }
 
-            addressParts.Add(businessRegistrationData.AddressLine1);
-            addressParts.Add(businessRegistrationData.AddressLine2);
-            addressParts.Add(businessRegistrationData.TownCity);
-            addressParts.Add(businessRegistrationData.Postcode);
-            addressParts.Add(businessRegistrationData.Country);
+            var ownerId = this.UserId;
 
-            return string.Join(",\r\n", addressParts);
+            var myBusinesses =
+                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId && businessUser.BusinessId == changeBusinessAddressRequest.BusinessId)
+                    .Include(businessUser => businessUser.Business).FirstOrDefault();
+
+            var newBusiness = myBusinesses.Business;
+
+            newBusiness.Address = changeBusinessAddressRequest.GetAddressString();
+
+            newBusiness.Postcode = changeBusinessAddressRequest.Postcode;
+
+            newBusiness.Location = PostcodeDbGeography.Lookup(changeBusinessAddressRequest.Postcode);
+
+
+            db.SaveChanges();
+
+            return Ok();
         }
 
         [Route("my-businesses"), HttpGet]
@@ -62,7 +83,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                     .Include(businessUser => businessUser.Business);
 
 
-            UserBusinessList businessList = new UserBusinessList();
+            UserBusinessInfoList businessInfoList = new UserBusinessInfoList();
 
 
             foreach (BusinessUser businessUser in myBusinesses)
@@ -71,10 +92,10 @@ namespace BookingBlock.WebApplication.ApiControllers
                 var jk = businessUser.Business.Name;
                 var id = businessUser.BusinessId;
 
-                businessList.Add(new UserBusiness() {Id = id, Name = jk, IsOwner = ul == BusinessUserLevel.Owner});
+                businessInfoList.Add(new UserBusinessInfo() {Id = id, Name = jk, IsOwner = ul == BusinessUserLevel.Owner});
             }
 
-            return Ok(businessList);
+            return Ok(businessInfoList);
         }
 
         [Route("regster"), HttpPost]
@@ -106,7 +127,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 // set the business type id.
                 newBusiness.BusinessTypeId = businessType.Id;
 
-                newBusiness.Address = CreateBusinessAddress(businessRegistrationData);
+                newBusiness.Address = businessRegistrationData.GetAddressString();
 
                 newBusiness.Postcode = businessRegistrationData.Postcode;
 
@@ -134,6 +155,10 @@ namespace BookingBlock.WebApplication.ApiControllers
                     businessRegistrationData.ClosingTimeSunday);
 
                 string ownerId = string.Empty;
+
+                newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
+                newBusiness.FaxNumber = businessRegistrationData.ContactFax;
+                
 
                 if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
                 {

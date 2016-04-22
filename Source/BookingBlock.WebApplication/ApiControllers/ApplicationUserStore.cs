@@ -9,6 +9,7 @@ namespace BookingBlock.WebApplication.ApiControllers
     {
         public ApplicationUserStore(DbContext context) : base(context)
         {
+           
         }
     }
 }

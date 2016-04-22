@@ -49,8 +49,95 @@ namespace BookingBlock.WebApi.TestApplication
 
             businessMenu.Add(ConsoleKey.R, "Random", RandomBusiness);
             businessMenu.Add(ConsoleKey.C, "Create", CreateAction);
-
+            businessMenu.Add(ConsoleKey.M, "My Businesses", MyBusinessesAction);
+            businessMenu.Add(ConsoleKey.S, "Show Businesses", ShowBusinessAction);
             businessMenu.Run();
+        }
+
+        private static void ShowBusinessAction()
+        {
+            UserBusinessInfoList myBusinesses = bookingBlockClient.BusinessesMyBusinesses();
+
+            if (myBusinesses.Count != 0)
+            {
+                int index = 0;
+
+                Menu menu = new Menu() {Title = $"Business: {myBusinesses[index].Name} [{myBusinesses[index].Id}]"};
+                menu.Add(ConsoleKey.P, "Previous", () =>
+                {
+                    index--;
+
+                    if (index < 0)
+                    {
+                        index = 0;
+                    }
+
+                    menu.Title = $"Business: {myBusinesses[index].Name} [{myBusinesses[index].Id}]";
+                });
+                menu.Add(ConsoleKey.N, "Next", () =>
+                {
+                    index++;
+
+                    if (index > myBusinesses.Count - 1)
+                    {
+                        index = myBusinesses.Count - 1;
+                    }
+
+                    menu.Title = $"Business: {myBusinesses[index].Name} [{myBusinesses[index].Id}]";
+                });
+
+                menu.Add(ConsoleKey.A, "Address", () =>
+                {
+                    BusinessActionAddress(myBusinesses[index]);
+                } );
+
+                menu.Run();
+            }
+        }
+
+        private static void BusinessActionAddress(UserBusinessInfo myBusiness)
+        {
+            Menu menu = new Menu() {Title = $"Business Address: {myBusiness.Name} [{myBusiness.Id}]" };
+
+            menu.Add(ConsoleKey.C, "Change Address", () => ChangeAddressAction(myBusiness.Id));
+
+            menu.Run();
+        }
+
+        private static void ChangeAddressAction(Guid id)
+        {
+            Console.WriteLine("Change Address");
+            ChangeBusinessAddressRequest request = new ChangeBusinessAddressRequest();
+            FillBusinessAddress(request);
+            request.BusinessId = id;
+            try
+            {
+                bookingBlockClient.BusinessesChangeAddress(request);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("ERROR: " + exception.Message);
+
+            }
+        }
+
+        private static void MyBusinessesAction()
+        {
+            try
+            {
+                var myBusinesses = bookingBlockClient.BusinessesMyBusinesses();
+
+                foreach (UserBusinessInfo userBusinessInfo in myBusinesses)
+                {
+                    Console.WriteLine($"{userBusinessInfo.Name} [{userBusinessInfo.Id}] {userBusinessInfo.IsOwner}");
+                }
+            }
+            catch (Exception exception)
+            {
+                
+            }
+
+            Pause();
         }
 
         private static T Read<T>(string prompt)
@@ -77,6 +164,15 @@ namespace BookingBlock.WebApi.TestApplication
             return default(T);
         }
 
+        private static void FillBusinessAddress(IBusinessAddress businessAddress)
+        {
+            businessAddress.AddressLine1 = Read<string>("Address 1");
+            businessAddress.AddressLine2 = Read<string>("Address 2");
+            businessAddress.TownCity = Read<string>("Town/City");
+            businessAddress.Postcode = Read<string>("Postcode");
+            businessAddress.Country = Read<string>("Country");
+        }
+
         private static void CreateAction()
         {
             Console.WriteLine("Register New Business");
@@ -90,21 +186,25 @@ namespace BookingBlock.WebApi.TestApplication
             businessRegistrationData.ContactNumber = Read<string>("Contact number");
             businessRegistrationData.ContactFax = Read<string>("Contact Fax");
 
-            businessRegistrationData.AddressLine1 = Read<string>("Address 1");
-            businessRegistrationData.AddressLine2 = Read<string>("Address 2");
-            businessRegistrationData.TownCity = Read<string>("Town/City");
-            businessRegistrationData.Postcode = Read<string>("Postcode");
-            businessRegistrationData.Country = Read<string>("Country");
+            FillBusinessAddress(businessRegistrationData);
+            
 
-            businessRegistrationData.OpeningTimeMonday = Read<TimeSpan?>("Opening Time Monday");
+            var openingTimes = businessRegistrationData.GetOpeningTimes();
 
-            if (businessRegistrationData.OpeningTimeMonday.HasValue)
+            foreach (DayOfWeek value in Enum.GetValues(typeof(DayOfWeek)))
             {
-                businessRegistrationData.ClosingTimeMonday = Read<TimeSpan?>("Closing Time Monday");
+                openingTimes.SetOpeningTime(value, Read<TimeSpan?>($"Opening Time {value}"));
+
+                if (openingTimes.GetOpeningTime(value).HasValue)
+                {
+                    openingTimes.SetClosingTime(value, Read<TimeSpan?>($"Closing Time {value}"));
+                }
             }
 
+            businessRegistrationData.Website = Read<string>("Website");
 
-                try
+
+            try
             {//regster
 
                 bookingBlockClient.BusinessesRegister(businessRegistrationData);

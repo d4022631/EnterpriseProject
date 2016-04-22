@@ -5,19 +5,7 @@ using BookingBlock.WebApplication.Models.ValidationAttributes;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public class UserBusiness
-    {
-        public Guid Id { get; set; }
 
-        public string Name { get; set; }
-
-        public bool IsOwner { get; set; }
-    }
-
-    public class UserBusinessList : List<UserBusiness>
-    {
-        
-    }
 
     public class AccountRegistrationRequest
     {

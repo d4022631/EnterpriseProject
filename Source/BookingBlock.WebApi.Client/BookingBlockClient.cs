@@ -85,5 +85,18 @@ namespace BookingBlock.WebApi.Client
 
             q.EnsureSuccessStatusCode();
         }
+
+        public UserBusinessInfoList BusinessesMyBusinesses()
+        {
+
+            return GetJsonObject<UserBusinessInfoList>("api/businesses/my-businesses");
+        }
+
+        public void BusinessesChangeAddress(ChangeBusinessAddressRequest request)
+        {
+            var q = httpClient.PostAsJsonAsync(AddApiKey("api/businesses/change-address"), request).Result;
+
+            q.EnsureSuccessStatusCode();
+        }
     }
 }

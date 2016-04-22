@@ -259,6 +259,7 @@
     <Compile Include="ApiControllers\ApplicationDbContextStore.cs" />
     <Compile Include="ApiControllers\ApplicationUserStore.cs" />
     <Compile Include="ApiControllers\BookingsController.cs" />
+    <Compile Include="ApiControllers\BusinessAddressExtensionMethods.cs" />
     <Compile Include="ApiControllers\BusinessesController.cs" />
     <Compile Include="ApiControllers\BusinessIntelligenceController.cs" />
     <Compile Include="ApiControllers\BusinessOpeningTimesController.cs" />

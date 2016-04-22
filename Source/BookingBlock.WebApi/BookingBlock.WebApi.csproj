@@ -48,7 +48,12 @@
     <Compile Include="BusinessTypeInfo.cs" />
     <Compile Include="BusinessTypeInfoList.cs" />
     <Compile Include="BusinessTypesResponse.cs" />
+    <Compile Include="ChangeBusinessAddressRequest.cs" />
+    <Compile Include="IBusinessAddress.cs" />
+    <Compile Include="OpeningTimes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserBusinessInfo.cs" />
+    <Compile Include="UserBusinessInfoList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
