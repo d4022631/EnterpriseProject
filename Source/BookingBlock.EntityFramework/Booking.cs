@@ -5,13 +5,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingBlock.EntityFramework
 {
-    public class Booking
+    public class BookingLog
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+        public virtual Booking Booking { get; set; }
 
+        [Required, ForeignKey(nameof(Booking))]
+        public Guid BookingId { get; set; }
+
+        public DateTime EntryDateTime { get; set; } = DateTime.Now;
+
+        [Required]
+        public string Entry { get; set; }
+
+    }
+
+    public class Booking
+    {
+        public Booking()
+        {
+            this.Log = new List<BookingLog>();
+        }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
+
+        
         public virtual Service Service { get; set; }
 
         [Required, ForeignKey(nameof(Service))]
@@ -35,7 +59,7 @@ namespace BookingBlock.EntityFramework
         public string Notes { get; set; }
 
 
-        public ICollection<Review> Reviews { get; set; }
+        public ICollection<BookingLog> Log { get; set; } 
 
         public bool Confirmed { get; set; }
         public bool Cancelled { get; set; }

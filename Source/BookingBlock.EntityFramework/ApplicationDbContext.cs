@@ -30,5 +30,7 @@ namespace BookingBlock.EntityFramework
         public System.Data.Entity.DbSet<BusinessOpeningTime> BusinessOpeningTimes { get; set; }
 
         public System.Data.Entity.DbSet<Review> Reviews { get; set; }
+
+        public DbSet<BookingLog> BookingLogs { get; set; } 
     }
 }
