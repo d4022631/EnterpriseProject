@@ -286,7 +286,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             // assign the business type id.
             business.BusinessTypeId = businessType.Id;
 
-            var owner = db.Users.Where(user => user.IsDummy).OrderBy(r => Guid.NewGuid()).FirstOrDefault();
+            //var owner = db.Users.Where(user => user.IsDummy).OrderBy(r => Guid.NewGuid()).FirstOrDefault();
 
             business.OpeningTimes = new List<BusinessOpeningTime>();
             business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Monday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17)});
@@ -299,7 +299,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             //something.OrderBy(r => Guid.NewGuid()).Take(5)
 
-            business.Users.Add(new BusinessUser() {UserId = owner.Id, UserLevel = BusinessUserLevel.Owner});
+            business.Users.Add(new BusinessUser() {UserId = UserId, UserLevel = BusinessUserLevel.Owner});
             business.Postcode = "TS23 2qh";
             business.Address = "dummy";
             business.IsDummy = true;

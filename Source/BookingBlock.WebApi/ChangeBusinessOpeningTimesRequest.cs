@@ -1,80 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace BookingBlock.WebApi
 {
-    public class BusinessRegistrationData : IBusinessAddress, IBusinessOpeningTimes
+    public class ChangeBusinessOpeningTimesRequest : ChangeBusinessRequest, IBusinessOpeningTimes
     {
-        /// <summary>
-        /// The name of the business.
-        /// </summary>
-        [Required]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// The type of business being registered. E.g. plumbers.
-        /// </summary>
-        [Required]
-        public string Type { get; set; }
-
-        /// <summary>
-        /// The name of the person to ask for when contacting the business, this could be the name of a person (e.g. Alice Smith) or more generic (e.g. Sales Department).
-        /// </summary>
-        [Required]
-        public string ContactName { get; set; }
-
-        /// <summary>
-        /// An email address to contact the business via.
-        /// </summary>
-        [Required]
-        public string ContactEmail { get; set; }
-
-        /// <summary>
-        /// A contact number for the business, this coud be a landline or mobile number.
-        /// </summary>
-        [Required]
-        public string ContactNumber { get; set; }
-
-        /// <summary>
-        /// A Fax number for the business.
-        /// </summary>
-        public string ContactFax { get; set; }
-
-        /// <summary>
-        /// The first line of the business' registerd address.
-        /// </summary>
-        public string AddressLine1 { get; set; }
-
-        /// <summary>
-        /// The second line of the business' registerd address.
-        /// </summary>
-        public string AddressLine2 { get; set; }
-
-        /// <summary>
-        /// The town/city of the business' registed address.
-        /// </summary>
-        public string TownCity { get; set; }
-
-        /// <summary>
-        /// The postcode of the business' registed address.
-        /// </summary>
-        public string Postcode { get; set; }
-
-        /// <summary>
-        /// The country of the business' registed address
-        /// </summary>
-        public string Country { get; set; }
-
-        /// <summary>
-        /// The website for the business.
-        /// </summary>
-        public string Website { get; set; }
-
-        /// <summary>
-        /// The email address of the account that should be set as the owner of the business.
-        /// </summary>
-        public string OwnerEmailAddress { get; set; }
-
         private readonly OpeningTimes _openingTimes = new OpeningTimes();
 
         public OpeningTimes GetOpeningTimes()

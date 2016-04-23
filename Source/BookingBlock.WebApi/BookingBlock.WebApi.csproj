@@ -49,7 +49,12 @@
     <Compile Include="BusinessTypeInfoList.cs" />
     <Compile Include="BusinessTypesResponse.cs" />
     <Compile Include="ChangeBusinessAddressRequest.cs" />
+    <Compile Include="ChangeBusinessNameRequest.cs" />
+    <Compile Include="ChangeBusinessOpeningTimesRequest.cs" />
+    <Compile Include="ChangeBusinessRequest.cs" />
+    <Compile Include="ChangeBusinessTypeRequest.cs" />
     <Compile Include="IBusinessAddress.cs" />
+    <Compile Include="IBusinessOpeningTimes.cs" />
     <Compile Include="OpeningTimes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBusinessInfo.cs" />

@@ -37,9 +37,22 @@ namespace BookingBlock.WebApi.TestApplication
             maiMenu.Add(ConsoleKey.P, "Postcodes", PostCodesMenu);
             maiMenu.Add(ConsoleKey.A, "Account", AccountsMenu);
             maiMenu.Add(ConsoleKey.X, "Extra", Action);
+            maiMenu.Add(ConsoleKey.S, "Search", SearchAction);
             maiMenu.Run();
 
             autoResetEvent.Set();
+
+        }
+
+        private static void SearchAction()
+        {
+            Console.WriteLine("Search");
+
+            string type = Read<string>("type");
+            string postcode = Read<string>("postcode");
+            double distance = Read<double>("distance");
+
+            
 
         }
 
@@ -264,7 +277,7 @@ namespace BookingBlock.WebApi.TestApplication
 
         private static void RandomBusiness()
         {
-            
+            bookingBlockClient.BusinessesRandom();
         }
 
         private static void Action()

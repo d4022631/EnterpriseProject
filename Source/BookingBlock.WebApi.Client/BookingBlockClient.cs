@@ -122,5 +122,10 @@ namespace BookingBlock.WebApi.Client
 
             q.EnsureSuccessStatusCode();
         }
+
+        public void BusinessesRandom()
+        {
+            // do something
+        }
     }
 }
