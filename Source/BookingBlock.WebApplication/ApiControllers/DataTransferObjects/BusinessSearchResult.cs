@@ -1,3 +1,5 @@
+using System;
+
 namespace BookingBlock.WebApplication.ApiControllers
 {
     public class BusinessSearchResult
@@ -5,5 +7,6 @@ namespace BookingBlock.WebApplication.ApiControllers
         public string Name { get; set; }
 
         public double Distance { get; set; }
+        public Guid BusinessId { get; set; }
     }
 }

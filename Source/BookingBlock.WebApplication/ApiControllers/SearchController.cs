@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Web.Http;
 using BookingBlock.EntityFramework;
@@ -10,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public class SearchController : ApiController
+    public class SearchController : BaseApiController
     {
         [HttpGet]
         [Route("api/Search/{businessType}/{postcode}")]
@@ -37,23 +38,38 @@ namespace BookingBlock.WebApplication.ApiControllers
                 //throw;
             }
 
-            var applicationDbContext = ApplicationDbContext.Create();
+            var
+           applicationDbContext = db;
 
-            SearchStore searchStore = new SearchStore(applicationDbContext);
+            var businessType2 = db.BusinessTypes.FirstOrDefault(type => type.Name == businessType);
 
-            searchStore.Search(postcode, businessType);
+            if (businessType2 == null)
+            {
+                return Content(HttpStatusCode.NotFound, "The given business type could not be found in the database");
+            }
+
 
             PostcodesIOClient client = new PostcodesIOClient();
 
-            double distanceInMiles = 10;
-
-            double distanceInMeters = GeoUtils.MilesToMeters(distanceInMiles);
 
             var p = client.Lookup(postcode);
 
             var l = GeoUtils.CreatePoint(p.Latitude, p.Longitude);
 
-            var q = applicationDbContext.Businesses.Where(t => t.Location.Distance(l) < distanceInMeters).OrderBy(f => f.Location.Distance(l));
+
+
+            //  SearchStore searchStore = new SearchStore(applicationDbContext);
+
+            // searchStore.Search(postcode, businessType);
+
+
+
+            double distanceInMiles = 10;
+
+            double distanceInMeters = GeoUtils.MilesToMeters(distanceInMiles);
+
+
+            var q = applicationDbContext.Businesses.Where(  t => t.BusinessTypeId == businessType2.Id && t.Location.Distance(l) < distanceInMeters).OrderBy(f => f.Location.Distance(l));
 
 
             SearchResponse searchResponse = new SearchResponse();
@@ -67,7 +83,16 @@ namespace BookingBlock.WebApplication.ApiControllers
             foreach (var business in q)
             {
 
-               results.Add(new BusinessSearchResult() { Distance = business.Location.Distance(l).Value, Name = business.Name });
+                double distanceFromPostcode = business.Location.Distance(l).Value;
+
+                var result = new BusinessSearchResult()
+                {
+                    Distance = GeoUtils.MetersToMiles(distanceFromPostcode),
+                    Name = business.Name,
+                    BusinessId = business.Id
+                };
+
+               results.Add(result);
 
             }
 
