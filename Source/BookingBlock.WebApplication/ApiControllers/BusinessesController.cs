@@ -4,17 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookingBlock.EntityFramework;
 using BookingBlock.WebApi;
 using BookingBlock.WebApplication.Models;
 using IdentityServer3.Core.Validation;
+using MarkEmbling.PostcodesIO;
 using Microsoft.AspNet.Identity;
 
 namespace BookingBlock.WebApplication.ApiControllers
@@ -150,6 +153,51 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(businessInfoList);
         }
 
+        private string[] RA()
+        {
+            string root = HttpContext.Current.Server.MapPath("~/Content/data");
+
+            string[] files = Directory.GetFiles(root);
+
+            string file = files.PickRandom();
+
+            List<string[]> dataList = new List<string[]>();
+
+            using (var ff = File.OpenRead(file))
+            {
+                using (StreamReader streamReader = new StreamReader(ff))
+                {
+                    int lineCount = 0;
+
+                    while (true)
+                    {
+                        var t = streamReader.ReadLine();
+
+                        if (t == null)
+                        {
+                            break;
+                        }
+
+                        if (lineCount > 0)
+                        {
+                            if (!string.IsNullOrWhiteSpace(t))
+                            {
+                                string[] columns = t.Split(',');
+
+                                dataList.Add(columns);
+                            }
+                        }
+
+                        lineCount++;
+                    }
+                }
+            }
+
+            var radom = dataList.PickRandom();
+
+            return radom;
+        }
+
         [Route("regster"), HttpPost]
         public async Task<IHttpActionResult> Register(BusinessRegistrationData businessRegistrationData)
         {
@@ -278,7 +326,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             Business business = new Business();
 
-            business.Name = "RANDOM";
+           
 
             // random business type.
             BusinessType businessType = db.BusinessTypes.OrderBy(r => Guid.NewGuid()).FirstOrDefault();
@@ -287,6 +335,8 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.BusinessTypeId = businessType.Id;
 
             var owner = db.Users.Where(user => user.IsDummy).OrderBy(r => Guid.NewGuid()).FirstOrDefault();
+
+            business.Name = owner.LastName + "'s " + businessType.Name;
 
             business.OpeningTimes = new List<BusinessOpeningTime>();
             business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Monday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17)});
@@ -299,11 +349,18 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             //something.OrderBy(r => Guid.NewGuid()).Take(5)
 
+            var d = RA();
             business.Users.Add(new BusinessUser() {UserId = owner.Id, UserLevel = BusinessUserLevel.Owner});
-            business.Postcode = "TS23 2qh";
-            business.Address = "dummy";
+            business.Postcode = d[9];
+            business.Address = string.Join(",\r\n", d);
             business.IsDummy = true;
-            business.Location = GeoUtils.CreatePoint(0, 0);
+
+            PostcodesIOClient client = new PostcodesIOClient();
+
+            var postcodeLookup = client.Lookup(business.Postcode);
+
+            business.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
+
             db.Businesses.Add(business);
      
             try
