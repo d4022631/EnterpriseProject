@@ -21,6 +21,7 @@ namespace BookingBlock.EntityFramework
         [Required]
         public string Entry { get; set; }
 
+
     }
 
     public class Booking

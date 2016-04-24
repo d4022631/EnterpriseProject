@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BookingBlock.EntityFramework;
@@ -7,6 +10,51 @@ using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
+    public class BookingsStore
+    {
+        private readonly ApplicationDbContext _context;
+
+        public BookingsStore(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+    }
+
+    public abstract class ManagerResult
+    {
+        //
+        // Summary:
+        //     True if the operation was successful
+        public bool Succeeded { get; }
+
+        //
+        // Summary:
+        //     List of errors
+        public IEnumerable<string> Errors { get; }
+
+    }
+
+    public sealed class BookingsManagerResult : ManagerResult
+    {
+        
+    }
+
+
+    public class BookingsManager
+    {
+        private readonly BookingsStore _bookingsStore;
+
+        public BookingsManager(BookingsStore bookingsStore)
+        {
+            _bookingsStore = bookingsStore;
+        }
+
+        public BookingsManagerResult CreateBookingAsync(string userId, Guid serviceId, DateTime dateTime, string notes)
+        {
+            return new BookingsManagerResult() {};
+        }
+    }
+
     [RoutePrefix("api/bookings")]
     public class BookingsController : BaseApiController
     {
@@ -61,7 +109,18 @@ namespace BookingBlock.WebApplication.ApiControllers
                     $"The business {business.Id} is not open at this time {bookingTime}.");
             }
 
-            service.Bookings.Add(new Booking() {CustomerId = this.UserId, Date = createBookingRequest.DateTime});
+            BookingsStore bookingsStore = new BookingsStore(db);
+            BookingsManager bookingsManager = new BookingsManager(bookingsStore);
+
+            bookingsManager.CreateBookingAsync(this.UserId, service.Id, createBookingRequest.DateTime, string.Empty);
+
+            Booking booking = new Booking() {CustomerId = this.UserId, Date = createBookingRequest.DateTime};
+
+            string logEntry = "Booking created.";
+
+            booking.Log.Add(new BookingLog() { Entry = logEntry});
+
+            service.Bookings.Add(booking);
 
             db.SaveChanges();
 

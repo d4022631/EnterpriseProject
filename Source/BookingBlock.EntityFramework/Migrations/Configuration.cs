@@ -973,7 +973,7 @@ Wigs
             webmaster.Email = "webmaster@bookingblock.azurewebsites.net";
             webmaster.UserName = "webmaster@bookingblock.azurewebsites.net";
 
-            var result = applicationUserManager.CreateAsync(webmaster, "Enterprise2016!")
+            IdentityResult result = applicationUserManager.CreateAsync(webmaster, "Enterprise2016!")
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
