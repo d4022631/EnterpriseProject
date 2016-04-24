@@ -9,5 +9,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         public double Within { get; set; }
 
         public IEnumerable<BusinessSearchResult> Results { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

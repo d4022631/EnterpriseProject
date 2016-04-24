@@ -15,7 +15,7 @@ namespace BookingBlock.WebApplication.ApiControllers
     {
         [HttpGet]
         [Route("api/Search/{businessType}/{postcode}")]
-        public IHttpActionResult Search(string businessType = null, string postcode = null)
+        public IHttpActionResult Search(string businessType = null, string postcode = null, double distance = 10)
         {
 
             
@@ -54,7 +54,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             var p = client.Lookup(postcode);
 
-            var l = GeoUtils.CreatePoint(p.Latitude, p.Longitude);
+            var searchLocation = GeoUtils.CreatePoint(p.Latitude, p.Longitude);
 
 
 
@@ -64,32 +64,37 @@ namespace BookingBlock.WebApplication.ApiControllers
 
 
 
-            double distanceInMiles = 10;
+            double distanceInMiles = distance;
 
             double distanceInMeters = GeoUtils.MilesToMeters(distanceInMiles);
 
 
-            var q = applicationDbContext.Businesses.Where(  t => t.BusinessTypeId == businessType2.Id && t.Location.Distance(l) < distanceInMeters).OrderBy(f => f.Location.Distance(l));
+            var q = applicationDbContext.Businesses.Where(  t => t.BusinessTypeId == businessType2.Id && t.Location.Distance(searchLocation) < distanceInMeters).OrderBy(f => f.Location.Distance(searchLocation));
 
 
             SearchResponse searchResponse = new SearchResponse();
 
             searchResponse.BusinessType = businessType;
             searchResponse.Postcode = postcode;
-            searchResponse.Within = 10;
+            searchResponse.Latitude = p.Latitude;
+            searchResponse.Longitude = p.Longitude;
+
+            searchResponse.Within = distance;
 
             List<BusinessSearchResult> results = new List<BusinessSearchResult>();
 
             foreach (var business in q)
             {
 
-                double distanceFromPostcode = business.Location.Distance(l).Value;
+                double distanceFromPostcode = business.Location.Distance(searchLocation).Value;
 
                 var result = new BusinessSearchResult()
                 {
                     Distance = GeoUtils.MetersToMiles(distanceFromPostcode),
                     Name = business.Name,
-                    BusinessId = business.Id
+                    BusinessId = business.Id,
+                    Latitude = business.Location.Latitude,
+                    Longitude = business.Location.Longitude
                 };
 
                results.Add(result);

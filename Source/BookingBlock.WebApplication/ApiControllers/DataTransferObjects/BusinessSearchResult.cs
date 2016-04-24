@@ -8,5 +8,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
         public double Distance { get; set; }
         public Guid BusinessId { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
     }
 }
