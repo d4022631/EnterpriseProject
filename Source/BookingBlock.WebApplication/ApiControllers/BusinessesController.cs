@@ -359,7 +359,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             var postcodeLookup = client.Lookup(business.Postcode);
 
-            business.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
+            business.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Longitude);
 
             db.Businesses.Add(business);
      
