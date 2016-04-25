@@ -34,6 +34,34 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(ageDistribution);
         }
 
+        [Route("business-types-distribution"), HttpGet]
+        public async Task<IHttpActionResult> Bus(bool c = true)
+        {
+            BusinessTypesDistribution distribution = new BusinessTypesDistribution();
+
+            var all = db.BusinessTypes.Include("Businesses").Select(
+                type =>
+                    new BusinessTypeDistribution()
+                    {
+                        BusinessTypeId = type.Id,
+                        BusinessTypeName = type.Name,
+                        Count = type.Businesses.Count
+                    });
+
+            if (c)
+            {
+                distribution.AddRange(all.Where(typeDistribution => typeDistribution.Count > 0));
+            }
+            else
+            {
+                distribution.AddRange(all);
+            }
+
+           
+
+            return Ok(distribution);
+        }
+
         [Route("gender-distribution"), HttpGet]
         public async Task<IHttpActionResult> GenderDistribution()
         {

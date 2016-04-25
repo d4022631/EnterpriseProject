@@ -75,7 +75,8 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             SearchResponse searchResponse = new SearchResponse();
 
-            searchResponse.BusinessType = businessType;
+            searchResponse.BusinessType = businessType2.Name;
+            searchResponse.BusinessTypeId = businessType2.Id;
             searchResponse.Postcode = postcode;
             searchResponse.Latitude = p.Latitude;
             searchResponse.Longitude = p.Longitude;
@@ -91,7 +92,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 var result = new BusinessSearchResult()
                 {
-                    Distance = GeoUtils.MetersToMiles(distanceFromPostcode),
+                    Distance = distanceFromPostcode,
                     Name = business.Name,
                     BusinessId = business.Id,
                     Latitude = business.Location.Latitude,
