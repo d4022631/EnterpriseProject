@@ -22,5 +22,6 @@ namespace BookingBlock.WebApplication.ApiControllers
 
         public double Within { get; set; }
         public IEnumerable<BusinessSearchResult> Results { get; set; }
+        public double WithinM { get; set; }
     }
 }

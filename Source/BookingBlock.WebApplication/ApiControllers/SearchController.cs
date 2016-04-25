@@ -69,7 +69,11 @@ namespace BookingBlock.WebApplication.ApiControllers
             double distanceInMeters = GeoUtils.MilesToMeters(distanceInMiles);
 
 
-               var q = applicationDbContext.Businesses.Where(  t => t.BusinessTypeId == businessType2.Id);
+            var searchResults =
+                applicationDbContext.Businesses.Where(
+                    t => t.BusinessTypeId == businessType2.Id && t.Location.Distance(searchLocation) <= distanceInMeters)
+                    .OrderBy(business => business.Location.Distance(searchLocation));
+
             //var q = applicationDbContext.Businesses;
 
 
@@ -82,10 +86,11 @@ namespace BookingBlock.WebApplication.ApiControllers
             searchResponse.Longitude = p.Longitude;
 
             searchResponse.Within = distance;
+            searchResponse.WithinM = distanceInMeters;
 
             List<BusinessSearchResult> results = new List<BusinessSearchResult>();
 
-            foreach (var business in q)
+            foreach (var business in searchResults)
             {
 
                 double distanceFromPostcode = business.Location.Distance(searchLocation).Value;
