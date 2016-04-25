@@ -69,7 +69,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             double distanceInMeters = GeoUtils.MilesToMeters(distanceInMiles);
 
 
-               var q = applicationDbContext.Businesses.Where(  t => t.BusinessTypeId == businessType2.Id && t.Location.Distance(searchLocation) < distanceInMeters).OrderBy(f => f.Location.Distance(searchLocation));
+               var q = applicationDbContext.Businesses.Where(  t => t.BusinessTypeId == businessType2.Id);
             //var q = applicationDbContext.Businesses;
 
 
