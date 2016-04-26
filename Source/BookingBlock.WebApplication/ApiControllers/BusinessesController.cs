@@ -322,35 +322,39 @@ namespace BookingBlock.WebApplication.ApiControllers
         [HttpGet, Route("{id}/Calendar")]
         public async Task<IHttpActionResult> Calendar(Guid id, int start, int end)
         {
-            DateTime startDateTime   = new DateTime(1970,1,1).AddSeconds(start);
-            DateTime endDateTime = new DateTime(1970, 1, 1).AddSeconds(end);
             List<CalendarController.CalendarEvent> events = new List<CalendarController.CalendarEvent>();
 
-            int days = endDateTime.Subtract(startDateTime).Days;
-
-            var openingTimes = db.BusinessOpeningTimes.Where(o => o.BusinessId == id).ToList();
-
-
-            for (int i = 0; i < days; i++)
+            try
             {
-                var day = startDateTime.Date.AddDays(i);
+                DateTime startDateTime = new DateTime(1970, 1, 1).AddSeconds(start);
+                DateTime endDateTime = new DateTime(1970, 1, 1).AddSeconds(end);
 
-                var t = openingTimes.FirstOrDefault(time => time.DayOfWeek == day.DayOfWeek);
 
-                events.Add(new CalendarController.CalendarEvent()
+                int days = endDateTime.Subtract(startDateTime).Days;
+
+                var openingTimes = db.BusinessOpeningTimes.Where(o => o.BusinessId == id).ToList();
+
+
+                for (int i = 0; i < days; i++)
                 {
-                    title = day.DayOfWeek.ToString(),
-                    start = day.Add(t.OpeningTime).ToString("yyyy-MM-dd HH:mm"),
-                    end = day.Add(t.ClosingTime).ToString("yyyy-MM-dd HH:mm")
-                });
+                    var day = startDateTime.Date.AddDays(i);
+
+                    var t = openingTimes.FirstOrDefault(time => time.DayOfWeek == day.DayOfWeek);
+
+                    events.Add(new CalendarController.CalendarEvent()
+                    {
+                        title = day.DayOfWeek.ToString(),
+                        start = day.Add(t.OpeningTime).ToString("yyyy-MM-dd HH:mm"),
+                        end = day.Add(t.ClosingTime).ToString("yyyy-MM-dd HH:mm")
+                    });
+
+                }
 
             }
+            catch (Exception exception)
+            {
 
-
-
-          var r =   Request;
-
-
+            }
 
             return Ok(events);
         }
