@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Http;
 using BookingBlock.EntityFramework;
@@ -6,9 +8,22 @@ using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
+    public class BusinessServicesRequest
+    {
+        public Guid BusinessId { get; set; }
+
+        public List<Service> Services { get; set; } = new List<Service>(); 
+    }
+
     [RoutePrefix("api/services")]
     public class ServicesController : BaseApiController
     {
+        [Route("{id}/list"), HttpGet]
+        public IHttpActionResult Get(Guid id)
+        {
+            return Ok(db.Services.Where(service => service.BusinessId == id).ToList());
+        }
+
         [Route("create"), HttpPost]
         public IHttpActionResult Add(AddServiceRequest addServiceRequest)
         {
