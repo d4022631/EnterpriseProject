@@ -319,6 +319,43 @@ namespace BookingBlock.WebApplication.ApiControllers
             return null;
         }
 
+        [HttpGet, Route("{id}/Calendar")]
+        public async Task<IHttpActionResult> Calendar(Guid id, int start, int end)
+        {
+            DateTime startDateTime   = new DateTime(1970,1,1).AddSeconds(start);
+            DateTime endDateTime = new DateTime(1970, 1, 1).AddSeconds(end);
+            List<CalendarController.CalendarEvent> events = new List<CalendarController.CalendarEvent>();
+
+            int days = endDateTime.Subtract(startDateTime).Days;
+
+            var openingTimes = db.BusinessOpeningTimes.Where(o => o.BusinessId == id).ToList();
+
+
+            for (int i = 0; i < days; i++)
+            {
+                var day = startDateTime.Date.AddDays(i);
+
+                var t = openingTimes.FirstOrDefault(time => time.DayOfWeek == day.DayOfWeek);
+
+                events.Add(new CalendarController.CalendarEvent()
+                {
+                    title = day.DayOfWeek.ToString(),
+                    start = day.Add(t.OpeningTime).ToString("yyyy-MM-dd HH:mm"),
+                    end = day.Add(t.ClosingTime).ToString("yyyy-MM-dd HH:mm")
+                });
+
+            }
+
+
+
+          var r =   Request;
+
+
+
+            return Ok(events);
+        }
+
+
 
 
         [Route("create-random-business"), HttpGet]
