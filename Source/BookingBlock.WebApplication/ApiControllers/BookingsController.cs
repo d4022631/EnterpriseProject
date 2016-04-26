@@ -58,6 +58,12 @@ namespace BookingBlock.WebApplication.ApiControllers
     [RoutePrefix("api/bookings")]
     public class BookingsController : BaseApiController
     {
+        public async Task<IHttpActionResult> GetMyBookings()
+        {
+            return Ok(db.Bookings.Where(booking => booking.CustomerId == UserId).ToList());
+        }
+
+
         [Route("create")]
         public async Task<IHttpActionResult> Create(CreateBookingRequest createBookingRequest)
         {
