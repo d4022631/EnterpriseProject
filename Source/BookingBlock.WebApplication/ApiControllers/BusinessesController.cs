@@ -339,15 +339,35 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.Name = owner.LastName + "'s " + businessType.Name;
 
             business.OpeningTimes = new List<BusinessOpeningTime>();
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Monday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17)});
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Tuesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Wednesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Thursday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Friday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Saturday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(17) });
+            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Monday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18)});
+            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Tuesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
+            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Wednesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
+            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Thursday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
+            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Friday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
+            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Saturday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
             business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Sunday, OpeningTime = TimeSpan.FromHours(10), ClosingTime = TimeSpan.FromHours(16) });
 
             //something.OrderBy(r => Guid.NewGuid()).Take(5)
+
+            Random randoms = new Random();
+
+            int services = randoms.Next(1, 15);
+
+            for (int i = 0; i < services; i++)
+            {
+                bool isFree = randoms.NextDouble() >= 0.5;
+
+                decimal price = isFree ? 0.0M : (randoms.Next(0, 5000) / 100.0M);
+
+                business.Services.Add(new Service()
+                {
+                    Name = $"Service {i + 1}",
+                    Description = $"Radom Service {i + 1}",
+                    Cost = price,
+                    Duration = TimeSpan.FromMinutes(randoms.Next(0, 180))
+                });
+
+            }
 
             var d = RA();
             business.Users.Add(new BusinessUser() {UserId = owner.Id, UserLevel = BusinessUserLevel.Owner});
