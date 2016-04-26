@@ -359,7 +359,12 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok(events);
         }
 
-
+        [Route("count"), HttpGet]
+        public async Task<IHttpActionResult> Count()
+        {
+            // return the count.
+            return Ok(db.Businesses.Count());
+        }
 
 
         [Route("create-random-business"), HttpGet]
