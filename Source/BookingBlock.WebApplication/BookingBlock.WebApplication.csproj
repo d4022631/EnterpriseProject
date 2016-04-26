@@ -266,6 +266,7 @@
     <Compile Include="ApiControllers\BusinessTypeRequest.cs" />
     <Compile Include="ApiControllers\BusinessTypeStore.cs" />
     <Compile Include="ApiControllers\CalendarController.cs" />
+    <Compile Include="ApiControllers\CreateReviewRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\Business2.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\BusinessRegistrationData.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\ApiResponse.cs" />

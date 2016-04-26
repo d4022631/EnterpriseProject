@@ -954,8 +954,14 @@ Wigs
 
         protected override void Seed(ApplicationDbContext context)
         {
-            // seed the business types.
-            this.SeedBusinessTypes(context);
+            // if there arn't any business types in the database
+            if (!context.BusinessTypes.Any())
+            {
+
+                // seed the business types.
+                this.SeedBusinessTypes(context);
+            }
+
 
             UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
             ApplicationUserManager applicationUserManager = new ApplicationUserManager(userStore);

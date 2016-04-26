@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BookingBlock.EntityFramework
 {
-    public class ApplicationDbInitializer : MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>
+    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
        
     }

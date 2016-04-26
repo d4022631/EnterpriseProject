@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BookingBlock.EntityFramework;
@@ -20,12 +19,5 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             return Ok();
         } 
-    }
-
-    public class CreateReviewRequest
-    {
-        public Guid BusinessId { get; set; }
-        public int Rating { get; set; }
-        public string Comments { get; set; }
     }
 }
