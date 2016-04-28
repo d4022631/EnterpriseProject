@@ -8,7 +8,7 @@ using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
-    public class BusinessTypesController : ApiController
+    public class BusinessTypesController : BaseApiController
     {
         private ApplicationDbContext context = ApplicationDbContext.Create();
 
@@ -20,6 +20,80 @@ namespace BookingBlock.WebApplication.ApiControllers
             var allBusinessTypes = await context.BusinessTypes.Select(type => type.Name).ToListAsync();
 
             return Ok(allBusinessTypes);
+        }
+
+        [HttpGet]
+        [Route("api/BusinessTypes/FixDuplicated")]
+        public async Task<IHttpActionResult> FixDuplicate(string name)
+        {
+            var duplicates = db.BusinessTypes.Where(type => type.Name == name).ToList();
+
+            var idsss = duplicates.Select(type => type.Id).ToList();
+
+            var du = (from order in db.Businesses
+                where (idsss.Contains(order.BusinessTypeId))
+                select order);
+
+            var id = idsss.FirstOrDefault();
+
+            foreach (Business business in du)
+            {
+                business.BusinessTypeId = id;
+            }
+
+            foreach (BusinessType businessType in duplicates)
+            {
+                if (businessType.Id != id)
+                {
+                    db.BusinessTypes.Remove(businessType);
+                }
+            }
+
+
+
+            var a = db.SaveChanges();
+            return Ok(name);
+        }
+
+        [HttpGet]
+        [Route("api/BusinessTypes/FixDuplicatedAuto")]
+        public async Task<IHttpActionResult> FixDuplicateAuto()
+        {
+            var groups = db.BusinessTypes.GroupBy(type => type.Name);
+
+            Dictionary<string, int> dups = new Dictionary<string, int>();
+
+            foreach (IGrouping<string, BusinessType> businessTypes in groups)
+            {
+                if (businessTypes.Count() > 1)
+                {
+                    dups.Add(businessTypes.Key, businessTypes.Count());
+                }
+            }
+
+            var d = dups.FirstOrDefault().Key;
+
+            return await FixDuplicate(d);
+
+        }
+
+        [HttpGet]
+        [Route("api/BusinessTypes/Duplicated")]
+        public async Task<IHttpActionResult> Duplicates()
+        {
+            var groups = db.BusinessTypes.GroupBy(type => type.Name);
+
+            Dictionary<string, int> dups = new Dictionary<string, int>();
+
+            foreach (IGrouping<string, BusinessType> businessTypes in groups)
+            {
+                if (businessTypes.Count() > 1)
+                {
+                    dups.Add(businessTypes.Key, businessTypes.Count());
+                }
+            }
+
+            return Ok(dups);
         }
 
         /// <summary>
