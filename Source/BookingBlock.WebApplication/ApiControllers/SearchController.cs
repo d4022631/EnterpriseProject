@@ -101,7 +101,9 @@ namespace BookingBlock.WebApplication.ApiControllers
                     Name = business.Name,
                     BusinessId = business.Id,
                     Latitude = business.Location.Latitude,
-                    Longitude = business.Location.Longitude
+                    Longitude = business.Location.Longitude,
+                    Postcode = business.Postcode,
+                    Address = business.Address
                 };
 
                results.Add(result);
