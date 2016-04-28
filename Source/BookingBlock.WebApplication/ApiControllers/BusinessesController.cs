@@ -320,14 +320,14 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         [HttpGet, Route("{id}/Calendar")]
-        public async Task<IHttpActionResult> Calendar(Guid id, int start, int end)
+        public async Task<IHttpActionResult> Calendar(Guid id, DateTime start, DateTime end)
         {
             List<CalendarController.CalendarEvent> events = new List<CalendarController.CalendarEvent>();
 
             try
             {
-                DateTime startDateTime = new DateTime(1970, 1, 1).AddSeconds(start);
-                DateTime endDateTime = new DateTime(1970, 1, 1).AddSeconds(end);
+                DateTime startDateTime = start;
+                DateTime endDateTime = end;
 
 
                 int days = endDateTime.Subtract(startDateTime).Days;
