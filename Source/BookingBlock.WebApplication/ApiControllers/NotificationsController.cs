@@ -1,9 +1,11 @@
 using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BookingBlock.EntityFramework;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
@@ -14,6 +16,28 @@ namespace BookingBlock.WebApplication.ApiControllers
         [HttpGet, Route("Reminders")]
         public async Task<IHttpActionResult> Reminders()
         {
+            // what time is it now.
+            DateTime currentDateTime = DateTime.Now;
+
+            var bookings = db.Bookings.Where(
+                booking =>
+                    !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= currentDateTime.AddHours(1));
+
+
+            foreach (Booking booking in bookings)
+            {
+                try
+                {
+                    await Send(booking.Id);
+                }
+                catch (Exception)
+                {
+                    
+                    //throw;
+                }
+            }
+
+
             return Ok();
         }
 
