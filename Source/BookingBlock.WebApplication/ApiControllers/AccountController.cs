@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,47 +43,6 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Compare(nameof(NewPassword), ErrorMessage = "The password and confirmation password do not match.")]
         [Required]
         public string ConfirmNewPassword { get; set; }
-    }
-
-    [System.Web.Http.RoutePrefix("api/Notifications")]
-    public class NotificationsController : BaseApiController
-    {
-        [HttpGet, Route("Booking-Reminder")]
-        public async Task<IHttpActionResult> Send(Guid id)
-        {
-            var userBooking =  await db.Bookings.FirstOrDefaultAsync(booking => booking.Id == id);
-
-
-            if (userBooking == null)
-            {
-                return NotFound();
-            }
-
-            var user =
-                await db.Users.FirstOrDefaultAsync(applicationUser => applicationUser.Id == userBooking.CustomerId);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            
-            var myMessage = new SendGrid.SendGridMessage();
-            myMessage.AddTo(user.Email);
-            myMessage.From = new MailAddress("Reminders@bookingblock.com", "BookingBlock Reminders");
-            myMessage.Subject = "You have an upcoming appointment";
-            myMessage.Text = "You have a booking @ " + userBooking.Date ;
-
-            var transportWeb =
-                new SendGrid.Web(new NetworkCredential()
-                {
-                    UserName = "azure_c6a96ba7b269278355a559b27a41d6d4@azure.com",
-                    Password = "Enterprise2016!"
-                });
-            await transportWeb.DeliverAsync(myMessage);
-
-            return Ok();
-        } 
     }
 
 
