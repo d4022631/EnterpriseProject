@@ -17,6 +17,18 @@ namespace BookingBlock.WebApplication.ApiControllers
     {
         protected ApplicationDbContext db = new ApplicationDbContext();
 
+        private Lazy<PostcodesService> _postcodesService = new Lazy<PostcodesService>(ValueFactory);
+
+        private static PostcodesService ValueFactory()
+        {
+            return new PostcodesService();
+        }
+
+        public PostcodesService PostcodesService
+        {
+            get { return _postcodesService.Value; }
+        }
+
         public bool IsUserAuthenticated
         {
             get

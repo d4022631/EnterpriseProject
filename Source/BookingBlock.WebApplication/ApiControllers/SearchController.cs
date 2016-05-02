@@ -48,13 +48,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 return Content(HttpStatusCode.NotFound, "The given business type could not be found in the database");
             }
 
-
-            PostcodesIOClient client = new PostcodesIOClient();
-
-
-            var p = client.Lookup(postcode);
-
-            var searchLocation = GeoUtils.CreatePoint(p.Latitude, p.Longitude);
+            var searchLocation = PostcodesService.Lookup(postcode);
 
 
 
@@ -82,8 +76,9 @@ namespace BookingBlock.WebApplication.ApiControllers
             searchResponse.BusinessType = businessType2.Name;
             searchResponse.BusinessTypeId = businessType2.Id;
             searchResponse.Postcode = postcode;
-            searchResponse.Latitude = p.Latitude;
-            searchResponse.Longitude = p.Longitude;
+
+            searchResponse.Latitude = searchLocation.Latitude.Value;
+            searchResponse.Longitude = searchLocation.Longitude.Value;
 
             searchResponse.Within = distance;
             searchResponse.WithinM = distanceInMeters;

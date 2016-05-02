@@ -361,11 +361,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                     newApplicationUser.IsDummy = dummy;
 
-                    PostcodesIOClient client = new PostcodesIOClient();
-
-                    var postcodeLookup = client.Lookup(newApplicationUser.Postcode);
-
-                    newApplicationUser.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Latitude);
+                    newApplicationUser.Location = PostcodesService.Lookup(newApplicationUser.Postcode);
 
                     
                     

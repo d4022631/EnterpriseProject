@@ -114,7 +114,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             newBusiness.Postcode = changeBusinessAddressRequest.Postcode;
 
-            newBusiness.Location = PostcodeDbGeography.Lookup(changeBusinessAddressRequest.Postcode);
+            newBusiness.Location = PostcodesService.Lookup(changeBusinessAddressRequest.Postcode);
 
 
             db.SaveChanges();
@@ -231,7 +231,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 newBusiness.Postcode = businessRegistrationData.Postcode;
 
-                newBusiness.Location = PostcodeDbGeography.Lookup(businessRegistrationData.Postcode);
+                newBusiness.Location = PostcodesService.Lookup(businessRegistrationData.Postcode);
 
                 AddBusinessOpeningTime(newBusiness, DayOfWeek.Monday, businessRegistrationData.OpeningTimeMonday,
                     businessRegistrationData.ClosingTimeMonday);
@@ -421,11 +421,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.Address = string.Join(",\r\n", d);
             business.IsDummy = true;
 
-            PostcodesIOClient client = new PostcodesIOClient();
-
-            var postcodeLookup = client.Lookup(business.Postcode);
-
-            business.Location = GeoUtils.CreatePoint(postcodeLookup.Latitude, postcodeLookup.Longitude);
+            business.Location = PostcodesService.Lookup(business.Postcode);
 
             db.Businesses.Add(business);
      

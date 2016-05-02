@@ -293,8 +293,8 @@
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeResponse.cs" />
     <Compile Include="ApiControllers\NotificationsController.cs" />
-    <Compile Include="ApiControllers\PostcodeDbGeography.cs" />
     <Compile Include="ApiControllers\PostcodesController.cs" />
+    <Compile Include="ApiControllers\PostcodesService.cs" />
     <Compile Include="ApiControllers\RemoveBusinessTypeRequest.cs" />
     <Compile Include="ApiControllers\ReviewsController.cs" />
     <Compile Include="ApiControllers\SearchStore.cs" />

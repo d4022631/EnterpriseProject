@@ -7,7 +7,6 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using MarkEmbling.PostcodesIO;
 using Swashbuckle.Swagger.Annotations;
 
 namespace BookingBlock.WebApplication.ApiControllers
@@ -22,9 +21,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             if (!string.IsNullOrWhiteSpace(postcode))
             {
-                PostcodesIOClient client = new PostcodesIOClient();
-
-                var result = await client.AutocompleteAsync(postcode);
+                var result = await PostcodesService.AutoCompleteAsync(postcode);
 
                 return Ok(result);
             }
@@ -37,9 +34,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             if (!string.IsNullOrWhiteSpace(postcode))
             {
-                MarkEmbling.PostcodesIO.PostcodesIOClient client = new PostcodesIOClient();
-
-                var result = await client.ValidateAsync(postcode);
+                   var result = await PostcodesService.ValidateAsync(postcode);
 
                 return Ok(result);
             }
