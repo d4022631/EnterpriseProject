@@ -28,7 +28,8 @@ namespace BookingBlock.WebApplication.ApiControllers
         [ResponseType(typeof(BusinessOpeningTime))]
         public async Task<IHttpActionResult> GetBusinessOpeningTime(Guid id)
         {
-            BusinessOpeningTime businessOpeningTime = await db.BusinessOpeningTimes.FindAsync(id);
+            BusinessOpeningTime businessOpeningTime =
+                await db.BusinessOpeningTimes.FirstOrDefaultAsync(time => time.BusinessId == id);
             if (businessOpeningTime == null)
             {
                 return NotFound();
@@ -106,7 +107,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         [ResponseType(typeof(BusinessOpeningTime))]
         public async Task<IHttpActionResult> DeleteBusinessOpeningTime(Guid id)
         {
-            BusinessOpeningTime businessOpeningTime = await db.BusinessOpeningTimes.FindAsync(id);
+            BusinessOpeningTime businessOpeningTime = await db.BusinessOpeningTimes.FirstOrDefaultAsync(time => time.BusinessId == id);
             if (businessOpeningTime == null)
             {
                 return NotFound();
