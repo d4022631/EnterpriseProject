@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookingBlock.EntityFramework;
 using BookingBlock.WebApi;
-using BookingBlock.WebApplication.Models;
-using IdentityServer3.Core.Validation;
-using MarkEmbling.PostcodesIO;
-using Microsoft.AspNet.Identity;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
@@ -32,10 +25,9 @@ namespace BookingBlock.WebApplication.ApiControllers
     }
 
 
-    [System.Web.Http.RoutePrefix("api/businesses")]
+    [RoutePrefix("api/businesses")]
     public class BusinessesController : BaseApiController
     {
-
         [Route("change-type"), HttpPost]
         public async Task<IHttpActionResult> ChangeType(ChangeBusinessTypeRequest changeBusinessTypeRequestRequest)
         {
@@ -45,15 +37,19 @@ namespace BookingBlock.WebApplication.ApiControllers
                 return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
             }
 
-            var ownerId = this.UserId;
+            var ownerId = UserId;
 
             var myBusinesses =
-                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId && businessUser.BusinessId == changeBusinessTypeRequestRequest.BusinessId)
+                db.BusinessUsers.Where(
+                    businessUser =>
+                        businessUser.UserId == ownerId &&
+                        businessUser.BusinessId == changeBusinessTypeRequestRequest.BusinessId)
                     .Include(businessUser => businessUser.Business).FirstOrDefault();
 
             var newBusiness = myBusinesses.Business;
 
-            var firstOrDefault = db.BusinessTypes.FirstOrDefault(type => type.Name == changeBusinessTypeRequestRequest.Type);
+            var firstOrDefault =
+                db.BusinessTypes.FirstOrDefault(type => type.Name == changeBusinessTypeRequestRequest.Type);
 
             if (firstOrDefault != null)
                 newBusiness.BusinessTypeId =
@@ -73,10 +69,13 @@ namespace BookingBlock.WebApplication.ApiControllers
                 return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
             }
 
-            var ownerId = this.UserId;
+            var ownerId = UserId;
 
             var myBusinesses =
-                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId && businessUser.BusinessId == changeBusinessNameRequest.BusinessId)
+                db.BusinessUsers.Where(
+                    businessUser =>
+                        businessUser.UserId == ownerId &&
+                        businessUser.BusinessId == changeBusinessNameRequest.BusinessId)
                     .Include(businessUser => businessUser.Business).FirstOrDefault();
 
             var newBusiness = myBusinesses.Business;
@@ -89,7 +88,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         /// <summary>
-        /// Used to change the address of a business.
+        ///     Used to change the address of a business.
         /// </summary>
         /// <param name="changeBusinessAddressRequest"></param>
         /// <returns></returns>
@@ -102,10 +101,13 @@ namespace BookingBlock.WebApplication.ApiControllers
                 return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
             }
 
-            var ownerId = this.UserId;
+            var ownerId = UserId;
 
             var myBusinesses =
-                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId && businessUser.BusinessId == changeBusinessAddressRequest.BusinessId)
+                db.BusinessUsers.Where(
+                    businessUser =>
+                        businessUser.UserId == ownerId &&
+                        businessUser.BusinessId == changeBusinessAddressRequest.BusinessId)
                     .Include(businessUser => businessUser.Business).FirstOrDefault();
 
             var newBusiness = myBusinesses.Business;
@@ -117,10 +119,32 @@ namespace BookingBlock.WebApplication.ApiControllers
             newBusiness.Location = PostcodesService.Lookup(changeBusinessAddressRequest.Postcode);
 
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok();
         }
+
+        [Route("my-business"), HttpGet]
+        public async Task<IHttpActionResult> MyBusiness()
+        {
+            // if the user is null or the user is not authenticated
+            if (!IsUserAuthenticated)
+            {
+                return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
+            }
+
+            var ownerId = UserId;
+
+            var myBusinesses =
+                db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId)
+                    .Include(businessUser => businessUser.Business);
+
+
+            var mb = myBusinesses.FirstOrDefault(user => user.UserLevel == BusinessUserLevel.Owner).Business;
+
+            return Ok(mb);
+        }
+
 
         [Route("my-businesses"), HttpGet]
         public async Task<IHttpActionResult> MyBusinesses()
@@ -131,23 +155,23 @@ namespace BookingBlock.WebApplication.ApiControllers
                 return Content(HttpStatusCode.Unauthorized, "User must be logged to get businesses.");
             }
 
-            var ownerId = this.UserId;
+            var ownerId = UserId;
 
             var myBusinesses =
                 db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId)
                     .Include(businessUser => businessUser.Business);
 
 
-            UserBusinessInfoList businessInfoList = new UserBusinessInfoList();
+            var businessInfoList = new UserBusinessInfoList();
 
 
-            foreach (BusinessUser businessUser in myBusinesses)
+            foreach (var businessUser in myBusinesses)
             {
-               var ul = businessUser.UserLevel;
+                var ul = businessUser.UserLevel;
                 var jk = businessUser.Business.Name;
                 var id = businessUser.BusinessId;
 
-                businessInfoList.Add(new UserBusinessInfo() {Id = id, Name = jk, IsOwner = ul == BusinessUserLevel.Owner});
+                businessInfoList.Add(new UserBusinessInfo {Id = id, Name = jk, IsOwner = ul == BusinessUserLevel.Owner});
             }
 
             return Ok(businessInfoList);
@@ -155,19 +179,19 @@ namespace BookingBlock.WebApplication.ApiControllers
 
         private string[] RA()
         {
-            string root = HttpContext.Current.Server.MapPath("~/Content/data");
+            var root = HttpContext.Current.Server.MapPath("~/Content/data");
 
-            string[] files = Directory.GetFiles(root);
+            var files = Directory.GetFiles(root);
 
-            string file = files.PickRandom();
+            var file = files.PickRandom();
 
-            List<string[]> dataList = new List<string[]>();
+            var dataList = new List<string[]>();
 
             using (var ff = File.OpenRead(file))
             {
-                using (StreamReader streamReader = new StreamReader(ff))
+                using (var streamReader = new StreamReader(ff))
                 {
-                    int lineCount = 0;
+                    var lineCount = 0;
 
                     while (true)
                     {
@@ -182,7 +206,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                         {
                             if (!string.IsNullOrWhiteSpace(t))
                             {
-                                string[] columns = t.Split(',');
+                                var columns = t.Split(',');
 
                                 dataList.Add(columns);
                             }
@@ -201,7 +225,6 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Route("regster"), HttpPost]
         public async Task<IHttpActionResult> Register(BusinessRegistrationData businessRegistrationData)
         {
-
             // if the user is null or the user is not authenticated
             if (!IsUserAuthenticated)
             {
@@ -212,11 +235,12 @@ namespace BookingBlock.WebApplication.ApiControllers
             // check that the model is valid.
             if (ModelState.IsValid)
             {
-                Business newBusiness = new Business();
+                var newBusiness = new Business();
 
                 newBusiness.Name = businessRegistrationData.Name;
 
-                var businessType = await db.BusinessTypes.FirstOrDefaultAsync(type => type.Name == businessRegistrationData.Type);
+                var businessType =
+                    await db.BusinessTypes.FirstOrDefaultAsync(type => type.Name == businessRegistrationData.Type);
 
                 if (businessType == null)
                 {
@@ -254,17 +278,17 @@ namespace BookingBlock.WebApplication.ApiControllers
                 AddBusinessOpeningTime(newBusiness, DayOfWeek.Sunday, businessRegistrationData.OpeningTimeSunday,
                     businessRegistrationData.ClosingTimeSunday);
 
-                string ownerId = string.Empty;
+                var ownerId = string.Empty;
 
                 newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
                 newBusiness.FaxNumber = businessRegistrationData.ContactFax;
-                
+
 
                 if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
                 {
                     // if not an administrator return a 403 error
 
-                    ApplicationUserStore applicationUserStore = new ApplicationUserStore(db);
+                    var applicationUserStore = new ApplicationUserStore(db);
 
                     var applicationUser =
                         await applicationUserStore.FindByEmailAsync(businessRegistrationData.OwnerEmailAddress);
@@ -273,28 +297,27 @@ namespace BookingBlock.WebApplication.ApiControllers
                 }
                 else
                 {
-        
                     if (!IsUserAuthenticated)
                     {
                         return BadRequest("user bad");
                     }
 
-                    ownerId = this.UserId;
+                    ownerId = UserId;
                 }
-                newBusiness.Users.Add(new BusinessUser() { UserId = ownerId, UserLevel = BusinessUserLevel.Owner });
+                newBusiness.Users.Add(new BusinessUser {UserId = ownerId, UserLevel = BusinessUserLevel.Owner});
 
                 db.Businesses.Add(newBusiness);
 
                 await db.SaveChangesAsync();
 
                 return Ok(ownerId);
-
             }
 
             return InvalidModel();
         }
 
-        private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, TimeSpan? openingTime, TimeSpan? closingTime)
+        private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, TimeSpan? openingTime,
+            TimeSpan? closingTime)
         {
             var businessOpeningTime = CreateBusinessOpeningTime(dayOfWeek, openingTime, closingTime);
 
@@ -304,11 +327,12 @@ namespace BookingBlock.WebApplication.ApiControllers
             }
         }
 
-        private BusinessOpeningTime CreateBusinessOpeningTime(DayOfWeek dayOfWeek, TimeSpan? openingTime, TimeSpan? closingTime)
+        private BusinessOpeningTime CreateBusinessOpeningTime(DayOfWeek dayOfWeek, TimeSpan? openingTime,
+            TimeSpan? closingTime)
         {
             if (openingTime.HasValue && closingTime.HasValue)
             {
-                return new BusinessOpeningTime()
+                return new BusinessOpeningTime
                 {
                     DayOfWeek = dayOfWeek,
                     OpeningTime = openingTime.Value,
@@ -322,38 +346,35 @@ namespace BookingBlock.WebApplication.ApiControllers
         [HttpGet, Route("{id}/Calendar")]
         public async Task<IHttpActionResult> Calendar(Guid id, DateTime start, DateTime end)
         {
-            List<CalendarController.CalendarEvent> events = new List<CalendarController.CalendarEvent>();
+            var events = new List<CalendarController.CalendarEvent>();
 
             try
             {
-                DateTime startDateTime = start;
-                DateTime endDateTime = end;
+                var startDateTime = start;
+                var endDateTime = end;
 
 
-                int days = endDateTime.Subtract(startDateTime).Days;
+                var days = endDateTime.Subtract(startDateTime).Days;
 
                 var openingTimes = db.BusinessOpeningTimes.Where(o => o.BusinessId == id).ToList();
 
 
-                for (int i = 0; i < days; i++)
+                for (var i = 0; i < days; i++)
                 {
                     var day = startDateTime.Date.AddDays(i);
 
                     var t = openingTimes.FirstOrDefault(time => time.DayOfWeek == day.DayOfWeek);
 
-                    events.Add(new CalendarController.CalendarEvent()
+                    events.Add(new CalendarController.CalendarEvent
                     {
                         title = day.DayOfWeek.ToString(),
                         start = day.Add(t.OpeningTime).ToString("yyyy-MM-dd HH:mm"),
                         end = day.Add(t.ClosingTime).ToString("yyyy-MM-dd HH:mm")
                     });
-
                 }
-
             }
             catch (Exception exception)
             {
-
             }
 
             return Ok(events);
@@ -370,12 +391,11 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Route("create-random-business"), HttpGet]
         public async Task<IHttpActionResult> CreateRandomBusiness()
         {
-            Business business = new Business();
+            var business = new Business();
 
-           
 
             // random business type.
-            BusinessType businessType = db.BusinessTypes.OrderBy(r => Guid.NewGuid()).FirstOrDefault();
+            var businessType = db.BusinessTypes.OrderBy(r => Guid.NewGuid()).FirstOrDefault();
 
             // assign the business type id.
             business.BusinessTypeId = businessType.Id;
@@ -385,38 +405,72 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.Name = owner.LastName + "'s " + businessType.Name;
 
             business.OpeningTimes = new List<BusinessOpeningTime>();
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Monday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18)});
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Tuesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Wednesday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Thursday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Friday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Saturday, OpeningTime = TimeSpan.FromHours(8), ClosingTime = TimeSpan.FromHours(18) });
-            business.OpeningTimes.Add(new BusinessOpeningTime() { DayOfWeek = DayOfWeek.Sunday, OpeningTime = TimeSpan.FromHours(10), ClosingTime = TimeSpan.FromHours(16) });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Monday,
+                OpeningTime = TimeSpan.FromHours(8),
+                ClosingTime = TimeSpan.FromHours(18)
+            });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Tuesday,
+                OpeningTime = TimeSpan.FromHours(8),
+                ClosingTime = TimeSpan.FromHours(18)
+            });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Wednesday,
+                OpeningTime = TimeSpan.FromHours(8),
+                ClosingTime = TimeSpan.FromHours(18)
+            });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Thursday,
+                OpeningTime = TimeSpan.FromHours(8),
+                ClosingTime = TimeSpan.FromHours(18)
+            });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Friday,
+                OpeningTime = TimeSpan.FromHours(8),
+                ClosingTime = TimeSpan.FromHours(18)
+            });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Saturday,
+                OpeningTime = TimeSpan.FromHours(8),
+                ClosingTime = TimeSpan.FromHours(18)
+            });
+            business.OpeningTimes.Add(new BusinessOpeningTime
+            {
+                DayOfWeek = DayOfWeek.Sunday,
+                OpeningTime = TimeSpan.FromHours(10),
+                ClosingTime = TimeSpan.FromHours(16)
+            });
 
             //something.OrderBy(r => Guid.NewGuid()).Take(5)
 
-            Random randoms = new Random();
+            var randoms = new Random();
 
-            int services = randoms.Next(1, 15);
+            var services = randoms.Next(1, 15);
 
-            for (int i = 0; i < services; i++)
+            for (var i = 0; i < services; i++)
             {
-                bool isFree = randoms.NextDouble() >= 0.5;
+                var isFree = randoms.NextDouble() >= 0.5;
 
-                decimal price = isFree ? 0.0M : (randoms.Next(0, 5000) / 100.0M);
+                var price = isFree ? 0.0M : randoms.Next(0, 5000)/100.0M;
 
-                business.Services.Add(new Service()
+                business.Services.Add(new Service
                 {
                     Name = $"Service {i + 1}",
                     Description = $"Radom Service {i + 1}",
                     Cost = price,
                     Duration = TimeSpan.FromMinutes(randoms.Next(0, 180))
                 });
-
             }
 
             var d = RA();
-            business.Users.Add(new BusinessUser() {UserId = owner.Id, UserLevel = BusinessUserLevel.Owner});
+            business.Users.Add(new BusinessUser {UserId = owner.Id, UserLevel = BusinessUserLevel.Owner});
             business.Postcode = d[9];
             business.Address = string.Join(",\r\n", d);
             business.IsDummy = true;
@@ -424,19 +478,16 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.Location = PostcodesService.Lookup(business.Postcode);
 
             db.Businesses.Add(business);
-     
+
             try
             {
-     int a = await db.SaveChangesAsync();
-
-            
+                var a = await db.SaveChangesAsync();
             }
             catch (Exception exception)
             {
-                
                 throw;
             }
-       
+
 
             return Ok();
         }
@@ -448,10 +499,10 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         // GET: api/Businesses/5
-        [ResponseType(typeof(Business))]
+        [ResponseType(typeof (Business))]
         public async Task<IHttpActionResult> GetBusiness(Guid id)
         {
-            Business business = await db.Businesses.FindAsync(id);
+            var business = await db.Businesses.FindAsync(id);
             if (business == null)
             {
                 return NotFound();
@@ -461,7 +512,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         // PUT: api/Businesses/5
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof (void))]
         public async Task<IHttpActionResult> PutBusiness(Guid id, Business business)
         {
             if (!ModelState.IsValid)
@@ -486,10 +537,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -505,7 +553,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 Ok(
                     services.Select(
                         service =>
-                            new BusinessService()
+                            new BusinessService
                             {
                                 Cost = service.Cost,
                                 Duration = service.Duration,
@@ -516,7 +564,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
 
         // POST: api/Businesses
-        [ResponseType(typeof(Business))]
+        [ResponseType(typeof (Business))]
         public async Task<IHttpActionResult> PostBusiness(Business business)
         {
             if (!ModelState.IsValid)
@@ -527,14 +575,14 @@ namespace BookingBlock.WebApplication.ApiControllers
             db.Businesses.Add(business);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = business.Id }, business);
+            return CreatedAtRoute("DefaultApi", new {id = business.Id}, business);
         }
 
         // DELETE: api/Businesses/5
-        [ResponseType(typeof(Business))]
+        [ResponseType(typeof (Business))]
         public async Task<IHttpActionResult> DeleteBusiness(Guid id)
         {
-            Business business = await db.Businesses.FindAsync(id);
+            var business = await db.Businesses.FindAsync(id);
             if (business == null)
             {
                 return NotFound();
