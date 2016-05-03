@@ -140,12 +140,12 @@ namespace BookingBlock.WebApplication.ApiControllers
                     .Include(businessUser => businessUser.Business);
 
 
-            var mb = myBusinesses.FirstOrDefault(user => user.UserLevel == BusinessUserLevel.Owner).Business;
+            var mb = myBusinesses.FirstOrDefault().Business;
 
             return Ok(mb);
         }
 
-
+        
         [Route("my-businesses"), HttpGet]
         public async Task<IHttpActionResult> MyBusinesses()
         {
