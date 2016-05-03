@@ -49,6 +49,13 @@ namespace BookingBlock.EntityFramework
         [Required]
         public DbGeography Location { get; set; } = GeoUtils.CreatePoint(0, 0);
 
+        [NotMapped]
+        public double Longitude => Location?.Longitude ?? 0;
+
+        [NotMapped]
+        public double Latitude => Location?.Latitude ?? 0;
+
+
         public virtual BusinessType BusinessType { get; set; }
 
         [Required, ForeignKey(nameof(BusinessType))]
