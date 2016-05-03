@@ -127,6 +127,8 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Route("my-business"), HttpGet]
         public async Task<IHttpActionResult> MyBusiness()
         {
+            db.Configuration.ProxyCreationEnabled = false;
+
             // if the user is null or the user is not authenticated
             if (!IsUserAuthenticated)
             {
@@ -137,10 +139,17 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             var myBusinesses =
                 db.BusinessUsers.Where(businessUser => businessUser.UserId == ownerId)
-                    .Include(businessUser => businessUser.Business);
+                    .Include(businessUser => businessUser.Business).FirstOrDefault();
 
 
-            var mb = myBusinesses.FirstOrDefault().Business;
+            var mb = db.Businesses.FirstOrDefault(business => business.Id == myBusinesses.BusinessId);
+
+            if (mb == null)
+            {
+                return NotFound();
+            }
+
+            mb.Users = null;
 
             return Ok(mb);
         }
