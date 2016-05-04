@@ -593,12 +593,17 @@ namespace BookingBlock.WebApplication.ApiControllers
                 }
             }
 
-            var b = await Request.Content.ReadAsByteArrayAsync();
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            var b = await Request.Content.ReadAsMultipartAsync(provider);
+
+            var t = b.FileData.FirstOrDefault();
+           
 
 
             var r = Path.Combine(root, "logo.jpg");
 
-            File.WriteAllBytes(r, b);
+            File.Move(t.LocalFileName, r);
 
             return Ok();
         }
