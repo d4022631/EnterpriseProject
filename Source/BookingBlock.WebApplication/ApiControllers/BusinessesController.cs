@@ -593,19 +593,24 @@ namespace BookingBlock.WebApplication.ApiControllers
                 }
             }
 
-            var provider = new MultipartFormDataStreamProvider(root);
+            System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
 
-            var b = await Request.Content.ReadAsMultipartAsync(provider);
+            // CHECK THE FILE COUNT.
+            for (int iCnt = 0; iCnt <= hfc.Count - 1; iCnt++)
+            {
+                System.Web.HttpPostedFile hpf = hfc[iCnt];
 
-            var t = b.FileData.FirstOrDefault();
-           
+
+                var r = Path.Combine(root, "logo.jpg");
+
+                hpf.SaveAs(r);
+
+                return Ok();
+            }
 
 
-            var r = Path.Combine(root, "logo.jpg");
 
-            File.Move(t.LocalFileName, r);
-
-            return Ok();
+            return BadRequest();
         }
 
 
