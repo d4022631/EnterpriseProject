@@ -94,7 +94,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 var result = new BusinessSearchResult()
                 {
-                    Distance = distanceFromPostcode,
+                    Distance = Math.Round(distanceFromPostcode, 0),
                     Name = business.Name,
                     BusinessId = business.Id,
                     Latitude = business.Location.Latitude,
