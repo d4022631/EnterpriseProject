@@ -479,6 +479,7 @@
     <Content Include="Content\libs\bootstrap\less\utilities.less" />
     <Content Include="Content\libs\bootstrap\less\variables.less" />
     <Content Include="Content\libs\bootstrap\less\wells.less" />
+    <None Include="Properties\PublishProfiles\bookingblockproduction.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -496,7 +497,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

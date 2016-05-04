@@ -6,6 +6,8 @@ using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -551,6 +553,56 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+
+        [HttpGet, Route("logo-download")]
+        public async Task<IHttpActionResult> Download(Guid id)
+        {
+            string root = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + id);
+
+            if (!Directory.Exists(root))
+            {
+                return NotFound();
+            }
+
+            var t = Directory.EnumerateFiles(root).FirstOrDefault();
+
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            var stream = new FileStream(t, FileMode.Open);
+            result.Content = new StreamContent(stream);
+            result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("image/jpg");
+            return ResponseMessage(result);
+        }
+
+        [HttpPost, Route("logo-upload")]
+        public async Task<IHttpActionResult> Upload(Guid id)
+        {
+
+            string root = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + id);
+
+            if (!Directory.Exists(root))
+            {
+                Directory.CreateDirectory(root);
+            }
+            else
+            {
+                foreach (string enumerateFile in Directory.EnumerateFiles(root))
+                {
+                    File.Delete(enumerateFile);
+                }
+            }
+
+            var b = await Request.Content.ReadAsByteArrayAsync();
+
+
+            var r = Path.Combine(root, "logo.jpg");
+
+            File.WriteAllBytes(r, b);
+
+            return Ok();
+        }
+
 
         [Route("{id}/services"), HttpGet]
         public async Task<IHttpActionResult> GetServices(Guid id)
