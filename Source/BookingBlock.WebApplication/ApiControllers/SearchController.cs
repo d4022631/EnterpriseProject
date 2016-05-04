@@ -77,6 +77,8 @@ namespace BookingBlock.WebApplication.ApiControllers
             searchResponse.BusinessTypeId = businessType2.Id;
             searchResponse.Postcode = postcode;
 
+            
+
             searchResponse.Latitude = searchLocation.Latitude.Value;
             searchResponse.Longitude = searchLocation.Longitude.Value;
 
@@ -85,7 +87,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             List<BusinessSearchResult> results = new List<BusinessSearchResult>();
 
-            foreach (var business in searchResults)
+            foreach (Business business in searchResults)
             {
 
                 double distanceFromPostcode = business.Location.Distance(searchLocation).Value;
@@ -98,7 +100,9 @@ namespace BookingBlock.WebApplication.ApiControllers
                     Latitude = business.Location.Latitude,
                     Longitude = business.Location.Longitude,
                     Postcode = business.Postcode,
-                    Address = business.Address
+                    Address = business.Address,
+                    Website = business.Website,
+                    
                 };
 
                results.Add(result);

@@ -294,6 +294,8 @@ namespace BookingBlock.WebApplication.ApiControllers
                 newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
                 newBusiness.FaxNumber = businessRegistrationData.ContactFax;
 
+                // set the website.
+                newBusiness.Website = businessRegistrationData.Website;
 
                 if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
                 {
