@@ -562,7 +562,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             if (!Directory.Exists(root))
             {
-                return NotFound();
+                return Redirect(new Uri("http://lorempixel.com/256/256/"));
             }
 
             var t = Directory.EnumerateFiles(root).FirstOrDefault();
