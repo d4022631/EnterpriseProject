@@ -562,7 +562,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             if (!Directory.Exists(root))
             {
-                return Ok("EEE");
+                return Redirect(new Uri("http://lorempixel.com/256/256/"));
             }
 
             var t = Directory.EnumerateFiles(root).FirstOrDefault();
@@ -572,9 +572,6 @@ namespace BookingBlock.WebApplication.ApiControllers
             result.Content = new StreamContent(stream);
             result.Content.Headers.ContentType =
                 new MediaTypeHeaderValue("image/jpg");
-
-
-            return Ok("EEE2");
             return ResponseMessage(result);
         }
 
