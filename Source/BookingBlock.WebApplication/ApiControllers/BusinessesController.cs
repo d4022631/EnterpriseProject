@@ -233,6 +233,19 @@ namespace BookingBlock.WebApplication.ApiControllers
             return radom;
         }
 
+        [Route("info"), HttpGet]
+
+        public async Task<IHttpActionResult> Info(Guid businessId)
+        {
+            return Ok(new BusinessRegistrationData());
+        }
+
+        [Route("update"), HttpPost]
+        public async Task<IHttpActionResult> Update(Guid businessId, BusinessRegistrationData businessRegistrationData)
+        {
+            return Ok(businessRegistrationData);
+        }
+
         [Route("regster"), HttpPost]
         public async Task<IHttpActionResult> Register(BusinessRegistrationData businessRegistrationData)
         {
@@ -293,6 +306,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
                 newBusiness.FaxNumber = businessRegistrationData.ContactFax;
+                
 
                 // set the website.
                 newBusiness.Website = businessRegistrationData.Website;

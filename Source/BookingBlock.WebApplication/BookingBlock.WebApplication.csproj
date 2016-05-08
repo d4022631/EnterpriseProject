@@ -298,6 +298,7 @@
     <Compile Include="ApiControllers\RemoveBusinessTypeRequest.cs" />
     <Compile Include="ApiControllers\ReviewsController.cs" />
     <Compile Include="ApiControllers\SearchStore.cs" />
+    <Compile Include="ApiControllers\UsersController.cs" />
     <Compile Include="Code\PostcodesIOClientAsyncExtensions.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationRequest.cs" />
     <Compile Include="ApiControllers\DataTransferObjects\PostcodeValidationResponse.cs" />

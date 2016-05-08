@@ -334,6 +334,14 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                     ApplicationUser newApplicationUser = new ApplicationUser();
 
+
+                    if (IsUserAuthenticated)
+                    {
+                        newApplicationUser = await userStore.FindByIdAsync(this.UserId);
+                    }
+
+               
+
                     newApplicationUser.FirstName = accountRegistrationRequest.FirstName;
                     newApplicationUser.LastName = accountRegistrationRequest.LastName;
 
@@ -387,9 +395,52 @@ namespace BookingBlock.WebApplication.ApiControllers
             return BadRequest("registration data is null.");
         }
 
+        [HttpGet, Route("my-info")]
+        public async Task<IHttpActionResult> MyInfo()
+        {
+            AccountRegistrationRequest ar = new AccountRegistrationRequest();
+
+            if (IsUserAuthenticated)
+            {
+
+                ApplicationDbContext context = ApplicationDbContext.Create();
+
+                UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
+
+                ApplicationUserManager userManager = new ApplicationUserManager(userStore);
+
+
+                var usr = await userManager.FindByIdAsync(this.UserId);
+
+                if (usr != null)
+                {
+                    ar.AddressLine1 = usr.Address;
+                    ar.DateOfBirth = usr.DateOfBirth;
+                    ar.EmailAddress = usr.Email;
+                    ar.FirstName = usr.FirstName;
+                    ar.LastName = usr.LastName;
+                    ar.Gender = usr.Gender.ToString();
+                    ar.MobileNumber = usr.PhoneNumber;
+
+                }
+
+            }
+
+
+            return Ok(ar);
+        }
+
+        [HttpPost, Route("Update")]
+        public async Task<IHttpActionResult> Update(AccountRegistrationRequest accountRegistrationRequest)
+        {
+
+            return await Register2(accountRegistrationRequest, DateTime.Now);
+        }
+
         [HttpPost, Route("register")]
         public async Task<IHttpActionResult> Register(AccountRegistrationRequest accountRegistrationRequest)
         {
+
             return await Register2(accountRegistrationRequest, DateTime.Now);
         }
 
