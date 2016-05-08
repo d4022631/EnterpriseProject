@@ -66,6 +66,7 @@
     <Compile Include="ApplicationDbInitializer.cs" />
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Booking.cs" />
+    <Compile Include="BookingBlockEntity.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="BusinessOpeningTime.cs" />
     <Compile Include="BusinessType.cs" />
@@ -80,6 +81,18 @@
     <Compile Include="Migrations\201604231751367_bookinglogs.cs" />
     <Compile Include="Migrations\201604231751367_bookinglogs.Designer.cs">
       <DependentUpon>201604231751367_bookinglogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081614277_buinsess-email-address.cs" />
+    <Compile Include="Migrations\201605081614277_buinsess-email-address.Designer.cs">
+      <DependentUpon>201605081614277_buinsess-email-address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081623573_buinsess-more-fields.cs" />
+    <Compile Include="Migrations\201605081623573_buinsess-more-fields.Designer.cs">
+      <DependentUpon>201605081623573_buinsess-more-fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081629431_removed-dummy-flag.cs" />
+    <Compile Include="Migrations\201605081629431_removed-dummy-flag.Designer.cs">
+      <DependentUpon>201605081629431_removed-dummy-flag.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +110,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604231751367_bookinglogs.resx">
       <DependentUpon>201604231751367_bookinglogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081614277_buinsess-email-address.resx">
+      <DependentUpon>201605081614277_buinsess-email-address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081623573_buinsess-more-fields.resx">
+      <DependentUpon>201605081623573_buinsess-more-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081629431_removed-dummy-flag.resx">
+      <DependentUpon>201605081629431_removed-dummy-flag.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,47 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
+using System.Threading.Tasks;
 
 namespace BookingBlock.EntityFramework
 {
-    public class Business
+    public class BusinessStore
+    {
+        readonly ApplicationDbContext _context;
+
+        public BusinessStore(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<Business> FindAsync(Guid businessId)
+        {
+            return await _context.Businesses.FindAsync(businessId);
+        }
+
+        public async Task<bool> DeleteAsync(Guid businessId)
+        {
+            var business = await FindAsync(businessId);
+
+            if (business != null)
+            {
+                if (!business.Deleted)
+                {
+                    business.Deleted = true;
+                    business.Modified = DateTime.Now;
+                    
+                    return _context.SaveChanges() > 0;
+                }
+
+                return true;
+         
+            }
+
+            return false;
+        } 
+    }
+
+    public class Business : BookingBlockEntity
     {
         public Business()
         {
@@ -14,10 +51,6 @@ namespace BookingBlock.EntityFramework
             this.Users = new List<BusinessUser>();
             this.OpeningTimes = new List<BusinessOpeningTime>();
         }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -43,6 +76,11 @@ namespace BookingBlock.EntityFramework
 
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
+
+
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+
         [DataType(DataType.Url)]
         public string LogoUrl { get; set; }
 
@@ -55,7 +93,6 @@ namespace BookingBlock.EntityFramework
         [NotMapped]
         public double Latitude => Location?.Latitude ?? 0;
 
-
         public virtual BusinessType BusinessType { get; set; }
 
         [Required, ForeignKey(nameof(BusinessType))]
@@ -67,9 +104,6 @@ namespace BookingBlock.EntityFramework
 
         public virtual ICollection<BusinessOpeningTime> OpeningTimes { get; set; }
 
-        /// <summary>
-        /// Gets or sets a flag to indicate if the entity a a dummy entity created for testing.
-        /// </summary>
-        public bool IsDummy { get; set; }
+
     }
 }

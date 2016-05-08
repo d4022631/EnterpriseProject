@@ -306,7 +306,7 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                 newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
                 newBusiness.FaxNumber = businessRegistrationData.ContactFax;
-                
+                newBusiness.EmailAddress = businessRegistrationData.ContactEmail;
 
                 // set the website.
                 newBusiness.Website = businessRegistrationData.Website;
@@ -500,8 +500,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             business.Users.Add(new BusinessUser {UserId = owner.Id, UserLevel = BusinessUserLevel.Owner});
             business.Postcode = d[9];
             business.Address = string.Join(",\r\n", d);
-            business.IsDummy = true;
-
+          
             business.Location = PostcodesService.Lookup(business.Postcode);
 
             db.Businesses.Add(business);
