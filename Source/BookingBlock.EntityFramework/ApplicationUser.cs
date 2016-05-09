@@ -39,14 +39,14 @@ namespace BookingBlock.EntityFramework
         public Gender Gender { get; set; }
 
         /// <summary>
-        /// Gets or sets a flag to indicate if the entity a a dummy entity created for testing.
-        /// </summary>
-        public bool IsDummy { get; set; }
-
-        /// <summary>
         /// Gets or sets the date the account was registered.
         /// </summary>
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
+
+
+        public DateTime Modified { get; set; } = DateTime.Now;
+
+        public bool Deleted { get; set; } = false;
 
         public ApplicationUser()
         {

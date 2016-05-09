@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -41,6 +42,28 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok();
         }
 
+
+        [HttpGet, Route("email-test")]
+        public async Task<IHttpActionResult> SendEmail(string address)
+        {
+
+            var myMessage = new SendGrid.SendGridMessage();
+            myMessage.AddTo(address);
+            myMessage.From = new MailAddress("Reminders@bookingblock.com", "BookingBlock Reminders");
+            myMessage.Subject = "You have an upcoming appointment";
+            myMessage.Text = "You have a booking @ " + DateTime.Now;
+
+            var transportWeb =
+                new SendGrid.Web(new NetworkCredential()
+                {
+                    UserName = ConfigurationManager.AppSettings["SendGridUsername"],
+                    Password = ConfigurationManager.AppSettings["SendGridPassword"]
+                });
+            await transportWeb.DeliverAsync(myMessage);
+
+            return Ok();
+        }
+
         [HttpGet, Route("Booking-Reminder")]
         public async Task<IHttpActionResult> Send(Guid id)
         {
@@ -70,8 +93,8 @@ namespace BookingBlock.WebApplication.ApiControllers
             var transportWeb =
                 new SendGrid.Web(new NetworkCredential()
                 {
-                    UserName = "azure_c6a96ba7b269278355a559b27a41d6d4@azure.com",
-                    Password = "Enterprise2016!"
+                    UserName = ConfigurationManager.AppSettings["SendGridUsername"],
+                    Password = ConfigurationManager.AppSettings["SendGridPassword"]
                 });
             await transportWeb.DeliverAsync(myMessage);
 

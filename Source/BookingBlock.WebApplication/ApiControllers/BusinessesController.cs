@@ -427,7 +427,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             // assign the business type id.
             business.BusinessTypeId = businessType.Id;
 
-            var owner = db.Users.Where(user => user.IsDummy).OrderBy(r => Guid.NewGuid()).FirstOrDefault();
+            var owner = db.Users.OrderBy(r => Guid.NewGuid()).FirstOrDefault();
 
             business.Name = owner.LastName + "'s " + businessType.Name;
 

@@ -94,6 +94,34 @@
     <Compile Include="Migrations\201605081629431_removed-dummy-flag.Designer.cs">
       <DependentUpon>201605081629431_removed-dummy-flag.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605081743391_user-fields.cs" />
+    <Compile Include="Migrations\201605081743391_user-fields.Designer.cs">
+      <DependentUpon>201605081743391_user-fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081744536_bookings-fields.cs" />
+    <Compile Include="Migrations\201605081744536_bookings-fields.Designer.cs">
+      <DependentUpon>201605081744536_bookings-fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081746097_bot.cs" />
+    <Compile Include="Migrations\201605081746097_bot.Designer.cs">
+      <DependentUpon>201605081746097_bot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081747143_bt.cs" />
+    <Compile Include="Migrations\201605081747143_bt.Designer.cs">
+      <DependentUpon>201605081747143_bt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081748138_bu.cs" />
+    <Compile Include="Migrations\201605081748138_bu.Designer.cs">
+      <DependentUpon>201605081748138_bu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081753390_review-fields.cs" />
+    <Compile Include="Migrations\201605081753390_review-fields.Designer.cs">
+      <DependentUpon>201605081753390_review-fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605081756226_added-paid.cs" />
+    <Compile Include="Migrations\201605081756226_added-paid.Designer.cs">
+      <DependentUpon>201605081756226_added-paid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Review.cs" />
@@ -119,6 +147,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605081629431_removed-dummy-flag.resx">
       <DependentUpon>201605081629431_removed-dummy-flag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081743391_user-fields.resx">
+      <DependentUpon>201605081743391_user-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081744536_bookings-fields.resx">
+      <DependentUpon>201605081744536_bookings-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081746097_bot.resx">
+      <DependentUpon>201605081746097_bot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081747143_bt.resx">
+      <DependentUpon>201605081747143_bt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081748138_bu.resx">
+      <DependentUpon>201605081748138_bu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081753390_review-fields.resx">
+      <DependentUpon>201605081753390_review-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081756226_added-paid.resx">
+      <DependentUpon>201605081756226_added-paid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

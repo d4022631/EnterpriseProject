@@ -24,19 +24,13 @@ namespace BookingBlock.EntityFramework
 
     }
 
-    public class Booking
+    public class Booking : BookingBlockEntity
     {
         public Booking()
         {
             this.Log = new List<BookingLog>();
         }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
-
-        
         public virtual Service Service { get; set; }
 
         [Required, ForeignKey(nameof(Service))]
@@ -61,6 +55,8 @@ namespace BookingBlock.EntityFramework
 
 
         public ICollection<BookingLog> Log { get; set; } 
+
+        public bool Paid { get; set; }
 
         public bool Confirmed { get; set; }
         public bool Cancelled { get; set; }

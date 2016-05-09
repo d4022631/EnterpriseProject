@@ -6,7 +6,14 @@ namespace BookingBlock.EntityFramework
 {
     public class BusinessUser
     {
-      
+
+        public DateTime Created { get; set; } = DateTime.Now;
+
+        public DateTime Modified { get; set; } = DateTime.Now;
+
+        public bool Deleted { get; set; } = false;
+
+
         public virtual Business Business { get; set; }
 
         

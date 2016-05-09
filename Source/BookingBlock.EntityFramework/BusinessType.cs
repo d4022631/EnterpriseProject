@@ -5,11 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingBlock.EntityFramework
 {
-    public class BusinessType
+    public class BusinessType : BookingBlockEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+
 
         [Required]
         public string Name { get; set; }

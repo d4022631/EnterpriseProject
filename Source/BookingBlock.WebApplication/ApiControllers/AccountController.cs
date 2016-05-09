@@ -367,8 +367,6 @@ namespace BookingBlock.WebApplication.ApiControllers
                         newApplicationUser.RegistrationDate = DateTime.Now;
                     }
 
-                    newApplicationUser.IsDummy = dummy;
-
                     newApplicationUser.Location = PostcodesService.Lookup(newApplicationUser.Postcode);
 
                     

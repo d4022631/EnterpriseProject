@@ -6,6 +6,13 @@ namespace BookingBlock.EntityFramework
 {
     public class BusinessOpeningTime
     {
+
+        public DateTime Created { get; set; } = DateTime.Now;
+
+        public DateTime Modified { get; set; } = DateTime.Now;
+
+        public bool Deleted { get; set; } = false;
+
         public virtual Business Business { get; set; }
 
         [Required, ForeignKey(nameof(Business)), Key, Column(Order = 0)]
