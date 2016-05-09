@@ -42,6 +42,7 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok();
         }
 
+        [HttpGet, Route("sms-test")]
         public async Task<IHttpActionResult> Sms(string phoneNumber, string text)
         {
             var client = new MScience.Sms.SmsClient
