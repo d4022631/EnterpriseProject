@@ -42,6 +42,27 @@ namespace BookingBlock.WebApplication.ApiControllers
             return Ok();
         }
 
+        public async Task<IHttpActionResult> Sms(string phoneNumber, string text)
+        {
+            var client = new MScience.Sms.SmsClient
+            {
+                //
+                AccountId = ConfigurationManager.AppSettings["DragonFlyAccountId"],
+                Password = ConfigurationManager.AppSettings["DragonFlyPassword"]
+            };
+            var sendResult = client.Send(phoneNumber, "", text, 0, true);
+
+
+            if (sendResult.HasError)
+            {
+                BadRequest();
+            }
+
+            var deliveryReceipts = client.GetDeliveryReceipts();
+
+            return Ok(deliveryReceipts);
+        }
+
 
         [HttpGet, Route("email-test")]
         public async Task<IHttpActionResult> SendEmail(string address)
@@ -88,7 +109,20 @@ namespace BookingBlock.WebApplication.ApiControllers
             myMessage.AddTo(user.Email);
             myMessage.From = new MailAddress("Reminders@bookingblock.com", "BookingBlock Reminders");
             myMessage.Subject = "You have an upcoming appointment";
-            myMessage.Text = "You have a booking @ " + userBooking.Date ;
+            myMessage.Text = "You have a booking @ " + userBooking.Date;
+
+            if (!string.IsNullOrWhiteSpace(user.PhoneNumber))
+            {
+                try
+                {
+                    await Sms(user.PhoneNumber, myMessage.Text);
+                }
+                catch (Exception)
+                {
+                    
+                   // throw;
+                }
+            }
 
             var transportWeb =
                 new SendGrid.Web(new NetworkCredential()
