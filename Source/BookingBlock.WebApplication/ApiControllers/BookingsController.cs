@@ -5,6 +5,7 @@ using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Routing;
 using BookingBlock.EntityFramework;
 using BookingBlock.WebApplication.Models;
 
@@ -55,10 +56,33 @@ namespace BookingBlock.WebApplication.ApiControllers
         }
     }
 
+    //name, cost, time, duration
+
+
+
+
     [RoutePrefix("api/bookings")]
     public class BookingsController : BaseApiController
     {
         public async Task<IHttpActionResult> GetMyBookings()
+        {
+            return
+                Ok(
+                    db.Bookings.Where(booking => booking.CustomerId == UserId)
+                        .Select(
+                            s =>
+                                new
+                                {
+                                    Date = s.Date,
+                                    Duration = s.Duration,
+                                    Name = s.Service.Name,
+                                    TotalCost = s.TotalCost
+                                })
+                        .ToList());
+        }
+
+        [Route("bookings-old")]
+        public async Task<IHttpActionResult> GetMyBookings2()
         {
             return Ok(db.Bookings.Where(booking => booking.CustomerId == UserId).ToList());
         }

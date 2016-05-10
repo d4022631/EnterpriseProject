@@ -22,10 +22,9 @@ namespace BookingBlock.WebApplication.ApiControllers
                 // what time is it now.
                 DateTime currentDateTime = DateTime.Now;
                 DateTime older = currentDateTime.AddHours(1);
-                var bookings = db.Bookings;
-
-
-                return Ok(from o in bookings select new { d = o.Date });
+                var bookings = db.Bookings.Where(
+                    booking =>
+                        !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= older);
 
                 foreach (Booking booking in bookings)
                 {
