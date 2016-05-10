@@ -146,6 +146,9 @@ namespace BookingBlock.WebApplication.ApiControllers
 
             Booking booking = new Booking() {CustomerId = this.UserId, Date = createBookingRequest.DateTime};
 
+            booking.TotalCost = service.Cost;
+            booking.Duration = service.Duration;
+
             string logEntry = "Booking created.";
 
             booking.Log.Add(new BookingLog() { Entry = logEntry});
