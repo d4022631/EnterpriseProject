@@ -14,40 +14,10 @@ namespace BookingBlock.WebApplication.ApiControllers
     public class NotificationsController : BaseApiController
     {
 
-        [HttpGet, Route("Reminders")]
+        [HttpGet, Route("send-reminders")]
         public async Task<IHttpActionResult> Reminders()
         {
-            try
-            {
-                // what time is it now.
-                DateTime currentDateTime = DateTime.Now;
-
-                var bookings = db.Bookings.Where(
-                    booking =>
-                        !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= currentDateTime.AddHours(1));
-
-
-                foreach (Booking booking in bookings)
-                {
-                    try
-                    {
-                        await Send(booking.Id);
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-                }
-
-
-                return Ok();
-            }
-            catch (Exception exception)
-            {
-
-                return Ok(exception.Message);
-            }
+            return Ok();
         }
 
         [HttpGet, Route("sms-test")]
