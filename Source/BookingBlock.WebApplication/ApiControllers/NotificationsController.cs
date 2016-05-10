@@ -17,29 +17,37 @@ namespace BookingBlock.WebApplication.ApiControllers
         [HttpGet, Route("Reminders")]
         public async Task<IHttpActionResult> Reminders()
         {
-            // what time is it now.
-            DateTime currentDateTime = DateTime.Now;
-
-            var bookings = db.Bookings.Where(
-                booking =>
-                    !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= currentDateTime.AddHours(1));
-
-
-            foreach (Booking booking in bookings)
+            try
             {
-                try
+                // what time is it now.
+                DateTime currentDateTime = DateTime.Now;
+
+                var bookings = db.Bookings.Where(
+                    booking =>
+                        !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= currentDateTime.AddHours(1));
+
+
+                foreach (Booking booking in bookings)
                 {
-                    await Send(booking.Id);
+                    try
+                    {
+                        await Send(booking.Id);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
-                catch (Exception)
-                {
-                    
-                    //throw;
-                }
+
+
+                return Ok();
             }
+            catch (Exception exception)
+            {
 
-
-            return Ok();
+                return Ok(exception.Message);
+            }
         }
 
         [HttpGet, Route("sms-test")]
