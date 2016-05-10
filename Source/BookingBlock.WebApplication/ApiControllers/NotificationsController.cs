@@ -27,6 +27,8 @@ namespace BookingBlock.WebApplication.ApiControllers
                         !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= older);
 
 
+                return Ok(from o in bookings select new { d = o.Date });
+
                 foreach (Booking booking in bookings)
                 {
                     try
