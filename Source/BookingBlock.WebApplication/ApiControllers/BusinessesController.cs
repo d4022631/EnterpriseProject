@@ -343,8 +343,8 @@ namespace BookingBlock.WebApplication.ApiControllers
             return InvalidModel();
         }
 
-        private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, TimeSpan? openingTime,
-            TimeSpan? closingTime)
+        private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, DateTime? openingTime,
+            DateTime? closingTime)
         {
             var businessOpeningTime = CreateBusinessOpeningTime(dayOfWeek, openingTime, closingTime);
 
@@ -354,16 +354,16 @@ namespace BookingBlock.WebApplication.ApiControllers
             }
         }
 
-        private BusinessOpeningTime CreateBusinessOpeningTime(DayOfWeek dayOfWeek, TimeSpan? openingTime,
-            TimeSpan? closingTime)
+        private BusinessOpeningTime CreateBusinessOpeningTime(DayOfWeek dayOfWeek, DateTime? openingTime,
+            DateTime? closingTime)
         {
             if (openingTime.HasValue && closingTime.HasValue)
             {
                 return new BusinessOpeningTime
                 {
                     DayOfWeek = dayOfWeek,
-                    OpeningTime = openingTime.Value,
-                    ClosingTime = closingTime.Value
+                    OpeningTime = openingTime.Value.TimeOfDay,
+                    ClosingTime = closingTime.Value.TimeOfDay
                 };
             }
 

@@ -4,19 +4,19 @@ namespace BookingBlock.WebApi
 {
     public interface IBusinessOpeningTimes
     {
-        TimeSpan? OpeningTimeMonday { get; set; }
-        TimeSpan? ClosingTimeMonday { get; set; }
-        TimeSpan? OpeningTimeTuesday { get; set; }
-        TimeSpan? ClosingTimeTuesday { get; set; }
-        TimeSpan? OpeningTimeWednesday { get; set; }
-        TimeSpan? ClosingTimeWednesday { get; set; }
-        TimeSpan? OpeningTimeThursday { get; set; }
-        TimeSpan? ClosingTimeThursday { get; set; }
-        TimeSpan? OpeningTimeFriday { get; set; }
-        TimeSpan? ClosingTimeFriday { get; set; }
-        TimeSpan? OpeningTimeSaturday { get; set; }
-        TimeSpan? ClosingTimeSaturday { get; set; }
-        TimeSpan? OpeningTimeSunday { get; set; }
-        TimeSpan? ClosingTimeSunday { get; set; }
+        DateTime? OpeningTimeMonday { get; set; }
+        DateTime? ClosingTimeMonday { get; set; }
+        DateTime? OpeningTimeTuesday { get; set; }
+        DateTime? ClosingTimeTuesday { get; set; }
+        DateTime? OpeningTimeWednesday { get; set; }
+        DateTime? ClosingTimeWednesday { get; set; }
+        DateTime? OpeningTimeThursday { get; set; }
+        DateTime? ClosingTimeThursday { get; set; }
+        DateTime? OpeningTimeFriday { get; set; }
+        DateTime? ClosingTimeFriday { get; set; }
+        DateTime? OpeningTimeSaturday { get; set; }
+        DateTime? ClosingTimeSaturday { get; set; }
+        DateTime? OpeningTimeSunday { get; set; }
+        DateTime? ClosingTimeSunday { get; set; }
     }
 }

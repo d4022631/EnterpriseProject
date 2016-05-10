@@ -5,10 +5,10 @@ namespace BookingBlock.WebApi
 {
     public sealed class OpeningTimes
     {
-        private readonly Dictionary<DayOfWeek, Tuple<TimeSpan?, TimeSpan?>> _openingTimes = new Dictionary<DayOfWeek, Tuple<TimeSpan?, TimeSpan?>>(); 
+        private readonly Dictionary<DayOfWeek, Tuple<DateTime?, DateTime?>> _openingTimes = new Dictionary<DayOfWeek, Tuple<DateTime?, DateTime?>>(); 
         private readonly object _syncLock = new object();
 
-        public TimeSpan? GetOpeningTime(DayOfWeek dayOfWeek)
+        public DateTime? GetOpeningTime(DayOfWeek dayOfWeek)
         {
             lock (_syncLock)
             {
@@ -16,27 +16,27 @@ namespace BookingBlock.WebApi
             }
         }
 
-        public void SetOpeningTime(DayOfWeek dayOfWeek, TimeSpan? openingTime)
+        public void SetOpeningTime(DayOfWeek dayOfWeek, DateTime? openingTime)
         {
             lock (_syncLock)
             {
                 var closingTime = GetClosingTime(dayOfWeek);
 
-                this[dayOfWeek] = new Tuple<TimeSpan?, TimeSpan?>(openingTime, closingTime);
+                this[dayOfWeek] = new Tuple<DateTime?, DateTime?>(openingTime, closingTime);
             }
         }
 
-        public void SetClosingTime(DayOfWeek dayOfWeek, TimeSpan? closingTime)
+        public void SetClosingTime(DayOfWeek dayOfWeek, DateTime? closingTime)
         {
             lock (_syncLock)
             {
                 var openingTime = GetOpeningTime(dayOfWeek);
 
-                this[dayOfWeek] = new Tuple<TimeSpan?, TimeSpan?>(openingTime,closingTime);
+                this[dayOfWeek] = new Tuple<DateTime?, DateTime?>(openingTime,closingTime);
             }
         }
 
-        public TimeSpan? GetClosingTime(DayOfWeek dayOfWeek)
+        public DateTime? GetClosingTime(DayOfWeek dayOfWeek)
         {
             lock (_syncLock)
             {
@@ -44,7 +44,7 @@ namespace BookingBlock.WebApi
             }
         }
 
-        public Tuple<TimeSpan?, TimeSpan?> this[DayOfWeek dayOfWeek]
+        public Tuple<DateTime?, DateTime?> this[DayOfWeek dayOfWeek]
         {
             get
             {
@@ -56,7 +56,7 @@ namespace BookingBlock.WebApi
                     }
                 }
 
-                return new Tuple<TimeSpan?, TimeSpan?>(null, null);
+                return new Tuple<DateTime?, DateTime?>(null, null);
             }
 
             set

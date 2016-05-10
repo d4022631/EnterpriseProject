@@ -247,11 +247,11 @@ namespace BookingBlock.WebApi.TestApplication
 
             foreach (DayOfWeek value in Enum.GetValues(typeof(DayOfWeek)))
             {
-                openingTimes.SetOpeningTime(value, Read<TimeSpan?>($"Opening Time {value}"));
+                openingTimes.SetOpeningTime(value, Read<DateTime?>($"Opening Time {value}"));
 
                 if (openingTimes.GetOpeningTime(value).HasValue)
                 {
-                    openingTimes.SetClosingTime(value, Read<TimeSpan?>($"Closing Time {value}"));
+                    openingTimes.SetClosingTime(value, Read<DateTime?>($"Closing Time {value}"));
                 }
             }
 
