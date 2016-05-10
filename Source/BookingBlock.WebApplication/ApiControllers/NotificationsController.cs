@@ -24,7 +24,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                 DateTime older = currentDateTime.AddHours(1);
                 var bookings = db.Bookings.Where(
                     booking =>
-                        !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= older);
+                        !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= older).ToList();
 
                 foreach (Booking booking in bookings)
                 {
