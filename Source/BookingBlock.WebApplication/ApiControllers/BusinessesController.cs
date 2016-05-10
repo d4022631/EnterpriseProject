@@ -249,98 +249,106 @@ namespace BookingBlock.WebApplication.ApiControllers
         [Route("regster"), HttpPost]
         public async Task<IHttpActionResult> Register(BusinessRegistrationData businessRegistrationData)
         {
-            // if the user is null or the user is not authenticated
-            if (!IsUserAuthenticated)
+            try
             {
-                return Content(HttpStatusCode.Unauthorized, "User must be logged in to create a business.");
-            }
-
-
-            // check that the model is valid.
-            if (ModelState.IsValid)
-            {
-                var newBusiness = new Business();
-
-                newBusiness.Name = businessRegistrationData.Name;
-
-                var businessType =
-                    await db.BusinessTypes.FirstOrDefaultAsync(type => type.Name == businessRegistrationData.Type);
-
-                if (businessType == null)
+                // if the user is null or the user is not authenticated
+                if (!IsUserAuthenticated)
                 {
-                    return Content(HttpStatusCode.BadRequest,
-                        $"The given business type {businessRegistrationData.Type} could not be found in the database");
+                    return Content(HttpStatusCode.Unauthorized, "User must be logged in to create a business.");
                 }
 
-                // set the business type id.
-                newBusiness.BusinessTypeId = businessType.Id;
 
-                newBusiness.Address = businessRegistrationData.GetAddressString();
-
-                newBusiness.Postcode = businessRegistrationData.Postcode;
-
-                newBusiness.Location = PostcodesService.Lookup(businessRegistrationData.Postcode);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Monday, businessRegistrationData.OpeningTimeMonday,
-                    businessRegistrationData.ClosingTimeMonday);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Tuesday, businessRegistrationData.OpeningTimeTuesday,
-                    businessRegistrationData.ClosingTimeTuesday);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Wednesday, businessRegistrationData.OpeningTimeWednesday,
-                    businessRegistrationData.ClosingTimeWednesday);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Thursday, businessRegistrationData.OpeningTimeThursday,
-                    businessRegistrationData.ClosingTimeThursday);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Friday, businessRegistrationData.OpeningTimeFriday,
-                    businessRegistrationData.ClosingTimeFriday);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Saturday, businessRegistrationData.OpeningTimeSaturday,
-                    businessRegistrationData.ClosingTimeSaturday);
-
-                AddBusinessOpeningTime(newBusiness, DayOfWeek.Sunday, businessRegistrationData.OpeningTimeSunday,
-                    businessRegistrationData.ClosingTimeSunday);
-
-                var ownerId = string.Empty;
-
-                newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
-                newBusiness.FaxNumber = businessRegistrationData.ContactFax;
-                newBusiness.EmailAddress = businessRegistrationData.ContactEmail;
-
-                // set the website.
-                newBusiness.Website = businessRegistrationData.Website;
-
-                if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
+                // check that the model is valid.
+                if (ModelState.IsValid)
                 {
-                    // if not an administrator return a 403 error
+                    var newBusiness = new Business();
 
-                    var applicationUserStore = new ApplicationUserStore(db);
+                    newBusiness.Name = businessRegistrationData.Name;
 
-                    var applicationUser =
-                        await applicationUserStore.FindByEmailAsync(businessRegistrationData.OwnerEmailAddress);
+                    var businessType =
+                        await db.BusinessTypes.FirstOrDefaultAsync(type => type.Name == businessRegistrationData.Type);
 
-                    ownerId = applicationUser.Id;
-                }
-                else
-                {
-                    if (!IsUserAuthenticated)
+                    if (businessType == null)
                     {
-                        return BadRequest("user bad");
+                        return Content(HttpStatusCode.BadRequest,
+                            $"The given business type {businessRegistrationData.Type} could not be found in the database");
                     }
 
-                    ownerId = UserId;
+                    // set the business type id.
+                    newBusiness.BusinessTypeId = businessType.Id;
+
+                    newBusiness.Address = businessRegistrationData.GetAddressString();
+
+                    newBusiness.Postcode = businessRegistrationData.Postcode;
+
+                    newBusiness.Location = PostcodesService.Lookup(businessRegistrationData.Postcode);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Monday, businessRegistrationData.OpeningTimeMonday,
+                        businessRegistrationData.ClosingTimeMonday);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Tuesday, businessRegistrationData.OpeningTimeTuesday,
+                        businessRegistrationData.ClosingTimeTuesday);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Wednesday, businessRegistrationData.OpeningTimeWednesday,
+                        businessRegistrationData.ClosingTimeWednesday);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Thursday, businessRegistrationData.OpeningTimeThursday,
+                        businessRegistrationData.ClosingTimeThursday);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Friday, businessRegistrationData.OpeningTimeFriday,
+                        businessRegistrationData.ClosingTimeFriday);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Saturday, businessRegistrationData.OpeningTimeSaturday,
+                        businessRegistrationData.ClosingTimeSaturday);
+
+                    AddBusinessOpeningTime(newBusiness, DayOfWeek.Sunday, businessRegistrationData.OpeningTimeSunday,
+                        businessRegistrationData.ClosingTimeSunday);
+
+                    var ownerId = string.Empty;
+
+                    newBusiness.PhoneNumber = businessRegistrationData.ContactNumber;
+                    newBusiness.FaxNumber = businessRegistrationData.ContactFax;
+                    newBusiness.EmailAddress = businessRegistrationData.ContactEmail;
+
+                    // set the website.
+                    newBusiness.Website = businessRegistrationData.Website;
+
+                    if (!string.IsNullOrWhiteSpace(businessRegistrationData.OwnerEmailAddress))
+                    {
+                        // if not an administrator return a 403 error
+
+                        var applicationUserStore = new ApplicationUserStore(db);
+
+                        var applicationUser =
+                            await applicationUserStore.FindByEmailAsync(businessRegistrationData.OwnerEmailAddress);
+
+                        ownerId = applicationUser.Id;
+                    }
+                    else
+                    {
+                        if (!IsUserAuthenticated)
+                        {
+                            return BadRequest("user bad");
+                        }
+
+                        ownerId = UserId;
+                    }
+                    newBusiness.Users.Add(new BusinessUser { UserId = ownerId, UserLevel = BusinessUserLevel.Owner });
+
+                    db.Businesses.Add(newBusiness);
+
+                    await db.SaveChangesAsync();
+
+                    return Ok(ownerId);
                 }
-                newBusiness.Users.Add(new BusinessUser {UserId = ownerId, UserLevel = BusinessUserLevel.Owner});
 
-                db.Businesses.Add(newBusiness);
-
-                await db.SaveChangesAsync();
-
-                return Ok(ownerId);
+                return InvalidModel();
             }
+            catch (Exception exception)
+            {
 
-            return InvalidModel();
+                return Content(HttpStatusCode.BadRequest, $"Something happend {exception.Message}");
+            }
         }
 
         private void AddBusinessOpeningTime(Business newBusiness, DayOfWeek dayOfWeek, DateTime? openingTime,
