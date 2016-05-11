@@ -340,7 +340,6 @@ namespace BookingBlock.WebApplication.ApiControllers
                         newApplicationUser = await userStore.FindByIdAsync(this.UserId);
                     }
 
-                    newApplicationUser.PhoneNumber = accountRegistrationRequest.MobileNumber;
                
 
                     newApplicationUser.FirstName = accountRegistrationRequest.FirstName;
