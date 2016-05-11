@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookingBlock.EntityFramework;
-using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.Controllers
 {
@@ -51,7 +50,7 @@ namespace BookingBlock.WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,ServiceId,CustomerId,Date,Duration,TotalCost,Notes,Confirmed,Cancelled,Amended,Attended")] Booking booking)
+        public async Task<ActionResult> Create([Bind(Include = "Id,ServiceId,CustomerId,Date,Duration,TotalCost,Notes,Paid,Confirmed,Cancelled,Amended,Attended,Created,Modified,Deleted")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +87,7 @@ namespace BookingBlock.WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,ServiceId,CustomerId,Date,Duration,TotalCost,Notes,Confirmed,Cancelled,Amended,Attended")] Booking booking)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,ServiceId,CustomerId,Date,Duration,TotalCost,Notes,Paid,Confirmed,Cancelled,Amended,Attended,Created,Modified,Deleted")] Booking booking)
         {
             if (ModelState.IsValid)
             {

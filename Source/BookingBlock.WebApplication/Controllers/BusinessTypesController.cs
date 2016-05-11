@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookingBlock.EntityFramework;
-using BookingBlock.WebApplication.Models;
 
 namespace BookingBlock.WebApplication.Controllers
 {
@@ -48,7 +47,7 @@ namespace BookingBlock.WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] BusinessType businessType)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Created,Modified,Deleted")] BusinessType businessType)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +80,7 @@ namespace BookingBlock.WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] BusinessType businessType)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Created,Modified,Deleted")] BusinessType businessType)
         {
             if (ModelState.IsValid)
             {

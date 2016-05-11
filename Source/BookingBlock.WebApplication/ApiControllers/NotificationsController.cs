@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
@@ -7,40 +8,138 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BookingBlock.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace BookingBlock.WebApplication.ApiControllers
 {
+    public static class StringExtensionMethods
+    {
+        public static string ReplaceFirst(this string text, string search, string replace)
+        {
+            int pos = text.IndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        }
+    }
+
+    public class SimpleBooking
+    {
+        private string _phoneNumber;
+        public DateTime DateTime { get; set; }
+
+        public string Name { get; set; }
+
+        public string For { get; set; }
+
+        public string With { get; set; }
+
+        public string PhoneNumber
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(_phoneNumber))
+                {
+                    if (!_phoneNumber.StartsWith("+"))
+                    {
+                        return _phoneNumber.ReplaceFirst("0", "+44");
+                    }    
+                }
+
+                return _phoneNumber;
+            }
+            set
+            {
+              
+                _phoneNumber = value;
+            }
+        }
+
+        public string EmailAddress { get; set; }
+    }
+    
+
     [System.Web.Http.RoutePrefix("api/Notifications")]
     public class NotificationsController : BaseApiController
     {
+
+        private IEnumerable<SimpleBooking> GetBookings()
+        {
+            List<SimpleBooking> simpleBookings = new List<SimpleBooking>();
+
+
+            // what time is it now.
+            DateTime currentDateTime = DateTime.Now;
+            DateTime older = currentDateTime.AddHours(1);
+
+            var bookings = db.Bookings.Where(
+                booking => booking.Date >= currentDateTime && booking.Date <= older)
+                .Select(s => new SimpleBooking()
+                {
+                    DateTime = s.Date,
+                    For = s.Service.Name,
+                    Name = s.Customer.FirstName,
+                    With = s.Service.Business.Name,
+                    PhoneNumber = s.Customer.PhoneNumber,
+                    EmailAddress = s.Customer.Email
+                })
+                .ToList();
+
+            simpleBookings.AddRange(bookings);
+
+            return simpleBookings;
+        }
+
+        [HttpGet, Route("all-reminders")]
+        public async Task<IHttpActionResult> RemindersList()
+        {
+            return Ok(GetBookings());
+        }
 
         [HttpGet, Route("send-reminders")]
         public async Task<IHttpActionResult> Reminders()
         {
             try
             {
-                // what time is it now.
-                DateTime currentDateTime = DateTime.Now;
-                DateTime older = currentDateTime.AddHours(1);
-                var bookings = db.Bookings.Where(
-                    booking =>
-                        !booking.Cancelled && booking.Date >= currentDateTime && booking.Date <= older).ToList();
+                EmailService emailService = new EmailService();
 
-                foreach (Booking booking in bookings)
+                SmsService smsService = new SmsService();
+
+                foreach (SimpleBooking simpleBooking in GetBookings())
                 {
-                    try
-                    {
-                        await Send(booking.Id);
-                    }
-                    catch (Exception)
-                    {
+                    string message =
+                        $"Dear, {simpleBooking.Name}, you have an appointment with {simpleBooking.With}, for a {simpleBooking.For} at {simpleBooking.DateTime}";
 
-                        throw;
+                    if (!string.IsNullOrWhiteSpace(simpleBooking.EmailAddress))
+                    {
+                        await
+                            emailService.SendAsync(new IdentityMessage()
+                            {
+                                Body = message,
+                                Destination = simpleBooking.EmailAddress,
+                                Subject = "Booking Reminder"
+                            });
+
                     }
+
+                    if (!string.IsNullOrWhiteSpace(simpleBooking.PhoneNumber))
+                    {
+                        await
+                           smsService.SendAsync(new IdentityMessage()
+                           {
+                               Body = message,
+                               Destination = simpleBooking.PhoneNumber,
+                               Subject = "Booking Reminder"
+                           });
+                    }
+
                 }
+    
+          
 
-
-                return Ok();
+                return Ok(GetBookings());
             }
             catch (Exception exception)
             {
@@ -111,7 +210,6 @@ namespace BookingBlock.WebApplication.ApiControllers
             {
                 return NotFound();
             }
-
             
             var myMessage = new SendGrid.SendGridMessage();
             myMessage.AddTo(user.Email);
