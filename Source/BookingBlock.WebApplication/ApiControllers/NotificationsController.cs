@@ -71,8 +71,8 @@ namespace BookingBlock.WebApplication.ApiControllers
 
 
             // what time is it now.
-            DateTime currentDateTime = DateTime.Now.Subtract(TimeSpan.FromHours(1));
-            DateTime older = currentDateTime;
+            DateTime currentDateTime = DateTime.Now;
+            DateTime older = currentDateTime.AddHours(1);
 
             var bookings = db.Bookings.Where(
                 booking => booking.Date >= currentDateTime && booking.Date <= older)
