@@ -314,7 +314,7 @@ namespace BookingBlock.WebApplication.ApiControllers
         {
             if (accountRegistrationRequest != null)
             {
-                if (ModelState.IsValid || IsUserAuthenticated)
+                if (ModelState.IsValid)
                 {
                     ApplicationDbContext context = ApplicationDbContext.Create();
 
@@ -330,7 +330,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                             accountRegistrationRequest.AddressLine1,
                             accountRegistrationRequest.AddressLine2,
                             accountRegistrationRequest.TownCity
-                        }.Where(s => !string.IsNullOrWhiteSpace(s)));
+                        });
 
                     ApplicationUser newApplicationUser = new ApplicationUser();
 
@@ -340,43 +340,24 @@ namespace BookingBlock.WebApplication.ApiControllers
                         newApplicationUser = await userStore.FindByIdAsync(this.UserId);
                     }
 
+                    newApplicationUser.PhoneNumber = accountRegistrationRequest.MobileNumber;
+               
 
-                    if (accountRegistrationRequest.FirstName != null)
-                        newApplicationUser.FirstName = accountRegistrationRequest.FirstName;
-                    if (accountRegistrationRequest.LastName != null)
-                        newApplicationUser.LastName = accountRegistrationRequest.LastName;
+                    newApplicationUser.FirstName = accountRegistrationRequest.FirstName;
+                    newApplicationUser.LastName = accountRegistrationRequest.LastName;
 
+                    newApplicationUser.Address = address;
+                    newApplicationUser.Postcode = accountRegistrationRequest.Postcode;
 
-                    if (!string.IsNullOrWhiteSpace(address))
+                    newApplicationUser.Email = accountRegistrationRequest.EmailAddress;
+                    newApplicationUser.UserName = accountRegistrationRequest.EmailAddress;
+
+                    newApplicationUser.DateOfBirth = accountRegistrationRequest.DateOfBirth;
+
+                    if (accountRegistrationRequest.Gender.Contains("female"))
                     {
-                        newApplicationUser.Address = address;
+                        newApplicationUser.Gender = Gender.Female;
                     }
-                   
-
-                    if (accountRegistrationRequest.Postcode != null)
-                        newApplicationUser.Postcode = accountRegistrationRequest.Postcode;
-
-                    if (accountRegistrationRequest.EmailAddress != null)
-                    {
-                        newApplicationUser.Email = accountRegistrationRequest.EmailAddress;
-                        newApplicationUser.UserName = accountRegistrationRequest.EmailAddress;
-                    }
-
-                    if (accountRegistrationRequest.DateOfBirth != default(DateTime))
-                    {
-                        newApplicationUser.DateOfBirth = accountRegistrationRequest.DateOfBirth;
-                    }
-
-
-                    if (accountRegistrationRequest.Gender != null)
-                    {
-                        if (accountRegistrationRequest.Gender.Contains("female"))
-                        {
-                            newApplicationUser.Gender = Gender.Female;
-                        }
-                    }
-
-  
 
                     if (registrationDate != null)
                     {
@@ -387,23 +368,11 @@ namespace BookingBlock.WebApplication.ApiControllers
                         newApplicationUser.RegistrationDate = DateTime.Now;
                     }
 
+                    newApplicationUser.Location = PostcodesService.Lookup(newApplicationUser.Postcode);
 
-                    if (newApplicationUser.Postcode != null)
-                        newApplicationUser.Location = PostcodesService.Lookup(newApplicationUser.Postcode);
-
-
-                    IdentityResult result;
-
-                    if (IsUserAuthenticated)
-                    {
-                        result = await userManager.UpdateAsync(newApplicationUser);
-                    }
-                    else
-                    {
-
-                        result = await userManager.CreateAsync(newApplicationUser, password);
-                    }
-
+                    
+                    
+                    var result = await userManager.CreateAsync(newApplicationUser, password);
 
                     if (result.Succeeded)
                     {
