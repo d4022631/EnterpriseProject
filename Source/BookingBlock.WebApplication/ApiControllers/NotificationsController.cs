@@ -71,8 +71,8 @@ namespace BookingBlock.WebApplication.ApiControllers
 
 
             // what time is it now.
-            DateTime currentDateTime = DateTime.Now;
-            DateTime older = currentDateTime.AddHours(1);
+            DateTime currentDateTime = DateTime.Now.Subtract(TimeSpan.FromHours(1));
+            DateTime older = currentDateTime;
 
             var bookings = db.Bookings.Where(
                 booking => booking.Date >= currentDateTime && booking.Date <= older)
@@ -114,25 +114,41 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                     if (!string.IsNullOrWhiteSpace(simpleBooking.EmailAddress))
                     {
-                        await
-                            emailService.SendAsync(new IdentityMessage()
-                            {
-                                Body = message,
-                                Destination = simpleBooking.EmailAddress,
-                                Subject = "Booking Reminder"
-                            });
+                        try
+                        {
+                            await
+    emailService.SendAsync(new IdentityMessage()
+    {
+        Body = message,
+        Destination = simpleBooking.EmailAddress,
+        Subject = "Booking Reminder"
+    });
+                        }
+                        catch (Exception exception)
+                        {
+
+                           
+                        }
 
                     }
 
                     if (!string.IsNullOrWhiteSpace(simpleBooking.PhoneNumber))
                     {
-                        await
-                           smsService.SendAsync(new IdentityMessage()
-                           {
-                               Body = message,
-                               Destination = simpleBooking.PhoneNumber,
-                               Subject = "Booking Reminder"
-                           });
+                        try
+                        {
+                            var client = new MScience.Sms.SmsClient
+                            {
+                                //
+                                AccountId = ConfigurationManager.AppSettings["DragonFlyAccountId"],
+                                Password = ConfigurationManager.AppSettings["DragonFlyPassword"]
+                            };
+                            var sendResult = client.Send(simpleBooking.PhoneNumber, "", message, 0, true);
+                        }
+                        catch (Exception exception)
+                        {
+
+                            return Content(HttpStatusCode.BadGateway, exception.Message);
+                        }
                     }
 
                 }
