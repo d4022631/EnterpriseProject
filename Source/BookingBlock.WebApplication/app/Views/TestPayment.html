@@ -1,0 +1,168 @@
+<!-- based on http://bootsnipp.com/snippets/featured/bootstrap-dual-list -->
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet"  />
+    <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />-->
+    
+    <!-- Style to control list/selectors -->
+    <style>
+        .dual-list .list-group {
+            position:absolute;
+            margin-top: 25px;
+            border-style:solid;
+            border-color:black;
+            width: 250px;
+        }
+        .list-left li, .list-right li {
+            cursor: pointer;
+        }
+        .list-arrows {
+            width:10%;
+            height:100px;
+            position:absolute;
+            margin-left:375px;
+            margin-top:40px;
+        }
+        .list-arrows button {
+            height:25px;
+            width:25px;
+            float:right;
+            margin-right:50px;
+            position: absolute;
+        }
+        .row{
+            width:25%;
+        }
+        .btn{
+            width:100px;
+            border-style:solid;
+            border-color:black;
+        }
+        
+    </style>
+    
+    <!-- Scripts -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="angular/angular.js"></script>
+
+    <script>
+     /*global $*/ $(function () {
+            $('body').on('click', '.list-group .list-group-item', function () {
+                $(this).toggleClass('active');
+            });
+            $('.list-arrows button').click(function () {
+                var $button = $(this), actives = '';
+                if ($button.hasClass('move-left')) {
+                    actives = $('.list-right ul li.active');
+                    actives.clone().appendTo('.list-left ul');
+                    actives.remove();
+                } else if ($button.hasClass('move-right')) {
+                    actives = $('.list-left ul li.active');
+                    actives.clone().appendTo('.list-right ul');
+                    actives.remove();
+                }
+            });
+            $('.dual-list .selector').click(function () {
+                var $checkBox = $(this);
+                if (!$checkBox.hasClass('selected')) {
+                    $checkBox.addClass('selected').closest('.well').find('ul li:not(.active)').addClass('active');
+                    $checkBox.children('i').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                } else {
+                    $checkBox.removeClass('selected').closest('.well').find('ul li.active').removeClass('active');
+                    $checkBox.children('i').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+                }
+            });
+            $('[name="SearchDualList"]').keyup(function (e) {
+                var code = e.keyCode || e.which;
+                if (code == '9') return;
+                if (code == '27') $(this).val(null);
+                var $rows = $(this).closest('.dual-list').find('.list-group li');
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+                $rows.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+            });
+        });
+    </script>
+</head>
+<body class="container">
+    <br />
+    <br />
+    <br />
+    <div class="container-fluid"style="height:10%;width:75%;">
+        <div style="height:30px;width:50%; margin-left:20%;background-color:#d1d1e0;border:solid; border-color:#000000;border-width:2px;font-size:24px;text-align:center;margin-bottom:75px;">
+            Payment Page
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-left:15%;">
+        <div class="row">
+            <div class="dual-list list-left">
+                <div class="well text-right">
+                    <div class="row">
+                        <div class="btn-group">
+                            <a class="btn btn-default selector" style="position:absolute;" title="select all">Select All<i class="glyphicon glyphicon-unchecked"></i></a>
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">Tree Surgery</li>
+                        <li class="list-group-item">More Stuff</li>
+                        <li class="list-group-item">Yet More Stuff</li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="list-arrows text-center">
+                <button class="btn btn-default btn-sm move-left"><
+                
+                    <!-- Glyphicons aren't working - using "<" character instead
+                    <span class="glyphicon glyphicon-chevron-left"></span> -->
+                
+                </button>
+    
+                <button class="btn btn-default btn-sm move-right" style=margin-top:30px;>>
+                    
+                    <!-- Glyphicons aren't working - using ">" character instead
+                    <span class="glyphicon glyphicon-chevron-right"></span> -->
+                    
+                </button>
+            </div>
+    
+            <div class="dual-list list-right">
+                <div class="well text-right">
+                     <div class="row">
+                            <div class="btn-group">
+                                <a class="btn btn-default selector" style="position:absolute;margin-left:500px;" title="select all">Select All<i class="glyphicon glyphicon-unchecked"></i></a>
+                            </div>
+                    </div>
+                    <ul class="list-group" style="margin-left:500px;">
+                        <li class="list-group-item">Haircut</li>
+                        <li class="list-group-item">Boiler Service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="border-style:solid;height:500px;;">
+         <div class="container" style="background-color:white;height:30%;width:15%;float:right;margin-right:45%;margin-top:10%;border-style:solid;">
+            <!-- Payment info to go here -->
+    	 	Payment details etc. to go here - a running total of costs? Mini invoice?
+        </div>
+
+    
+        <!-- Contains option buttons -->
+        <div class="row" style="position:absolute;display:inline-block;float:right;margin-top:20%;margin-left:25%;">
+            	<!-- Pay now button -->
+                <button ng-click="****" style="height:50px;width:150px;display:inline-block;vertical-align:middle;;">Pay Now</button>
+        </div>
+        <div class="row" style="position:absolute;display:inline-block;margin-left:50%;margin-top:20%;">
+                <!-- Cancel Payment button -->
+                <button ng-click="****" style="height:50px;width:150px;display:inline-block; padding-left: 500px;">Cancel Payment</button>
+        </div>
+    </div>
+</body>
+</html>

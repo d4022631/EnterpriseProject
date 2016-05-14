@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <!-- For calendar -->
+        <link rel='stylesheet' href='../resources/css/fullcalendar/fullcalendar.css' />
+        <script src='/app/resources/js/fullcalendar/jquery.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/moment.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/fullcalendar.js'></script>
+        <script>
+           /*global $*/ $(document).ready(function() {
+                // page is now ready, initialize the calendar...
+                $('#calendar').fullCalendar({
+                    // put your options and callbacks here
+                })
+            });
+        </script>
+    </head>
+    
+    <body>
+        <div class="container-fluid"style="height:90%;width:75%;">
+            
+            <!-- Business' logo-->
+            <img src="******" class="img-responsive" style="margin: 10px;max-height: 50px !important;max-width:10%;float:left;">
+            
+            <div style="height:30px;width:50%; margin-left:30%;border:solid; border-color:#000000;border-width:2px;font-size:24px;text-align:center;">
+                Business Name
+            </div>
+            <br>
+            <center><h2>To change any details for this booking, update as required and click "Amend Booking"</h2></center>
+        
+            <div class="container" style="height:75%;width:50%;margin-left:30%;float:left;">
+                <center><h3>Amend Timeslot</h3></center>
+                <div id='calendar' style="height:100%;"></div>
+            </div>
+        
+            <div>
+                <!-- Checkboxes to choose services to book - from http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp-->
+                <div class="container" style="border:solid;border-color:black;border-width:2px;width:15%;margin-left:90%;margin-top:2%;">
+                    Amend Services
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="">Option 1</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="">Option 2</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="">Option 3</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="">Option 4</label>
+                    </div>
+                </div>
+                
+                <!-- Box to write message/requests to business e.g. to request specific stylist -->
+                <div class="container" style="border:solid;border-color:black;border-width:2px;height:10%;width:15%;position:absolute;margin-left:65%;margin-top:5%;">
+                    <p style="text-decoration:underline;">Message to business</p>
+                    <div class="text">
+                        Message goes here
+                    </div>
+                </div>
+            </div>
+        
+            <div class="container">
+                <!-- Request booking button -->
+                <button ng-click="****" style="height:50px;width:150px;display:inline-block;vertical-align:middle;float:none;margin-left:50%;margin-top:10%;">Amend Booking</button>
+            </div>
+        </div>
+    
+    </body>
+</html>

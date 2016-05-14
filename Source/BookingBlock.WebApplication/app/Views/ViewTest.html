@@ -1,0 +1,292 @@
+
+
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <link rel='stylesheet' href='../resources/css/fullcalendar/fullcalendar.css' />
+        <script src='/app/resources/js/fullcalendar/jquery.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/moment.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/fullcalendar.js'></script>
+        
+        <!-- NEEDS JQUERY LOADING FIRST -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        
+        <!-- Calendar stuff. -->        
+        <script>
+            /*global $*/ $(document).ready(function() {
+            // page is now ready, initialize the calendar...
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+                });
+            });
+        </script>
+    
+        <style>
+            html, body {
+                display: table;
+                width: 100%;
+            }
+
+            .btn {
+              display: inline-block;
+              padding: 6px 12px;
+              margin-bottom: 0;
+              font-size: 14px;
+              font-weight: normal;
+              line-height: 1.42857143;
+              text-align: center;
+              white-space: nowrap;
+              vertical-align: middle;
+              cursor: pointer;
+              -webkit-user-select: none;
+                 -moz-user-select: none;
+                  -ms-user-select: none;
+                      user-select: none;
+              background-image: none;
+              border: 1px solid transparent;
+              border-radius: 4px;
+              padding: 10px 16px;
+            }
+              
+            .btn-lg {
+              font-size: 18px;
+              line-height: 1.33;
+              border-radius: 6px;
+            }
+            
+            .btn-primary {
+              color: #fff;
+              background-color: #428bca;
+              border-color: #357ebd;
+            }
+            
+            .btn-primary:hover,
+            .btn-primary:focus,
+            .btn-primary:active,
+            .btn-primary.active,
+            .open .dropdown-toggle.btn-primary {
+              color: #fff;
+              background-color: #3276b1;
+              border-color: #285e8e;
+            }
+            
+            ////////////////Creating the outline for the button
+            
+            .btn.outline { 
+                background: none;
+                padding: 12px 22px;
+            }
+            .btn-primary.outline {
+                border: 2px solid #0099cc;
+                color: #0099cc;
+            }
+            .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+                color: #33a6cc;
+                border-color: #33a6cc;
+            }
+            .btn-primary.outline:active, .btn-primary.outline.active {
+                border-color: #007299;
+                color: #007299;
+                box-shadow: none;
+            }
+            
+            
+            ////////setting the buttons 
+            
+            .btn {
+                padding: 14px 24px;
+                border: 0 none;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .btn:focus, .btn:active:focus, .btn.active:focus {
+                outline: 0 none;
+            }
+            
+            .box {
+                background-color: lightgrey;
+                width: 150px;
+                height: 130px;
+                padding: 2px;
+                border: 1px solid black;
+                margin-left: 25px;
+                margin-top: 90px;
+            }
+            
+            .box2 {
+                background-color: lightgrey;
+                width: 600px;
+                height: 450px;
+                padding: 2px;
+                float: left;
+                border: 1px solid black;
+                margin-right: 25px;
+            }
+            
+            table {
+                margin-left: 25px;
+                margin-top: 25px;
+            }
+            
+            table#t01 tr:nth-child(even) {
+                background-color: #eee;
+            }
+            table#t01 tr:nth-child(odd) {
+               background-color:#fff;
+            }
+            table#t01 th	{
+                background-color: black;
+                color: white;
+            }
+            
+            th, td {
+                padding: 15px;
+                
+            }
+            
+            
+        /* Controlling the display of the options (calendar/bookings etc.) - modified from https://www.w3.org/Style/Examples/007/target.en.html#tab1*/
+            div.tab-content p:not(:target) {display: none}
+            div.tab-content p:target {display: block}
+   
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a></li>
+                <li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Calendar</a></li>
+                <li role="presentation" class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">Bookings</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div style="margin:7px">
+                                <div class="col-xs-6">
+                                    <div class="btn-group">
+                                        <span>New Booking Requests</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding:0px">
+                                <table class="table table-striped table-bordered" style="margin:0px">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Contact Details</th>
+                                            <th>Services Requested</th>
+                                            <th>Date</th>
+                                            <th>Timeslot</th>
+                                            <th>Status</th>
+                                            <th style="width:100px">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <td class="">Hasim</td>
+                                    <td class="">Luboder</td>
+                                    <td class="">Full head highlights, cut & blow dry</td>
+                                    <td class="center">01/05/2016</td>
+                                    <th>A</th>
+                                    <td><span class="label label-success">Pending</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-default">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button" data-bind="click: $parent.remove" class="remove-news btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                        <button type="button" class="enabledisable-news btn btn-xs btn-default">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer" style="height:55px;">
+                                <div class="col-xs-3">
+                                    <div class="dataTables_info" id="example_info">Showing 1 - 10 of 100 total results</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="dataTables_paginate paging_bootstrap">
+                                        <ul class="pagination pagination-sm" style="margin:0 !important">
+                                            <li class="prev disabled"><a href="#">← Previous</a></li>
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li class="next disabled"><a href="#">Next → </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                                        10 <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" style="min-width: 0px ">
+                                        <li><a href="#">5</a></li>
+                                        <li class="active"><a href="#">10</a></li>
+                                        <li><a href="#">15</a></li>
+                                        <li><a href="#">15</a></li>
+                                    </ul>
+                                    <span>items per page </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> </div>
+                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                    <!-- Calendar -->
+                    <div id='calendar2' style="border-color: black; border-width:3px; border:solid;"></div></div>
+                <div role="tabpanel" class="tab-pane fade" id="dropdown1" aria-labelledby="dropdown1-tab">
+                    <!-- Modified from http://bootsnipp.com/snippets/OexBM -->
+                    <table style="padding-left: 25px" id="t01" width="50%" border="1">
+                        <tr>
+                            <th style="text-align:center;" colspan="5">Upcoming Bookings</th>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center;" width="20%"><strong>Customer</strong></td>
+                            <td style="text-align:center;" width="20%"><strong>Contact Details</strong></td>
+                            <td style="text-align:center;" width="20%"><strong>Services Booked</strong></td>
+                            <td style="text-align:center;" width="20%"><strong>Date</strong></td>
+                            <td style="text-align:center;" width="20%"><strong>Time</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Helen Wilkinson</td>
+                            <td>07505 123456</td>
+                            <td>Cut & blow dry</td>
+                            <td>20th July 2016</td>
+                            <td>2pm</td>
+                        </tr>
+                        <tr>
+                            <td>Mansha Nawaz</td>
+                            <td>07505 123456</td>
+                            <td>Men's cut</td>
+                            <td>1st April 2016</td>
+                            <td>9am</td>
+                        </tr>
+                        <tr>
+                            <td>Stone Cold Steve Austin</td>
+                            <td>07505 123456</td>
+                            <td>Spit 'n' polish</td>
+                            <td>20th November 2016</td>
+                            <td>10am</td>
+                        </tr>
+                    </table>  
+                 </div>
+
+            </div>
+        </div>
+   </div>
+
+
+</body>

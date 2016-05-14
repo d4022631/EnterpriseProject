@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <!-- For calendar -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!-- For calendar -->
+        <link rel='stylesheet' href='/app/resources/css/fullcalendar/fullcalendar.css' />
+        <script src='/app/resources/js/fullcalendar/jquery.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/moment.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/fullcalendar.js'></script>
+
+
+     <!--   <script>
+           /*global $*/ $(document).ready(function() {
+               
+               
+             
+            });
+        </script>-->
+    </head>
+    
+    <body>
+        <div class="container-fluid"style="height:90%;width:75%;">
+            
+            <!-- Business' logo-->
+            <img  class="img-responsive" style="margin: 10px;max-height: 50px !important;max-width:10%;float:left;">
+            
+            <div style="height:30px;width:75%; margin-left:10%;border:solid; border-color:#000000;border-width:2px;font-size:24px;text-align:center;">
+                <span ng-bind="businessName"></span>
+            </div>
+            <br>
+        
+        
+           
+
+        
+            <div  class="container" style="border:solid;border-color:black;border-width:2px;width:20%;margin-left:90%;margin-top:2%;">
+                <!-- To display repeated services associated with business -->
+                <h3>Choose your services</h3>
+                <div class="container" style="background-color: lightgray; border:solid;border-width:2px;width:100%;height:75%;margin-bottom:10px;padding-bottom: 20px; margin-top: 10px; ">
+				    <!-- researched at http://stackoverflow.com/questions/31081397/list-of-dynamic-checkbox-in-angular-and-json-api -->
+				    <div ng-repeat="x in serviceList">
+                        {{x["Name"]}}<br/>Price: £{{x["Cost"]}}<br/>Timeslot: {{x["Duration"]}}
+                        <button ng-click="requestBooking(x.Id)" id="serviceButton" style="height:30px;width:50px; background-color:grey;">Add</button>
+                    
+                        
+                    </div>
+				</div>
+            </div>    
+                <!-- Box to write message/requests to business e.g. to request specific stylist -->
+                <div class="container" style="border:solid;border-color:black;border-width:2px;height:10%;width:15%;position:absolute;margin-left:65%;margin-top:5%;">
+                    <p style="text-decoration:underline;">Message to business</p>
+                    <div class="text">
+                        Message goes here
+                    </div>
+                </div>
+           
+           <div>
+               <h3>TIME</h3>
+               <input type="text" name="asb" value="{{ timeRequested }}"/>
+           </div>
+        
+           <div class="container">
+                <!-- Request booking button -->
+                <button ng-click="postBooking()" style="height:50px;width:150px;display:inline-block;vertical-align:middle;float:none;margin-left:50%;margin-top:10%;">Request Booking</button>
+            </div>
+        </div>
+    
+    </body>
+</html>

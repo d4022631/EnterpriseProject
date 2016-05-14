@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!-- For calendar -->
+        <link rel='stylesheet' href='/app/resources/css/fullcalendar/fullcalendar.css' />
+        <script src='/app/resources/js/fullcalendar/jquery.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/moment.min.js'></script>
+        <script src='/app/resources/js/fullcalendar/fullcalendar.js'></script>
+
+        <!-- Google Map - need to change code to focus on the centre of the postcode/location - from https://developers.google.com/maps/tutorials/fundamentals/adding-a-google-map#the_finished_code-->
+        <!--<script>
+    	    function initMap() {
+    		    var mapDiv = document.getElementById('map');
+    		    var map = new google.maps.Map(mapDiv, {
+    		        center: {lat: 54.569, lng: -1.235}, zoom: 8
+                });
+    	    }
+    	</script>
+    	
+    	
+    	<script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>-->
+        <style>
+        	body {
+        	    font-family: 'Lato', sans-serif;
+    		}
+        	table, th , td  {
+              border: 1px solid grey;
+              border-collapse: collapse;
+              padding: 5px;
+              width: 505px;
+            }
+            table tr:nth-child(odd)	{
+              background-color: #f1f1f1;
+              width: 505px;
+            }
+            table tr:nth-child(even) {
+              background-color: #ffffff;
+              width: 505px;
+            }
+    	</style>
+    </head>
+    <body>
+<div>
+    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a data-target="#home" style="cursor:pointer;" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a></li>
+            <li role="presentation" class=""><a data-target="#profile" style="cursor:pointer;" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Book With Us</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <!-- Content of Home tab -->
+            <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">  
+             <!-- The background colours are just for me to check where the divs are! -->
+                <div class="container-fluid"id="div_a84a_0">
+                    <!-- Google Map - need to change code to focus on the centre of the postcode/location - from https://developers.google.com/maps/tutorials/fundamentals/adding-a-google-map#the_finished_code-->
+                    <ui-gmap-google-map  center='map.center' zoom='map.zoom'>
+                    <ui-gmap-markers models="marker" coords="'self'" icon="'icon'" idKey="'idKey'"></ui-gmap-markers>
+    			    </ui-gmap-google-map>
+                    <!-- Business' <div id="map" ></div> logo-->
+                    <div  id="div_a84a_1">
+                        <img src="{{businessLogo}}" class="img-responsive" style="margin: 10px;max-height: 100px !important;max-width:90%"/>
+                    </div>
+                    <div ng-bind="results" id="div_a84a_2"></div>
+                    <div id="div_a84a_3">
+                        <p><b>List of services</b></p>
+                        <table>
+                            <tr ng-repeat="x in serviceList">
+                                <td>{{x["Name"]}} </td>
+                                <td>Price: £{{x["Cost"]}} </td>
+                                <td>Timeslot: {{x["Duration"]}} </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                    <div id="div_a84a_4">
+                    	<input ng-click="createBooking()" type="submit" class="btn btn-primary btn-send" value="Book now">
+                    </div>
+                    <div id="div_a84a_5">
+                        <a href="#">
+                          <span class="glyphicon glyphicon-star"></span>
+                        </a>
+                        <a href="#">
+                          <span class="glyphicon glyphicon-star"></span>
+                        </a>
+                        <a href="#">
+                          <span class="glyphicon glyphicon-star"></span>
+                        </a>
+                        <a href="#">
+                          <span class="glyphicon glyphicon-star"></span>
+                        </a>
+                        <a href="#">
+                          <span class="glyphicon glyphicon-star"></span>
+                        </a>
+                    </div>
+                    <div id="div_a84a_6">
+                        <input type="submit" ng-click="createReview()" class="btn btn-primary btn-send" value="Leave a review">
+                    </div>
+                    <div id="map" ></div>
+                   <br>
+                </div>
+			</div>
+           
+            <!-- Content of Home tab -->
+            <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                <!-- Business' logo-->
+                <div class="container-fluid"style="height:90%;width:75%;">
+                    <div  id="div_a84a_1a">
+                            <img src="{{businessLogo}}" class="img-responsive" style="margin: 10px;max-height: 100px !important;max-width:90%"/>
+                    </div>
+                    <div ng-bind="results" id="div_a84a_2a"></div>
+                    <br>
+                    
+                    <!-- Calendar -->
+                    <div style="width:75%;">
+                        <div id='calendar'></div>
+                    </div>
+                    
+                    <div  class="container" style="border:solid;border-color:black;border-width:2px;width:20%;margin-left:90%;margin-top:2%;">
+                <!-- To display repeated services associated with business -->
+                        <h3>Choose your services</h3>
+                        <div class="container" style="background-color: lightgray; border:solid;border-width:2px;width:100%;height:75%;margin-bottom:10px;padding-bottom: 20px; margin-top: 10px; ">
+				            <!-- researched at http://stackoverflow.com/questions/31081397/list-of-dynamic-checkbox-in-angular-and-json-api -->
+        				    <div ng-repeat="x in serviceList">
+                                {{x["Name"]}}<br/>Price: £{{x["Cost"]}}<br/>Timeslot: {{x["Duration"]}}
+                                <button ng-click="requestBooking(x.Id, x.Cost)" id="serviceButton" style="height:30px;width:50px; background-color:grey;">Add</button>
+                            </div>
+        			    </div>
+                    </div>    
+                    <!-- Box to write message/requests to business e.g. to request specific stylist -->
+                    <div class="container" style="border:solid;border-color:black;border-width:2px;height:10%;width:15%;position:absolute;margin-left:65%;margin-top:5%;">
+                        <p style="text-decoration:underline;">Message to business</p>
+                        <div class="text">
+                            Message goes here
+                        </div>
+                    </div>
+                    <div>
+                       <h3>Year</h3>
+                        <input type="text" ng-model="yearRequested" name="time" id="year_req" >
+                        <h3>Month</h3>
+                        <input type="text" ng-model="monthRequested" name="time" id="month_req" >
+                        <h3>Day</h3>
+                        <input type="text" ng-model="dayRequested" name="time" id="day_req" >
+                        <h3>Time</h3>
+                        <input type="text" ng-model="timeRequested" name="time" id="time_req" >
+                    </div>
+                    <div class="container">
+                        <!-- Request booking button -->
+                        <button ng-click="postBooking()" style="height:50px;width:150px;display:inline-block;vertical-align:middle;float:none;margin-left:50%;margin-top:10%;">Request Booking</button>
+                    </div>
+                </div>
+            </div>
+	    </div>	         
+	</div>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    
+    <title>Customer Account</title>
+    
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+
+html, body {
+    display: table;
+    width: 100%;
+}
+
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 10px 16px;
+}
+  
+.btn-lg {
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+
+/*Creating the outline for the button*/
+
+.btn.outline { 
+    background: none;
+    padding: 12px 22px;
+}
+.btn-primary.outline {
+    border: 2px solid #0099cc;
+    color: #0099cc;
+}
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+    color: #33a6cc;
+    border-color: #33a6cc;
+}
+.btn-primary.outline:active, .btn-primary.outline.active {
+    border-color: #007299;
+    color: #007299;
+    box-shadow: none;
+}
+
+
+/*setting the buttons*/
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.box {
+    background-color: lightgrey;
+    width: 150px;
+    height: 130px;
+    padding: 2px;
+    border: 1px solid black;
+    margin-left: 25px;
+    margin-top: 90px;
+}
+
+table { /*Styling the table*/
+    margin-left: 25px;
+    margin-top: 25px;
+}
+
+table#t01 tr:nth-child(even) { /**/
+    background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t01 th	{
+    background-color: black;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    
+}
+
+
+</style>
+
+</head>
+
+<body>
+    <div class = "btn-toolbar" role = "toolbar">
+   
+   
+   <!--These are the tabs to help the user manage their details/bookings/account-->
+      <div style="padding-top: 20px; padding-left: 20px;" class = "btn-group">
+      <button type="button" class="btn btn-primary btn-lg round">CUSTOMER NAME HERE</button>
+      <button type="button" class="btn btn-primary btn-lg round">Home</button>
+      <button type="button" class="btn btn-primary btn-lg round">Calendar</button>
+      <button type="button" class="btn btn-primary btn-lg round">Bookings</button>
+      <button type="button" class="btn btn-primary btn-lg round">Manage Account</button>
+   </div>
+
+   <!--This box is where the customers profile pic will be-->
+   <div class="box">Customer Profile pic HERE</div> 
+   
+
+   <!--This is the table with upcoming bookings-->
+  <table style="padding-left: 25px" id="t01" width="50%" border="1">
+      <tr>
+          <th style="text-align:center;" colspan="4">Upcoming Bookings</th>
+      </tr>
+  <tr>
+    <td style="text-align:center;" width="25%"><strong>Business</strong></td>
+    <td style="text-align:center;" width="25%"><strong>Point of contact</strong></td>
+    <td style="text-align:center;" width="25%"><strong>Date</strong></td>		
+    <td style="text-align:center;" width="25%"><strong>Time</strong></td>
+  </tr>
+  <tr>
+    <td>Guappo Hair Design</td>
+    <td>Helen Wilkinson</td>
+    <td>20th July 2016</td>		
+    <td>2pm</td>
+  </tr>
+  <tr>
+    <td>Teesside University</td>
+    <td>Mansha Nawaz</td>
+    <td>1st April 2016</td>		
+    <td>9am</td>
+  </tr>
+  <tr>
+    <td>WWE</td>
+    <td>Stone Cold Steve Austin</td>
+    <td>20th November 2016</td>		
+    <td>10am</td>
+  </tr>
+</table>
+
+</div> 
+
+
+    </body>
+</html>
+

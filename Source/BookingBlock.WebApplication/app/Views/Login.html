@@ -1,0 +1,50 @@
+<!-- Login page -->
+
+<html>
+    <head>
+        
+        <style type="text/css">
+            
+            
+            
+            
+        </style>
+        
+    </head>
+    
+    
+    
+<body>
+<div id="mainDisplay"class="container-fluid" style="height:1000px;padding-top:25%;background-image:url(app/resources/images/plumber.jpg);background-size:cover;">
+    <div class="container">
+        <div class="jumbotron" style="background-color: rgba(245, 245, 245, 0.2) !important">
+            <div class="row" style="display:inline-block;vertical-align:middle;float:none;margin-left:40%;">
+            <div style="color:#000000;"><h3>Username</h3></div>
+            <div style="color:#000000;"><h3>Password</h3></div>
+        </div>
+        <div class="row" style="display:inline-block;vertical-align:middle;float:none">
+            <div class="col-xs-offset-4" style="margin-top:5%;">
+                <input type="text" ng-model="username" typeahead="******">
+                </div>
+            <div class="col-xs-offset-4" style="margin-top:10%;">
+                <input type="text" ng-model="password" typeahead="*****">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <button type="submit" ng-click="requestLogin()" style="height:30px;width:100px;display:inline-block;vertical-align:middle;float:none;margin-left:46.5%;>Login</button>
+        </div>
+        <br>
+        <div style="display:inline-block;vertical-align:middle;margin-left:44%;">
+            Not a member?  <a style="color:#000000;" href="#Register">Register Here</a>
+        </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+</body>
+</hmtl>

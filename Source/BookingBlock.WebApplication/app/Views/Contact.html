@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Contact Us</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <style>
+            
+            
+            /*Changing the font of the body.*/
+    
+
+label {
+    color: #333;
+}
+  /*Styling certain ascpects of the form*/
+.form-control {
+    margin-bottom: 20px;
+}
+.btn-send {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+        </style>
+        <script>
+            $(function () {
+
+    $("#contact-form").submit(function () {
+
+        var url = "https://scm-intranet.tees.ac.uk/users/n3276931/Enterprise%20Project/contact.php"; //I have placed the php file in the iws space for access.
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $(this).serialize(), 
+            success: function (data)
+            {
+                var messageAlert = 'alert-' + data.type;
+                var messageText = data.message;
+
+                var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
+                if (messageAlert && messageText) {
+                    $('#contact-form').find('.messages').html(alertBox);
+                    $('#contact-form')[0].reset();
+                }
+            }
+        });
+        return false; 
+    });
+
+});
+            
+        </script>
+    </head>
+    <body>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 col-lg-offset-2">
+
+                    <center><h3><a href="https://enterpriseproject-d4022631.c9users.io/app/Views/Home.html">Booking Block</a></h3></center><!--H3 header that links to the home page-->
+                    
+                    <center><p class="lead"> <!--Address and info of Booking Block-->
+								41-42 Saddler Street, 				
+								Durham City,														
+								DH1 3NU															
+								<br>  <strong>Tel:</strong> 0191 3709890  												
+								<br>  <strong>Fax:</strong> 0191 3741425 
+								<br> <strong>E-mail:</strong> Info@Bookingblock.co.uk
+								<br> We are located in <a href="http://www.streetmap.co.uk/map.srf?x=427468&y=542408&z=0&sv=DH1+3NU&st=2&pc=DH1+3NU&mapp=map.srf&searchp=ids.srf" title="Durham City Office">Durham City</a>.		
+								<!--Street map of the office :) -->
+				</p></center>
+<p class="lead">If you have any queries please do not hesitate to contact us.</p>
+
+                    <form id="contact-form" method="post" action="https://scm-intranet.tees.ac.uk/users/n3276931/Enterprise%20Project/contact.php" role="form">
+
+    <div class="messages"></div>
+
+    <div class="controls">
+                                            <!--This is the form with certain criteria marked * that is required-->
+        <div class="row">
+            <div class="col-md-6">
+                <label for="form_name">Firstname *</label>
+                <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required">
+            </div>
+            <div class="col-md-6">
+                <label for="form_lastname">Lastname *</label>
+                <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required">
+            </div>
+            <div class="col-md-6">
+                <label for="form_email">Email *</label>
+                <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required">
+            </div>
+            <div class="col-md-6">
+                <label for="form_phone">Phone</label>
+                <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
+            </div>
+            <div class="col-md-12">
+                <label for="form_message">Message *</label>
+                <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required"></textarea>
+            </div>
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-primary btn-send" value="Send message">
+            </div>
+            <div class="col-md-12">
+                <p class="text-muted"><strong>*</strong> These fields are required.</p>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+       
+    </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="enterpriseproject" ng-controller="MainPage">
+<head>
+<title>Booking Block</title>
+    <link href="/app/resources/css/site.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDec40T7nFVnPVeXdQR2iuTrNLcijR5SU8" async defer></script>
+	<link href="app/resources/css/bootstrap.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Scripts -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.js"></script>
+	<!-- For calendar -->
+    <link rel='stylesheet' href='/app/resources/css/fullcalendar/fullcalendar.css' />
+    <script src='/app/resources/js/fullcalendar/jquery.min.js'></script>
+    <script src='/app/resources/js/fullcalendar/moment.min.js'></script>
+    <script src='/app/resources/js/fullcalendar/fullcalendar.js'></script>
+	<!-- the main angular.js file must be first -->
+	<script src="app/resources/angular/angular.js"></script>
+	<!-- google maps -->
+	<script src="app/resources/angular/lodash.js"></script>
+	<script src="app/resources/angular/angular-google-maps.js"></script>
+	<script src="app/resources/angular/angular-simple-logger.js"></script>
+	<!-- any referenced angular modules must appear next -->
+	<script src="app/resources/angular/calendar.js"></script> <!-- ngAnimate -->
+	<script src="app/resources/angular/angular-animate.js"></script> <!-- ngAnimate -->
+	<script src="app/resources/angular/angular-route.js"></script> <!-- ngRoute -->
+	<script src="app/resources/angular/ngStorage.js"></script> <!-- ngStorage -->
+    <script src="app/resources/angular/angular-cookies.js"></script> <!-- ngCookies -->
+    <script src="app/resources/angular/angular-resource.js"></script> <!-- ngResource -->
+    <script src="app/resources/angular/angular-sanitize.js"></script> <!-- ngSanitize -->
+    <script src="app/resources/angular/angular-touch.js"></script> <!-- ngTouch -->
+    <script src="app/resources/angular/angular-md5.js"></script> <!-- required for afOAuth2 -->
+    <script src="app/resources/angular/angularJsOAuth2.js"></script> <!-- afOAuth2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.min.js"></script>
+	<script src="app/resources/TP/jquery.datetimepicker.full.min.js"></script>
+	<script src="app/resources/TP/jquery.datetimepicker.full.min.css"></script>
+	<!-- finally include the angualar app script. -->
+	<script src="app/Main.js"></script>
+    <!-- now reference any controllers -->
+    <script src="app/controllers/about.js"></script>
+    <script src="app/controllers/home.js"></script>
+    <script src="app/controllers/register.js"></script>
+    <script src="app/controllers/exampleController.js"></script>
+    <script src="app/controllers/advancedSearch.js"></script>
+    <script src="app/controllers/customerAccount.js"></script>
+    <script src="app/controllers/amendBooking.js"></script>
+    <script src="app/controllers/createBusiness.js"></script>
+    <script src="app/controllers/booking.js"></script>
+    <script src="app/controllers/businessAccount.js"></script>
+    <script src="app/controllers/businessDisplay.js"></script>
+    <script src="app/controllers/contact.js"></script>
+    <script src="app/controllers/login.js"></script>
+    <!--<script src="app/controllers/manageBookings.js"></script>-->
+    <script src="app/controllers/payments.js"></script>
+    <script src="app/controllers/FAQ.js" ></script>
+    <!--<script src="app/controllers/manageBusinessAccount.js"></script>-->
+    <script src="app/controllers/searchResults.js"></script>
+    <script type="text/javascript">
+    function startDictation(w) {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      var recognition = new webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+      recognition.start();
+      recognition.onresult = function(e) {
+        document.getElementById(w).value = e.results[0][0].transcript;
+        recognition.stop();
+      };
+      recognition.onerror = function(e) {
+        recognition.stop();
+      };
+    }
+  }
+</script>
+<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <!-- Ensuring site is mobile-responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"> 
+</head>
+<body>
+    <!-- Adding site logo and title, ensuring will scale to page size -->
+    <img src="app/resources/images/logo.png" class="img-responsive" style="margin: 10px;max-height: 100px !important;max-width:90%">
+    <!-- Main navigation bar -->
+	<div class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li><a href="#">Home</a></li>
+				<li><a href="#About">About</a></li>
+				<li><a href="#Contact">Contact</a></li>
+				<li><a href="#CreateBusiness">Create A Business</a></li>
+			</ul>
+            <!-- Login link on right side of navbar - need to modify to show logout if user is currently logged in -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><input type="text" ng-model="businessType" typeahead="state for state in businessTypeComplete($viewValue)" placeholder="Search for"></li>
+                <li><input type="text" ng-model="postcode" typeahead="state for state in postcodeAutoComplete($viewValue)" placeholder="Location"></li>
+                <li><button ng-click = "performSearch()" type="button" style="margin-right:50px;"><span class="glyphicon glyphicon-search"></span></button></li>
+                <li>
+                    <!-- this places the login button in the nav bar  -->
+                    <oauth2
+                        authorization-url="https://bookingblock.azurewebsites.net/identity/connect/authorize"
+                        sign-out-url="https://bookingblock.azurewebsites.net/identity/connect/endsession"
+                        sign-out-append-token="true"
+                        sign-out-redirect-url="https://bookingblock.azurewebsites.net"
+                        client-id="mvc"
+                        redirect-url="https://enterpriseproject-d4022631.c9users.io/"
+                        silent-token-redirect-url="https://bookingblock.azurewebsites.net/#/silent-renew"
+                        response-type="id_token token"
+                        scope="openid profile roles"
+                        template="app/Views/_oauth2-template.html"
+                        auto-generate-nonce="true">
+                    </oauth2>
+                </li>
+            </ul>
+		</div>
+	</div>
+	<div class="container-fluid" ng-view>
+        <!-- displays individual Views content -->
+	</div>
+    <div style="padding-bottom:150px;"></div>
+	<footer>
+        <div class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li><a href="#About">About</a></li> 
+                    <li><a href="#Contact">Contact</a></li>
+                    <li><a href="#FAQ">FAQs</a></li>
+                </ul>
+                <!-- Social media links - from https://www.create.net/blog/121430-free-social-icons-for-facebook-twitter-and-more.html#facebook -->
+                <li class="nav navbar-nav navbar-right">
+                    <a target="_blank" title="follow us on Facebook" href="https://www.facebook.com/bookingblock/">
+                        <img alt="follow us on Facebook" src="app/resources/images/facebook30x30.png" border=0></a>
+                    <a target="_blank" title="follow us on Twitter" href="https://twitter.com/BookingBlock">
+                        <img alt="follow us on Twitter" src="app/resources/images/twitter30x30.png" border=0></a>
+                    <a target="_blank" title="follow us on Google plus" href="https://plus.google.com/PLACEHOLDER"><img alt="follow us on Google plus" src="app/resources/images/googleplus30x30.png" border=0></a>
+                    <a href="https://uk.linkedin.com/pub/bookingblock-website/119/390/52" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="app/resources/images/linkedin.png" width="30" height="30" alt="View BookingBlock Website's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;</span></a>
+                </li>
+            </div>
+        </div>
+	</footer>
+</body>
+</html>

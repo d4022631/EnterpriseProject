@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+
+
+
+<script>
+ $(document).ready(function() { /* Giving the functionality of the dropdown motion.*/
+ 
+    $('.faq_question').click(function() {
+ 
+        if ($(this).parent().is('.open')){
+            $(this).closest('.faq').find('.faq_answer_container').animate({'height':'0'},500);
+            $(this).closest('.faq').removeClass('open');
+ 
+            }else{
+                var newHeight =$(this).closest('.faq').find('.faq_answer').height() +'px';
+                $(this).closest('.faq').find('.faq_answer_container').animate({'height':newHeight},500);
+                $(this).closest('.faq').addClass('open');
+            }
+ 
+    });
+ 
+});
+</script>
+<style>
+/*FAQS*/                 /*Setting the text to  bold and font colour to blue.*/
+.faq_question {
+    padding: 0px 0px 5px 0px;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+    color: #2E2EFE;                
+}
+                          /*Setting the Answer to be red.*/ /*Hiding the answer until questio nis clicked.*/
+.faq_answer_container {
+   height: 0px;
+    overflow: hidden;
+    padding: 0px;
+   color: #DF0101;
+}
+</style>
+</head>
+
+
+<!--Added a couple of loading lines at the top and bottom of the page.-->
+
+<!--From the site below-->
+<!--Adam Smith-->
+<!-- https://coolestguidesontheplanet.com/creating-expandable-faq-page-using-jquery/ -->
+<body>
+<div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+					<center><h2>Frequently Asked Questions <small> FAQ's</small></h2></center>
+						<center><p>Click a question to reveal the answer.</p></center>
+					<div style="padding-top: 10px;">
+			            <div class="progress">
+                            <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">60% Complete (warning)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!--Questions listed here - once question is clicked it will reveal the answer.-->
+        
+<div align="center">
+<div class="faq_container" style="padding-bottom: 1cm;">
+   <div class="faq">
+      <div class="faq_question">How many appointments can I make?</div>
+           <div class="faq_answer_container">
+              <div class="faq_answer">There is no limit to the amount of appointments you can have, if there is something you need; Book it!</div>
+           </div>        
+    </div>
+ </div>
+ 
+ <div class="faq_container" style="padding-bottom: 1cm;">
+   <div class="faq">
+      <div class="faq_question">What is the Booking Block?</div>
+           <div class="faq_answer_container">
+              <div class="faq_answer"> The Booking Block is a centralised system that allows businesses and clients to manage bookings, schedules, customer data and online payments. Thus allowing businesses to increase sales, efficiency and allowing their clients to make hassle-free appointments.  </div>
+           </div>        
+    </div>
+ </div>
+ 
+ <div class="faq_container" style="padding-bottom: 1cm;">
+   <div class="faq">
+      <div class="faq_question">I've accidently booked the wrong time, what can I do!</div>
+           <div class="faq_answer_container">
+              <div class="faq_answer"> If you have made the booking in the grace period, you will be able to cancel the booking. If not you may have to contact the busisness to correct the booking. </div>
+           </div>        
+    </div>
+ </div>
+ 
+ <div class="faq_container" style="padding-bottom: 1cm;">
+   <div class="faq">
+      <div class="faq_question">I'm a business and want to set up on Booking Block what do I do?</div>
+           <div class="faq_answer_container">
+              <div class="faq_answer">Follow the sign up instructions and select buisness when choosing your account. </div>
+           </div>        
+    </div>
+ </div>
+ 
+ <div class="faq_container" style="padding-bottom: 1cm;">
+   <div class="faq">
+      <div class="faq_question">How can I ammend my account details?</div>
+           <div class="faq_answer_container">
+              <div class="faq_answer">Once logged in and you're at your account dashboard, click the 'Manage Account' tab along the top left of the page and ammend any details from, name, address, opening hours etc</div>
+           </div>        
+    </div>
+ </div>
+ 
+ <div class="faq_container" style="padding-bottom: 1cm;">
+   <div class="faq">
+      <div class="faq_question">Is there an easy way of finding a business I've used in the past?</div>
+           <div class="faq_answer_container">
+              <div class="faq_answer">You will have your account history which will show all of your booking within a certain time frame (6 months?)</div>
+           </div>        
+    </div>
+ </div>
+ 
+ </div>
+ 
+ 
+  <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+					<div style="padding-top: 10px;">
+			            <div class="progress">
+                            <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                <span class="sr-only">60% Complete (warning)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ </div>
+ </body>
+ </html>

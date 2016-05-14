@@ -1,0 +1,35 @@
+<!--
+<li>
+<p class="navbar-btn">
+    <a class="{{buttonClass}}" href="#Register" ng-hide="signedIn">
+         <span>Register</span>
+    </a>
+    <a class="{{buttonClass}}" ng-click="signedIn ? signOut() : signIn()">
+       
+        <span href="#" ng-hide="signedIn">{{signInText}}</span>
+        <span href="#" ng-show="signedIn">{{signOutText}}</span>
+    </a>
+</p>
+</li>
+-->
+<ul>
+    <li class="dropdown">
+  <a href="#" style="color: #9d9d9d" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+  
+    <!-- this is shown when the user is not logged in-->
+    <ul class="dropdown-menu" ng-hide="signedIn">
+        <li><a href="#" ng-click="signedIn ? signOut() : signIn()">Login</a></li>
+        <li role="separator" class="divider"></li>
+        <li ng-hide="signedIn"><a href="#Register">Register</a></li>
+    </ul>
+    
+    <!-- this is shown when the user is logged in-->
+    <ul class="dropdown-menu" ng-hide="!signedIn">
+        <li><a href="#CustomerAccount" >My Account</a></li>
+        <li><a href="#CreateBusiness" >Create A Business</a></li>
+        <li><a href="#BusinessAccount" >My Business Account</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#" ng-click="signedIn ? signOut() : signIn()">Logout</a></li>
+    </ul>
+</li>
+</ul>
