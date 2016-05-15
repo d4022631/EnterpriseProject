@@ -165,8 +165,7 @@ namespace BookingBlock.WebApplication.ApiControllers
                         try
                         {
 
-                            distanceFromPostcode = business.Location.Distance(searchLocation).Value;
-
+                 
                             if (business != null)
                             {
                                 if (business.Location != null)
@@ -177,6 +176,9 @@ namespace BookingBlock.WebApplication.ApiControllers
                                     blong = loc.Longitude.Value;
                                 }
                             }
+
+                            distanceFromPostcode = business.Location.Distance(searchLocation).Value;
+
                         }
                         catch (Exception exception)
                         {
