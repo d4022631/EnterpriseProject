@@ -92,22 +92,30 @@ namespace BookingBlock.WebApplication.ApiControllers
                 foreach (Business business in searchResults)
                 {
 
-                    double distanceFromPostcode = business.Location.Distance(searchLocation).Value;
-
-                    var result = new BusinessSearchResult()
+                    try
                     {
-                        Distance = Math.Round(distanceFromPostcode, 0),
-                        Name = business.Name,
-                        BusinessId = business.Id,
-                        Latitude = business.Location.Latitude,
-                        Longitude = business.Location.Longitude,
-                        Postcode = business.Postcode,
-                        Address = business.Address,
-                        Website = business.Website,
+                        double distanceFromPostcode = business.Location.Distance(searchLocation).Value;
 
-                    };
+                        var result = new BusinessSearchResult()
+                        {
+                            Distance = Math.Round(distanceFromPostcode, 0),
+                            Name = business.Name,
+                            BusinessId = business.Id,
+                            Latitude = business.Location.Latitude,
+                            Longitude = business.Location.Longitude,
+                            Postcode = business.Postcode,
+                            Address = business.Address,
+                            Website = business.Website,
 
-                    results.Add(result);
+                        };
+
+                        results.Add(result);
+                    }
+                    catch (Exception exception)
+                    {
+                        
+                        // just exclude the result.
+                    }
 
                 }
 
