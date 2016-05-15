@@ -94,7 +94,18 @@ namespace BookingBlock.WebApplication.ApiControllers
 
                     try
                     {
-                        double distanceFromPostcode = business.Location.Distance(searchLocation).Value;
+                        double distanceFromPostcode = 0;
+                        try
+                        {
+
+                            distanceFromPostcode = business.Location.Distance(searchLocation).Value;
+                        }
+                        catch (Exception exception)
+                        {
+                            distanceFromPostcode = 100;
+                        }
+
+         
 
                         var result = new BusinessSearchResult()
                         {
